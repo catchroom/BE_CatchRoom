@@ -12,4 +12,10 @@ public class TestController {
     public String Test() {
         return "나는 박건우입니다.";
     }
+    @GetMapping("ci/cd")
+    public String cicdTest() {
+        return "CI/CD 성공입니다.";
+        }
+
+
 }
