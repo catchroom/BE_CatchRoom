@@ -2,6 +2,9 @@ on:
   push:
     branches:
       - main
+env:
+  CODE_DEPLOY_APPLICATION_NAME: CatchRoom-deploy
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CatchRoom-Codedeployment
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
 
           # 압축파일 형태로 전달
       - name: Make zip file
-        run: zip -r -qq -j ./[PROJECT_NAME].zip ./deploy
+        run: zip -r -qq -j ./CatchRoom.zip ./deploy
 
 
 
@@ -43,4 +46,12 @@ jobs:
 
 # S3 Bucket으로 copy
       - name: Deliver to AWS S3
-        run: aws s3 cp --region ap-northeast-2 --acl private ./[PROJECT_NAME].zip s3://catchroom-bucket/
+        run: aws s3 cp --region ap-northeast-2 --acl private ./CatchRoom.zip s3://catchroom-bucket/
+
+      - name: Code Deploy
+        run: |
+            aws deploy create-deployment \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+            --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip  
