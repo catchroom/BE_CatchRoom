@@ -14,7 +14,7 @@ public class TestController {
     }
     @GetMapping("/cicd")
     public String cicdTest() {
-        return "CI/CD 성공입니다.";
+        return "CI/CD 2번쨰 테스트입니다.";
         }
 
 
