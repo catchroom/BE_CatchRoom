@@ -49,6 +49,16 @@ tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
+jar {
+	// ...
+	from ('.') {
+		include 'appspec.yml'
+		include 'deploy.sh'
+		into '/'
+	}
+}
+
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
