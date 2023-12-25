@@ -24,7 +24,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: catchroom
         run: |
-          docker build -f ./infra/Dockerfile.base -t tag_name .
+          docker build -t tag_name .
           docker tag image_name ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:latest
           docker tag image_name ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }} --all-tags
