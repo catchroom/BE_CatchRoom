@@ -49,6 +49,14 @@ tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
+task buildZip(type: Zip) {
+	from 'build/libs'
+	include '*.jar'
+	from '.'
+	include 'appspec.yml'
+	include 'deploy.sh'
+}
+
 
 
 tasks.named('test') {
