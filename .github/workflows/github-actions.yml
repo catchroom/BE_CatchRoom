@@ -46,7 +46,7 @@ jobs:
 
 # S3 Bucket으로 copy
       - name: Deliver to AWS S3
-        run: aws s3 cp --region ap-northeast-2 --acl private ./CatchRoom.zip s3://catchroom-bucket/
+        run: aws s3 cp --region ap-northeast-2 --acl private ./$GITHUB_SHA.zip s3://catchroom-bucket/
 
       - name: Code Deploy
         run: |
