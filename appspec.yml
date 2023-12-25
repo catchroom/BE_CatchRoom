@@ -6,6 +6,7 @@ files:
     destination: /opt/catchroom
 permissions:
   - object: /opt/catchroom/
+    pattern: "**"
     owner: ubuntu
     group: ubuntu
     mode: 755
