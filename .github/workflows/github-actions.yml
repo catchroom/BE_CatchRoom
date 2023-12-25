@@ -23,7 +23,7 @@ jobs:
         continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: repository_name
+          ECR_REPOSITORY: catchroom
         run: |
           docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:latest
 
