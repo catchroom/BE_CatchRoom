@@ -27,6 +27,5 @@ else
 fi
 
 
-echo "> $JAR_PATH 배포"
-echo "sudo -u ubuntu nohup java -jar $JAR_PATH > $LOG_PATH"
-sudo -u ubuntu nohup java -jar $JAR_PATH > $LOG_PATH
+echo "> $JAR_PATH 배포 >> sudo -u ubuntu nohup sh -c "java -jar $JAR_PATH > $LOG_PATH" &"
+sudo -u ubuntu nohup sh -c "java -jar $JAR_PATH > $LOG_PATH" &
