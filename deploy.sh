@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/home/ubuntu/catchroom
+REPOSITORY=/opt/catchroom
 cd $REPOSITORY
 
 APP_NAME=CatchRoom_BE
