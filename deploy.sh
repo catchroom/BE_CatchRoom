@@ -22,8 +22,8 @@ else
   # log backup
   CURRENT_TIME=$(date+%Y%m%d_%H%M%S)
   LOG_BACKUP="catchroom_$CURRENT_TIME.log"
-  cp $LOG_PATH $LOG_BACKUP
-  cat /dev/null > $LOG_PATH
+  sudo -u ubuntu cp $LOG_PATH $LOG_BACKUP
+  sudo -u ubuntu cat /dev/null > $LOG_PATH
 fi
 
 
