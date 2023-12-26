@@ -19,6 +19,12 @@ else
   sleep 5
 fi
 
-echo "> $JAR_PATH 배포"
-nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+CURRENT_TIME=$(date+%Y%m%d_%H%M%S)
+LOG_PATH=/home/ubuntu/log/catchroom.log
+LOG_BACKUP="catchroom_$CURRENT_TIME.log"
 
+cp $LOG_PATH $LOG_BACKUP
+cat /dev/null > $LOG_PATH
+
+echo "> $JAR_PATH 배포"
+sudo -u ubuntu nohup java -jar $JAR_PATH > $LOG_PATH
