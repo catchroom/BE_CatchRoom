@@ -3,7 +3,7 @@
 REPOSITORY=/opt/catchroom
 cd $REPOSITORY
 
-APP_NAME=catchroom-deploy
+APP_NAME=CatchRoom_BE
 JAR_NAME=$(ls $REPOSITORY/ | grep '.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/$JAR_NAME
 LOG_PATH=/home/ubuntu/log/catchroom.log
