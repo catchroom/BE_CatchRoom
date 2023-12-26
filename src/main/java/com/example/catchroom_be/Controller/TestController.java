@@ -16,6 +16,10 @@ public class TestController {
     public String cicdTest() {
         return "CI/CD 배포 테스트입니다!";
         }
+    @GetMapping("/cicd2")
+    public String cicdTest2() {
+        return "코드 디플로이 테스트입니다.";
+    }
 
 
 }
