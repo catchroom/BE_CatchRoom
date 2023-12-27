@@ -26,7 +26,7 @@ public class TestController {
         return "코드 디플로이 테스트입니다.";
     }
 
-    @PostMapping("/dbtest")
+    @GetMapping ("/dbtest")
     public String createTestEntity(@RequestParam String user) {
         TestEntity testEntity = new TestEntity(user);
         testEntityRepository.save(testEntity);
