@@ -10,14 +10,17 @@ public class TestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user", nullable = false)
-    private String user;
+    @Column(name = "users", nullable = false)
+    private String users;
 
 
     public TestEntity() {
     }
 
-    public TestEntity(String user) {
-        this.user = user;
+    public TestEntity(String users) {
+        this.users = users;
+    }
+    public String getusers() {
+        return this.users;
     }
 }

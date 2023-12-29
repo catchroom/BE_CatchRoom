@@ -4,7 +4,10 @@ package com.example.catchroom_be.Controller;
 import com.example.catchroom_be.Entity.TestEntity;
 import com.example.catchroom_be.Repository.TestEntityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/test")
@@ -26,11 +29,18 @@ public class TestController {
         return "코드 디플로이 테스트입니다.";
     }
 
-    @GetMapping("/dbtest")
-    public String createTestEntity(@RequestParam String user) {
-        TestEntity testEntity = new TestEntity(user);
+    @PostMapping("/dbtest")
+    @Transactional
+    public String createTestEntity(@RequestParam String users) {
+        TestEntity testEntity = new TestEntity(users);
         testEntityRepository.save(testEntity);
         return "Data saved successfully!";
+    }
+    @GetMapping("/check")
+    public String testDB(Long id) {
+        Optional<TestEntity> testEntity= testEntityRepository.findById(id);
+        TestEntity test = testEntity.get();
+        return test.getusers();
     }
 
 
