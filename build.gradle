@@ -39,6 +39,12 @@ dependencies {
 	//jpa 사용을 위한 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.h2database:h2'
+
+	//slack montionring 의존성 추가
+	implementation 'com.github.maricn:logback-slack-appender:1.6.1'
+	implementation group: 'eu.bitwalker', name: 'UserAgentUtils', version: '1.17'
+	implementation group: 'com.slack.api', name: 'slack-api-client', version: '1.35.0'
+
 }
 
 task createTargetDir {
