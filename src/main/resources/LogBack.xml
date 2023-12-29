@@ -5,13 +5,13 @@
 
     <springProperty name="SLACK_WEBHOOK_URI" source="logging.slack.webhook-uri"/>
     <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
-        <webhookUri>https://hooks.slack.com/services/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</webhookUri>
+        <webhookUri>https://hooks.slack.com/services/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</webhookUri>
         <channel>#error</channel>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
         </layout>
         <username>CatchRoom-ERROR-BOT</username>
-        <iconEmoji>:stuck_out_tongue_winking_eye:</iconEmoji>
+        <iconEmoji>:ghost:</iconEmoji>
         <colorCoding>true</colorCoding>
     </appender>
 
