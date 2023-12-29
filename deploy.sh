@@ -28,5 +28,5 @@ fi
 
 
 echo "> $JAR_PATH 배포 " #>> sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &"
-# sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &
-sudo -u ubuntu nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
+ sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &
+#sudo -u ubuntu nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
