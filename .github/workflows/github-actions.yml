@@ -48,6 +48,7 @@ jobs:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
          aws-region: ap-northeast-2
+         web-hook-url: ${{ secrets.SLACK_WEBHOOK_URI}}
 
 # S3 Bucket으로 copy
       - name: Deliver to AWS S3
