@@ -9,14 +9,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-# 로컬에서는 해당 부분 level까지는 주석처리 ,배포할때는 풀고 배포
-log:
-  slack:
-    enabled: true
-    channel: #error
-    web-hook-url: ${{ secrets.SLACK_WEBHOOK_URI}}
-
   database:
     enabled: true
-
   level: ERROR
