@@ -12,13 +12,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 
 public class CatchRoomBeApplication {
-	@Value(value = "${log.slack.web-hook-url}")
-	private static String url;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CatchRoomBeApplication.class, args);
-		log.error("캐치룸 서버 에러 모니터링 테스트");
-		log.error(url);
+//		log.error("캐치룸 서버 에러 모니터링 테스트");
 	}
 
 }
