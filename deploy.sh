@@ -31,4 +31,4 @@ fi
 
 echo "> $JAR_PATH 배포 " #>> sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &"
 # sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &
-sudo -u ubuntu nohup java -jar $JAR_PATH --slack.webhook.url=$SLACK_URL > $LOG_PATH 2> &1 &' &
+sudo -u ubuntu nohup java -jar $JAR_PATH --slack.webhook.url=$SLACK_URL > /dev/null 2> /dev/null < /dev/null &
