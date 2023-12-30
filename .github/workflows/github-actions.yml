@@ -50,17 +50,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ap-northeast-2
 
-      # 배포 성공시 슬랙 webhook
-      - name : Slack - Send Msg
-        uses : 8398a7/action-slack@v3
-        with :
-          status : ${{ job.status }}
-          fields: workflow,job,commit,repo,author,took,ref
-          author_name: CatchRoom_BE
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URI}}
-        if: always()
-
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
         run: aws s3 cp --region ap-northeast-2 --acl private ./$GITHUB_SHA.zip  s3://catchroom-bucket/
@@ -72,9 +61,15 @@ jobs:
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=catchroom-bucket,bundleType=zip,key=$GITHUB_SHA.zip  
-          aws deploy create-deployment \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-            --s3-location bucket=catchroom-bucket,bundleType=zip,key=$GITHUB_SHA.zip \
-            --environment-variables SLACK_WEBHOOK_URI=${SLACK_WEBHOOK_URI}
+          --environment-variables SLACK_WEBHOOK_URI=${SLACK_WEBHOOK_URI}
+
+      # 배포 성공시 슬랙 webhook
+      - name: Slack - Send Msg
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: workflow,job,commit,repo,author,took,ref
+          author_name: CatchRoom_BE
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URI}}
+        if: always()
