@@ -48,7 +48,17 @@ jobs:
          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
          aws-region: ap-northeast-2
-         web-hook-url: ${{ secrets.SLACK_WEBHOOK_URI}}
+
+      - name : Slack - Send Msg
+        uses : 8398a7/action-slack@v3
+        with :
+          status : ${{ job.status }}
+          fields: workflow,job,commit,repo,author,took,ref
+          author_name: CatchRoom_BE
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URI}}
+        if: always()
+
 
 # S3 Bucket으로 copy
       - name: Deliver to AWS S3
