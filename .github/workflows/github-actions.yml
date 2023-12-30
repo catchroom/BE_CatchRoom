@@ -71,5 +71,5 @@ jobs:
           fields: workflow,job,commit,repo,author,took,ref
           author_name: CatchRoom_BE
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URI}}
+          SLACK_WEBHOOK_URl: ${{ secrets.SLACK_WEBHOOK_URI}}
         if: always()
