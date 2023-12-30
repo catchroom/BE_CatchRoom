@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <springProperty name="SLACK_WEBHOOK_URI" source="log.slack.web-hook-uri"/>
+    <springProperty name="SLACK_WEBHOOK_URI" source="log.slack.web-hook-url"/>
     <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
         <webhookUri>${SLACK_WEBHOOK_URI}</webhookUri>
         <channel>#error</channel>
