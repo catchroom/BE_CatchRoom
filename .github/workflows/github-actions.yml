@@ -5,6 +5,7 @@ on:
 env:
   CODE_DEPLOY_APPLICATION_NAME: CatchRoom-deploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CatchRoom-Codedeployment
+  MY_ENV_VARIABLE: 'my-value'  # Here is where we add the new environment variable.
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,7 +28,8 @@ jobs:
       # 전송할 파일을 담을 디렉토리 생성
       - name: Make Directory for deliver
         run: mkdir deploy
-          # Jar 파일 copy
+
+      # Jar 파일 copy
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy/
 
@@ -36,25 +38,19 @@ jobs:
           cp ./appspec.yml ./deploy/
           cp ./deploy.sh ./deploy/  
 
-        # 압축파일 형태로 전달
+      # 압축파일 형태로 전달
       - name: Make zip file
         run: zip -r -qq -j ./$GITHUB_SHA.zip ./deploy
-        # 슬랙 webhook 환경변수 사용가능
-      - name: Set Slack Webhook URI as Environment Variable
-        run: echo "SLACK_WEBHOOK_URI=${{ secrets.SLACK_WEBHOOK_URI }}" >> $GITHUB_ENV
 
-
-
-# S3 Bucket으로 Upload
+      # S3 Bucket으로 Upload
       - name: Deploy
         uses: aws-actions/configure-aws-credentials@v1
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-         aws-region: ap-northeast-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-northeast-2
 
-# 배포 성공시 슬랙 webhook
-
+      # 배포 성공시 슬랙 webhook
       - name : Slack - Send Msg
         uses : 8398a7/action-slack@v3
         with :
@@ -65,16 +61,14 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URI}}
         if: always()
 
-
-# S3 Bucket으로 copy
+      # S3 Bucket으로 copy
       - name: Deliver to AWS S3
         run: aws s3 cp --region ap-northeast-2 --acl private ./$GITHUB_SHA.zip  s3://catchroom-bucket/
 
       - name: Code Deploy
         run: |
           aws deploy create-deployment \
-           --deployment-config-name CodeDeployDefault.AllAtOnce \
-           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-           —deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-           —s3-location bucket=catchroom-bucket,bundleType=zip,key=$GITHUB_SHA.zip \
-           —environment-variables SLACK_WEBHOOK_URI=${SLACK_WEBHOOK_URI}
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=catchroom-bucket,bundleType=zip,key=$GITHUB_SHA.zip  
