@@ -9,6 +9,9 @@ JAR_PATH=$REPOSITORY/$JAR_NAME
 LOG_PATH=/home/ubuntu/log/catchroom.log
 SLACK_URL=$(aws secretsmanager get-secret-value --secret-id /secret/catchroom | jq -r '.SecretString' | jq -r | jq -r .slackurl)
 
+# test
+$(SLACK_URL > slackurl)
+
 CURRENT_PID=$(pgrep -f $APP_NAME)
 
 if [ -z $CURRENT_PID ]
@@ -29,4 +32,4 @@ fi
 
 echo "> $JAR_PATH 배포 " #>> sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &"
 # sudo -u ubuntu nohup sh -c 'nohup java -jar $JAR_NAME > $LOG_PATH 2>&1 &' &
-sudo -u ubuntu nohup java -jar $JAR_PATH --log.slack.web-hook-url=$SLACK_URL > /dev/null 2> /dev/null < /dev/null &
+sudo -u ubuntu nohup java -jar $JAR_PATH --slack.webhook.url=$SLACK_URL > /dev/null 2> /dev/null < /dev/null &
