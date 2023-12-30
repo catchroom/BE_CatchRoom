@@ -13,7 +13,7 @@ spring:
     slack:
       enabled: true
       channel: #error
-      web-hook-url: https://hooks.slack.com/services/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
+      web-hook-url: https://hooks.slack.com/services/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
     database:
       enabled: true
 
