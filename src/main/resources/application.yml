@@ -13,7 +13,7 @@ log:
   slack:
     enabled: true
     channel: #error
-    web-hook-url: ${{ secrets.SLACK_WEBHOOK_URI }}
+    web-hook-url: ${SLACK_WEBHOOK_URI}
 
   database:
     enabled: true
