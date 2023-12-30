@@ -49,6 +49,8 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
          aws-region: ap-northeast-2
 
+# 배포 성공시 슬랙 webhook
+
       - name : Slack - Send Msg
         uses : 8398a7/action-slack@v3
         with :
