@@ -9,12 +9,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  log:
-    slack:
-      enabled: true
-      channel: #error
-      web-hook-url: ${SLACK_WEBHOOK_URI}
-    database:
-      enabled: true
+log:
+  slack:
+    enabled: true
+    channel: #error
+    web-hook-url: ${{secrets.SLACK_WEBHOOK_URI}}
+  database:
+    enabled: true
 
-    level: ERROR
+  level: ERROR
