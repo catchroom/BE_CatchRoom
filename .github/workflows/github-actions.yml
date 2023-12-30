@@ -6,6 +6,7 @@ env:
   CODE_DEPLOY_APPLICATION_NAME: CatchRoom-deploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CatchRoom-Codedeployment
   MY_ENV_VARIABLE: 'my-value'  # Here is where we add the new environment variable.
+  SLACK_WEBHOOK_URI: ${{ secrets.SLACK_WEBHOOK_URI }} # Add this line
 jobs:
   deploy:
     runs-on: ubuntu-latest
