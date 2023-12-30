@@ -61,13 +61,8 @@ jobs:
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
           --s3-location bucket=catchroom-bucket,bundleType=zip,key=$GITHUB_SHA.zip  
-          aws deploy create-deployment \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-            --s3-location bucket=catchroom-bucket,bundleType=zip,key=$GITHUB_SHA.zip \
-            --environment-variables SLACK_WEBHOOK_URI=${SLACK_WEBHOOK_URI}
-          
+          --environment-variables SLACK_WEBHOOK_URI=${SLACK_WEBHOOK_URI}
+
       # 배포 성공시 슬랙 webhook
       - name: Slack - Send Msg
         uses: 8398a7/action-slack@v3
