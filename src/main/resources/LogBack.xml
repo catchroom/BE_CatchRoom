@@ -1,3 +1,4 @@
+<!--로컬에서 돌릴때는 전부 주석처리 이후 서버 배포시에는 주석 풀고 올릴 것 -->
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
