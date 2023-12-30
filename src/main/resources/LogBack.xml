@@ -5,7 +5,7 @@
 
     <springProperty name="SLACK_WEBHOOK_URI" source="logging.slack.webhook-uri"/>
     <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
-        <webhookUri>https://hooks.slack.com/services/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</webhookUri>
+        <webhookUri>https://hooks.slack.com/services/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</webhookUri>
         <channel>#error</channel>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
