@@ -11,7 +11,6 @@ public class OAuthController {
 
     @PostMapping("/oauth2/callback")
     public String getAuthCode(@RequestParam String authCode) {
-        return googleOAuthService.getAccessToken(authCode);
+        return googleOAuthService.processOAuth(authCode);
     }
 }
-

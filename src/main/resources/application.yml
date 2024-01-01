@@ -12,3 +12,4 @@ spring:
   database:
     enabled: true
   level: ERROR
+
