@@ -1,43 +1,65 @@
 package com.example.catchroom_be.User.Service;
 
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-@RequiredArgsConstructor
 public class GoogleOAuthService {
+    @Value("${google.client.id}")
+    private String CLIENT_ID;
+    @Value("${google.client.secret}")
+    private String CLIENT_SECRET;
+    private static final String REDIRECT_URI = "https://localhost:3000/login/loading";
+    private static final String GRANT_TYPE = "authorization_code";
 
-    private RestTemplate restTemplate;
+    public String getAccessToken(String authCode) {
+        RestTemplate restTemplate = new RestTemplate();
 
-    public String processOAuth(String authCode) {
-        String clientId = "your-client-id";
-        String clientSecret = "your-client-secret";
-        String redirectUri = "your-redirect-uri";
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(
+                createBody(authCode), createHeaders()
+        );
 
-        // 토큰 요청을 위한 URL 생성
-        String tokenRequestUrl = "https://oauth2.googleapis.com/token"
-                + "?client_id=" + clientId
-                + "&client_secret=" + clientSecret
-                + "&redirect_uri=" + redirectUri
-                + "&grant_type=authorization_code"
-                + "&code=" + authCode;
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "https://oauth2.googleapis.com/token", request, String.class
+        );
 
-        // 토큰 요청
-        String accessToken = restTemplate.postForObject(tokenRequestUrl, HttpMethod.POST, String.class);
+        String accessToken = extractAccessToken(response.getBody());
 
-        // 사용자 정보 요청
+        return accessToken;
+    }
+
+    private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        return headers;
+    }
 
-        ResponseEntity<String> response = restTemplate.exchange("https://www.googleapis.com/oauth2/v1/userinfo", HttpMethod.GET, entity, String.class);
+    private MultiValueMap<String, String> createBody(String authCode) {
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("code", authCode);
+        body.add("client_id", CLIENT_ID);
+        body.add("client_secret", CLIENT_SECRET);
+        body.add("redirect_uri", REDIRECT_URI);
+        body.add("grant_type", GRANT_TYPE);
+        return body;
+    }
 
-
-        return response.getBody();
+    private String extractAccessToken(String responseBody) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(responseBody);
+            return root.path("access_token").asText();
+        } catch(Exception e) {
+            throw new RuntimeException("액세스 토큰 추출에 실패했습니다.", e);
+        }
     }
 }
