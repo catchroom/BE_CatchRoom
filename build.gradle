@@ -45,13 +45,7 @@ dependencies {
 	implementation group: 'eu.bitwalker', name: 'UserAgentUtils', version: '1.17'
 	implementation group: 'com.slack.api', name: 'slack-api-client', version: '1.35.0'
 
-	//spring security 의존성 추가
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.security:spring-security-test")
 
-	//spring security oauth2 의존성 추가
-	implementation("org.springframewokr.boot:spring-boot-starter-oauth2-client")
-	implementation("org.springframework.security:spring-security-oauth2-jose")
 
 
 }
