@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Slf4j
 @SpringBootApplication
-
+@EnableJpaAuditing
 public class CatchRoomBeApplication {
 
 	public static void main(String[] args) {
