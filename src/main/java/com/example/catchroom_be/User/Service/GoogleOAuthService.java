@@ -16,10 +16,9 @@ import org.springframework.web.client.RestTemplate;
 public class GoogleOAuthService {
     @Value("${google.client.id}")
     private String CLIENT_ID;
-
     @Value("${google.client.secret}")
     private String CLIENT_SECRET;
-    private static final String REDIRECT_URI = "https://localhost:3000/home";
+    private static final String REDIRECT_URI = "https://localhost:3000/login/loading";
     private static final String GRANT_TYPE = "authorization_code";
 
     public String getAccessToken(String authCode) {
