@@ -46,8 +46,6 @@ dependencies {
 	implementation group: 'com.slack.api', name: 'slack-api-client', version: '1.35.0'
 
 	
-	//Oauth 의존성 추가
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 
 
