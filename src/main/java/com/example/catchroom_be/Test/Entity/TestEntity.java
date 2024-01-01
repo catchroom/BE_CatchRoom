@@ -1,4 +1,4 @@
-package com.example.catchroom_be.Entity;
+package com.example.catchroom_be.Test.Entity;
 
 
 import jakarta.persistence.*;
