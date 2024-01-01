@@ -1,8 +1,8 @@
-package com.example.catchroom_be.Test.Controller;
+package com.example.catchroom_be.Test.controller;
 
 
-import com.example.catchroom_be.Test.Entity.TestEntity;
-import com.example.catchroom_be.Test.Repository.TestEntityRepository;
+import com.example.catchroom_be.Test.entity.TestEntity;
+import com.example.catchroom_be.Test.repository.TestEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
