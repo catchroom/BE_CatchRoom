@@ -1,6 +1,7 @@
 package com.example.catchroom_be.user.service;
 
 import com.example.catchroom_be.global.exception.ErrorCode;
+import com.example.catchroom_be.user.dto.response.KaKaoClientResponse;
 import com.example.catchroom_be.user.dto.response.TokenResponse;
 import com.example.catchroom_be.user.exception.UserException;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.Charset;
 
 
 @Service
@@ -27,13 +30,15 @@ public class KaKaoOAuthService {
     private String redirectUri;
 
     private static final String TOKEN_REQUEST_URL = "https://kauth.kakao.com/oauth/token";
+    private static final String KAKAO_ID_GET_URL = "https://kapi.kakao.com/v2/user/me";
     private TokenResponse tokenResponse;
 
     private RestTemplate restTemplate;
 
-    public TokenResponse requestAccessToken(String code) throws UserException {
+    public KaKaoClientResponse requestAccessToken(String code) throws UserException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MediaType mediaType = new MediaType("application", "x-www-form-urlencoded", Charset.forName("UTF-8"));
+        headers.setContentType(mediaType);
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
@@ -55,7 +60,7 @@ public class KaKaoOAuthService {
                 TokenResponse tokenResponse = responseEntity.getBody();
 
                 if (tokenResponse != null && tokenResponse.getAccessToken() != null) {
-                    return tokenResponse;
+                    return getKaKaoId(tokenResponse.getAccessToken());
                 } else {
                     throw new UserException(ErrorCode.KAKAO_ACCESS_TOKEN_NOT_FOUND);
                 }
@@ -65,5 +70,23 @@ public class KaKaoOAuthService {
         } catch (HttpClientErrorException e) {
             throw new UserException(ErrorCode.KAKAO_ACCESS_TOKEN_NOT_FOUND);
         }
+    }
+
+    public KaKaoClientResponse getKaKaoId(String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mediaType = new MediaType("application", "x-www-form-urlencoded", Charset.forName("UTF-8"));
+        headers.setContentType(mediaType);
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+
+        ResponseEntity<KaKaoClientResponse> response = restTemplate.exchange(
+                KAKAO_ID_GET_URL, HttpMethod.GET, entity, KaKaoClientResponse.class);
+
+        return response.getBody();
+
     }
 }
