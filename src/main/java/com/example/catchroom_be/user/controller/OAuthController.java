@@ -24,5 +24,10 @@ public class OAuthController {
        return ResponseEntity.ok(ApiResponse.create(1000, tokenResponse));
       }
 
+      @PostMapping("/oauth2/test")
+    public ResponseEntity<ApiResponse<SuccessMessage>> getTestCode(@RequestBody TokenRequest tokenRequest) {
+          return ResponseEntity.ok(ApiResponse.create(1000,SuccessMessage.createSuccessMessage("토큰 테스트 성공")));
+      }
+
 }
 
