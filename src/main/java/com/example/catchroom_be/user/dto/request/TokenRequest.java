@@ -1,6 +1,6 @@
-package com.example.catchroom_be.User.dto;
+package com.example.catchroom_be.user.dto.request;
 
-public class OauthAuthCodeRequest {
+public class TokenRequest {
     String authCode;
 
     public String getAuthCode() {
