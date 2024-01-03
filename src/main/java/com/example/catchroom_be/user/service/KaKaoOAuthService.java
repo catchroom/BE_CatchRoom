@@ -25,8 +25,8 @@ public class KaKaoOAuthService {
     @Value("${KAKAO_CLIENT_ID}")
     private String clientId;
 
-    @Value("${KAKAO_CLIENT_SECRET}")
-    private String clientSecret;
+//    @Value("${KAKAO_CLIENT_SECRET}")
+//    private String clientSecret;
 
     @Value("${KAKAO_LOGIN_REDIRECT_URL}")
     private String redirectUri;
@@ -44,7 +44,7 @@ public class KaKaoOAuthService {
         params.add("grant_type", "authorization_code");
         params.add("client_id", clientId);
         params.add("redirect_uri", redirectUri);
-        params.add("client_secret",clientSecret);
+//        params.add("client_secret",clientSecret);
         params.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
