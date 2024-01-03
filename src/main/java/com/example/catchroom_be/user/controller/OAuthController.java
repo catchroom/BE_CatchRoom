@@ -3,6 +3,7 @@ package com.example.catchroom_be.user.controller;
 
 import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
+import com.example.catchroom_be.user.dto.request.TestRequest;
 import com.example.catchroom_be.user.dto.request.TokenRequest;
 import com.example.catchroom_be.user.exception.UserException;
 import com.example.catchroom_be.user.service.KaKaoGetIdService;
@@ -33,8 +34,11 @@ public class OAuthController {
       }
 
       @PostMapping("/oauth2/test")
-    public ResponseEntity<ApiResponse<SuccessMessage>> getTestCode(@RequestBody TokenRequest tokenRequest) {
-          return ResponseEntity.ok(ApiResponse.create(1000, SuccessMessage.createSuccessMessage("토큰 테스트 성공")));
+    public ResponseEntity<ApiResponse<Long>> getTestCode(@RequestBody TestRequest testRequest) {
+          Long kakaoId = kaKaoGetIdService.getKaKaoId(testRequest.getAccessToken());
+
+          return ResponseEntity.ok(ApiResponse.create(1000, kakaoId));
+
       }
 
 }
