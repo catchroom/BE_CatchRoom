@@ -1,12 +1,11 @@
 package com.example.catchroom_be.user.controller;
 
 
-import com.example.catchroom_be.global.exception.ErrorMessage;
-import com.example.catchroom_be.global.exception.ResponseMessage;
+import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
 import com.example.catchroom_be.user.dto.request.TokenRequest;
-import com.example.catchroom_be.user.dto.response.KaKaoClientResponse;
-import com.example.catchroom_be.user.dto.response.TokenResponse;
+import com.example.catchroom_be.user.exception.UserException;
+import com.example.catchroom_be.user.service.KaKaoGetIdService;
 import com.example.catchroom_be.user.service.KaKaoOAuthService;
 import com.example.catchroom_be.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,18 +15,26 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class OAuthController {
-
-    private KaKaoOAuthService kaKaoOAuthService;
+    private final KaKaoOAuthService kaKaoOAuthService;
+    private final KaKaoGetIdService kaKaoGetIdService;
 
       @PostMapping("/oauth2/callback")
       public ResponseEntity<ApiResponse<Long>> getAuthCode(@RequestBody TokenRequest tokenRequest) {
-        KaKaoClientResponse kaKaoClientResponse = kaKaoOAuthService.requestAccessToken(tokenRequest.getAuthCode());
-       return ResponseEntity.ok(ApiResponse.create(1000, kaKaoClientResponse.getId()));
+          System.out.println(tokenRequest.getAuthCode());
+        String kakaoAccessToken = kaKaoOAuthService.requestAccessToken(tokenRequest.getAuthCode());
+
+        if (kakaoAccessToken == null) {
+            throw new UserException(ErrorCode.KAKAO_ACCESS_TOKEN_NOT_FOUND);
+        }
+
+        Long kakaoId = kaKaoGetIdService.getKaKaoId(kakaoAccessToken);
+
+       return ResponseEntity.ok(ApiResponse.create(1000, kakaoId));
       }
 
       @PostMapping("/oauth2/test")
     public ResponseEntity<ApiResponse<SuccessMessage>> getTestCode(@RequestBody TokenRequest tokenRequest) {
-          return ResponseEntity.ok(ApiResponse.create(1000,SuccessMessage.createSuccessMessage("토큰 테스트 성공")));
+          return ResponseEntity.ok(ApiResponse.create(1000, SuccessMessage.createSuccessMessage("토큰 테스트 성공")));
       }
 
 }

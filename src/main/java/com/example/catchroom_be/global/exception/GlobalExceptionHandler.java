@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
         );
     }
     @ExceptionHandler(UserException.class)
-    public ResponseEntity<ApiResponse<ErrorMessage>> handleUserException(BaseException e) {
+    public ResponseEntity<ApiResponse<ErrorMessage>> handleUserException(UserException e) {
         return ResponseEntity.badRequest().body(
                 ApiResponse.create(e.getCode(), ErrorMessage.createErrorMessage(e.getMessage()))
         );

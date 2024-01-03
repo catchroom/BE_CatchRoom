@@ -3,8 +3,10 @@ package com.example.catchroom_be.user.exception;
 import com.example.catchroom_be.global.exception.BaseException;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
+@Slf4j
 public class UserException extends BaseException {
     private final ErrorCode errorCode;
 
