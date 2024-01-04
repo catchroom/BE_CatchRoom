@@ -21,6 +21,7 @@ public class OAuthController {
 
       @GetMapping("/oauth2/callback")
       public ResponseEntity<ApiResponse<Long>> getAuthCode(@RequestParam("code") String code) {
+          System.out.println("code:" + code);
         String kakaoAccessToken = kaKaoOAuthService.requestAccessToken(code);
 
         if (kakaoAccessToken == null) {
