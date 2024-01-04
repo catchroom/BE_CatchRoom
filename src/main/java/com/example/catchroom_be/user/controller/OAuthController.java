@@ -23,12 +23,13 @@ public class OAuthController {
       public ResponseEntity<ApiResponse<Long>> getAuthCode(@RequestParam("code") String code) {
           System.out.println("code:" + code);
         String kakaoAccessToken = kaKaoOAuthService.requestAccessToken(code);
-
+          System.out.println("accessToken" + kakaoAccessToken);
         if (kakaoAccessToken == null) {
             throw new UserException(ErrorCode.KAKAO_ACCESS_TOKEN_NOT_FOUND);
         }
 
         Long kakaoId = kaKaoGetIdService.getKaKaoId(kakaoAccessToken);
+
 
        return ResponseEntity.ok(ApiResponse.create(1000, kakaoId));
       }
