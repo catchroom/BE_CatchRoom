@@ -57,7 +57,6 @@ public class KaKaoOAuthService {
                     TokenResponse.class
             );
 
-
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 System.out.println("응답은 제대로 성공?");
 
