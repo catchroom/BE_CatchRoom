@@ -20,8 +20,8 @@ public class OAuthController {
     private final KaKaoGetIdService kaKaoGetIdService;
 
       @PostMapping("/oauth2/callback")
-      public ResponseEntity<ApiResponse<Long>> getAuthCode(@RequestParam String authCode) {
-        String kakaoAccessToken = kaKaoOAuthService.requestAccessToken(authCode);
+      public ResponseEntity<ApiResponse<Long>> getAuthCode(@RequestBody TokenRequest tokenRequest) {
+        String kakaoAccessToken = kaKaoOAuthService.requestAccessToken(tokenRequest.getAuthCode());
 
         if (kakaoAccessToken == null) {
             throw new UserException(ErrorCode.KAKAO_ACCESS_TOKEN_NOT_FOUND);
