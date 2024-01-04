@@ -63,6 +63,7 @@ public class KaKaoOAuthService {
                 TokenResponse tokenResponse = responseEntity.getBody();
                 String accessToken = tokenResponse.getAccessToken();
                 System.out.println("accessToken:" + accessToken);
+                return accessToken;
 
             }
 
