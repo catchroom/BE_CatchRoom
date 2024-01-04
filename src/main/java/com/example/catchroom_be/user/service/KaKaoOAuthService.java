@@ -59,8 +59,12 @@ public class KaKaoOAuthService {
 
 
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                System.out.println("응답은 제대로 성공?");
+
                 TokenResponse tokenResponse = responseEntity.getBody();
-                return tokenResponse.getAccessToken();
+                String accessToken = tokenResponse.getAccessToken();
+                System.out.println("accessToken:" + accessToken);
+
             }
 
        return null;
