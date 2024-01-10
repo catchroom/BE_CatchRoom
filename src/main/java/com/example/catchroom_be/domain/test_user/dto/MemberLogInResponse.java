@@ -9,12 +9,15 @@ import lombok.Getter;
 @Builder
 @Getter
 public class MemberLogInResponse {
+    Long id;
     String email;
     String name;
     String accessToken;
 
+
     public static MemberLogInResponse fromEntity(Member member, String token) {
         return MemberLogInResponse.builder()
+            .id(member.getId())
             .email(member.getEmail())
             .name(member.getName())
             .accessToken(token)

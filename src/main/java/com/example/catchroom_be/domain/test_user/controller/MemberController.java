@@ -3,7 +3,7 @@ package com.example.catchroom_be.domain.test_user.controller;
 import com.example.catchroom_be.domain.test_user.dto.MemberLogInRequest;
 import com.example.catchroom_be.domain.test_user.dto.MemberSignUpRequest;
 import com.example.catchroom_be.domain.test_user.service.MemberService;
-import com.example.catchroom_be.global.test_api.ApiUtils;
+import com.example.catchroom_be.global.common.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,9 +25,7 @@ public class MemberController {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(
-                ApiUtils.success(
-                    memberService.signup(memberSignUpRequest)
-                )
+                ApiResponse.create(1000, memberService.signup(memberSignUpRequest))
             );
     }
 
@@ -36,9 +34,7 @@ public class MemberController {
         return ResponseEntity
             .ok()
             .body(
-                ApiUtils.success(
-                    memberService.login(memberLogInRequest)
-                )
+                ApiResponse.create(1006, memberService.login(memberLogInRequest))
             );
     }
 
