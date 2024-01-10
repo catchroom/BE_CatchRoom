@@ -1,4 +1,4 @@
-package com.example.catchroom_be.domain.accommodation.type;
+package com.example.catchroom_be.domain.product.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
