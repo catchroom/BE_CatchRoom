@@ -75,7 +75,7 @@ public class test_SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-            List.of("http://localhost:8081"));
+            List.of("http://localhost:8081","http://localhost:3000"));
         configuration.setAllowedMethods(
             Arrays.asList("HEAD", "POST", "GET", "DELETE", "PUT", "OPTIONS", "PATCH"));
         configuration.addAllowedHeader(("*"));
