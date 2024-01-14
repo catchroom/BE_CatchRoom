@@ -1,6 +1,6 @@
 package com.example.catchroom_be.domain.test_user.service;
 
-import com.example.catchroom_be.domain.product.service.OrderHistoryService;
+import com.example.catchroom_be.domain.orderhistory.service.OrderHistoryService;
 import com.example.catchroom_be.domain.test_user.entity.Member;
 import com.example.catchroom_be.domain.test_user.repository.MemberRepository;
 

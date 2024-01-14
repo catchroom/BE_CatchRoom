@@ -1,9 +1,9 @@
-package com.example.catchroom_be.domain.product.service;
+package com.example.catchroom_be.domain.orderhistory.service;
 
 import com.example.catchroom_be.domain.accommodation.entity.Room;
 import com.example.catchroom_be.domain.accommodation.repository.RoomRepository;
-import com.example.catchroom_be.domain.product.entity.OrderHistory;
-import com.example.catchroom_be.domain.product.repository.OrderHistoryRepository;
+import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
+import com.example.catchroom_be.domain.orderhistory.repository.OrderHistoryRepository;
 import com.example.catchroom_be.domain.product.type.TransportationType;
 import com.example.catchroom_be.domain.test_user.entity.Member;
 import java.time.LocalDate;

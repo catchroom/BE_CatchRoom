@@ -1,4 +1,4 @@
-package com.example.catchroom_be.domain.product.entity;
+package com.example.catchroom_be.domain.orderhistory.entity;
 
 import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
 import com.example.catchroom_be.domain.accommodation.entity.Room;
@@ -14,13 +14,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
 @Table(name =  "order_history")
