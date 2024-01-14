@@ -3,7 +3,7 @@ package com.example.catchroom_be.domain.product.entity;
 import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
 import com.example.catchroom_be.domain.accommodation.entity.Room;
 import com.example.catchroom_be.domain.product.type.TransportationType;
-import com.example.catchroom_be.domain.test_user.entity.UserTest;
+import com.example.catchroom_be.domain.test_user.entity.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,7 +46,7 @@ public class OrderHistory {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserTest user;
+    private Member user;
 
     @ManyToOne
     @JoinColumn(name = "accommodation_id")
