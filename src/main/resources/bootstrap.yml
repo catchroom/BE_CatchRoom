@@ -1,6 +1,6 @@
 aws:
   secretsmanager:
-    name: kakaoOauth
+    name: catchroomproject
 cloud:
   aws:
     region:

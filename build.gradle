@@ -38,7 +38,7 @@ dependencies {
 
 	//jpa 사용을 위한 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'com.h2database:h2'
+//	implementation 'com.h2database:h2'
 
 	//slack montionring 의존성 추가
 	implementation 'com.github.maricn:logback-slack-appender:1.6.1'
@@ -48,10 +48,26 @@ dependencies {
 	//jackson 의존성 추가
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 
+	//@valid를 사용하기 위한 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	//swagger 사용하기 위한 의존성 추가
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+	//security를 사용하기 위한 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//JWT Token을 만들기 위한 의존성 추가
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 
-
-
+	// queryDSL 설정
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
 
 }
 
