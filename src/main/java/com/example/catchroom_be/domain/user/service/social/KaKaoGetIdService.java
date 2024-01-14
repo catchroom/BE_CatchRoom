@@ -1,6 +1,6 @@
-package com.example.catchroom_be.user.service;
+package com.example.catchroom_be.domain.user.service.social;
 
-import com.example.catchroom_be.user.dto.response.KaKaoClientResponse;
+import com.example.catchroom_be.domain.user.dto.response.KaKaoClientResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;

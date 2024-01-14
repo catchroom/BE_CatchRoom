@@ -1,4 +1,4 @@
-package com.example.catchroom_be.user.dto.request;
+package com.example.catchroom_be.domain.user.dto.request;
 
 public class TokenRequest {
     String authCode;

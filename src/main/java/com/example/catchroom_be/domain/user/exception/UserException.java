@@ -1,4 +1,4 @@
-package com.example.catchroom_be.user.exception;
+package com.example.catchroom_be.domain.user.exception;
 
 import com.example.catchroom_be.global.exception.BaseException;
 import com.example.catchroom_be.global.exception.ErrorCode;

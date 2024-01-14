@@ -1,9 +1,7 @@
-package com.example.catchroom_be.user.service;
+/*
+package com.example.catchroom_be.domain.user.service.social;
 
-import com.example.catchroom_be.global.exception.ErrorCode;
-import com.example.catchroom_be.user.dto.response.KaKaoClientResponse;
-import com.example.catchroom_be.user.dto.response.TokenResponse;
-import com.example.catchroom_be.user.exception.UserException;
+import com.example.catchroom_be.domain.user.exception.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +9,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
@@ -69,3 +66,4 @@ public class KaKaoOAuthService {
 
 
 }
+*/

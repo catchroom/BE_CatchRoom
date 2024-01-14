@@ -1,13 +1,11 @@
+/*
 package com.example.catchroom_be.user.controller;
 
 
 import com.example.catchroom_be.global.exception.ErrorCode;
-import com.example.catchroom_be.global.exception.SuccessMessage;
-import com.example.catchroom_be.user.dto.request.TestRequest;
-import com.example.catchroom_be.user.dto.request.TokenRequest;
 import com.example.catchroom_be.user.exception.UserException;
-import com.example.catchroom_be.user.service.KaKaoGetIdService;
-import com.example.catchroom_be.user.service.KaKaoOAuthService;
+import com.example.catchroom_be.user.service.social.KaKaoGetIdService;
+import com.example.catchroom_be.user.service.social.KaKaoOAuthService;
 import com.example.catchroom_be.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +32,8 @@ public class OAuthController {
        return ResponseEntity.ok(ApiResponse.create(1000, kakaoId));
       }
 
-      @PostMapping("/oauth2/test")
-    public ResponseEntity<ApiResponse<Long>> getTestCode(@RequestBody TestRequest testRequest) {
-          Long kakaoId = kaKaoGetIdService.getKaKaoId(testRequest.getAccessToken());
 
-          return ResponseEntity.ok(ApiResponse.create(1000, kakaoId));
-
-      }
 
 }
 
+*/
