@@ -5,7 +5,7 @@ import com.example.catchroom_be.domain.accommodation.repository.RoomRepository;
 import com.example.catchroom_be.domain.product.entity.OrderHistory;
 import com.example.catchroom_be.domain.product.repository.OrderHistoryRepository;
 import com.example.catchroom_be.domain.product.type.TransportationType;
-import com.example.catchroom_be.domain.test_user.entity.UserTest;
+import com.example.catchroom_be.domain.test_user.entity.Member;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class OrderHistoryService {
     private final RoomRepository roomRepository;
 
     @Transactional
-    public void insertTestDataOrderHistory(UserTest user) {
+    public void insertTestDataOrderHistory(Member user) {
 
         LocalDate startDate = LocalDate.of(2024, 01, 15);
         LocalDate endDate = LocalDate.of(2024, 02, 28);

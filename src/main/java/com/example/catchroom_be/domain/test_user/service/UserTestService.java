@@ -1,12 +1,13 @@
 package com.example.catchroom_be.domain.test_user.service;
 
 import com.example.catchroom_be.domain.product.service.OrderHistoryService;
-import com.example.catchroom_be.domain.test_user.entity.UserTest;
-import com.example.catchroom_be.domain.test_user.repository.UserTestRepository;
-import java.time.LocalDate;
+import com.example.catchroom_be.domain.test_user.entity.Member;
+import com.example.catchroom_be.domain.test_user.repository.MemberRepository;
+
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -25,7 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 public class UserTestService implements ApplicationRunner {
-    private final UserTestRepository userTestRepository;
+    //    private final UserTestRepository userTestRepository;
+    private final MemberRepository memberRepository;
     private final OrderHistoryService orderHistoryService;
 
     @Override
@@ -36,13 +38,13 @@ public class UserTestService implements ApplicationRunner {
     @Transactional
     public void insertUserTest() {
         /** UserTest 넣는 로직 **/
-        List<UserTest> userTestList = new ArrayList<>();
+        List<Member> userTestList = new ArrayList<>();
         for (int i = 1; i <= 3; i++) {
             String name = "test" + i;
-            UserTest userTest = UserTest.builder().name(name).build();
+            Member userTest = Member.builder().name(name).build();
             userTestList.add(userTest);
         }
-        userTestRepository.saveAll(userTestList);
+        memberRepository.saveAll(userTestList);
     }
 
     @Transactional
@@ -51,8 +53,8 @@ public class UserTestService implements ApplicationRunner {
          * 만약 특정 계정에 값을 넣고 싶다면 findAll 대신 특정 계정의 id만을 사용해서 활용하세요
          **/
 
-        List<UserTest> userTestList = userTestRepository.findAll();
-        for (UserTest userTest : userTestList) {
+        List<Member> userTestList = memberRepository.findAll();
+        for (Member userTest : userTestList) {
             orderHistoryService.insertTestDataOrderHistory(userTest);
         }
     }
