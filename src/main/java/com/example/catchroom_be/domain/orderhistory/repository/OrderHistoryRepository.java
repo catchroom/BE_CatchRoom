@@ -1,6 +1,6 @@
-package com.example.catchroom_be.domain.product.repository;
+package com.example.catchroom_be.domain.orderhistory.repository;
 
-import com.example.catchroom_be.domain.product.entity.OrderHistory;
+import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long> {
