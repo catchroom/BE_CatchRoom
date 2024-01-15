@@ -19,22 +19,22 @@ public class ProductGetResponse {
     private UserIdentity userIdentity;
     private String chatRoomNumber;
 
-//    public static ProductGetResponse fromEntity(Product product, UserIdentity checkUserIdentity, List<String> chatRoomId) {
-//        if (chatRoomId.isEmpty()) {
-//            return ProductGetResponse.builder()
-//                .seller_id(product.getSeller().getId())
-//                .accommodationName(product.getAccommodationName())
-//                .userIdentity(checkUserIdentity)
-//                .chatRoomNumber("0")
-//                .build();
-//        } else {
-//            return ProductGetResponse.builder()
-//                .seller_id(product.getSeller().getId())
-//                .accommodationName(product.getAccommodationName())
-//                .userIdentity(checkUserIdentity)
-//                .chatRoomNumber(chatRoomId.get(0))
-//                .build();
-//        }
-//
-//    }
+    public static ProductGetResponse fromEntity(Product product, UserIdentity checkUserIdentity, List<String> chatRoomId) {
+        if (chatRoomId.isEmpty()) {
+            return ProductGetResponse.builder()
+                .seller_id(product.getSeller().getId())
+                .accommodationName(product.getAccommodationName())
+                .userIdentity(checkUserIdentity)
+                .chatRoomNumber("0")
+                .build();
+        } else {
+            return ProductGetResponse.builder()
+                .seller_id(product.getSeller().getId())
+                .accommodationName(product.getAccommodationName())
+                .userIdentity(checkUserIdentity)
+                .chatRoomNumber(chatRoomId.get(0))
+                .build();
+        }
+
+    }
 }
