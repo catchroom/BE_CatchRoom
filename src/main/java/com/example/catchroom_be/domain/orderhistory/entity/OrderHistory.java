@@ -3,6 +3,7 @@ package com.example.catchroom_be.domain.orderhistory.entity;
 import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
 import com.example.catchroom_be.domain.accommodation.entity.Room;
 import com.example.catchroom_be.domain.product.type.TransportationType;
+import com.example.catchroom_be.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -41,9 +42,9 @@ public class OrderHistory {
     @Enumerated(EnumType.STRING)
     private TransportationType transportation;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private Member user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "accommodation_id")
