@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    @Query("select r from Room r "
-            + "left join fetch r.accommodation "
-            + "where r.id = :id")
-    Optional<Room> findById(@Param("id") Long id);
+//    @Query("select r from Room r "
+//            + "left join fetch r.accommodation "
+//            + "where r.id = :id")
+//    Optional<Room> findById(@Param("id") Long id);
 }
