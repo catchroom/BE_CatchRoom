@@ -14,8 +14,8 @@ public enum ErrorCode {
     USER_NICKNAME_NOT_VALID(1004,"닉네임 형식이 올바르지 않습니다."),
     USER_NAME_NOT_VALID(1008,"닉네임 형식이 올바르지 않습니다."),
     USER_CANNOT_LOGIN(1007,"회원 아이디 또는 비밀번호가 올바르지 않습니다"),
-    USER_NICKNAME_DUPLICATE(1011,"닉네임이 중복되었습니다."),
-    USER_EMAIL_DUPLICATE(1005,"이메일이 중복되었습니다."),
+    USER_NICKNAME_DUPLICATE(1010,"닉네임이 중복되지 않았습니다."),
+    USER_EMAIL_DUPLICATE(1012,"이메일이 중복되지 않았습니다."),
     USER_ACCESSTOKEN_MISSING(1014,"refresh token이 비어있습니다."),
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
 

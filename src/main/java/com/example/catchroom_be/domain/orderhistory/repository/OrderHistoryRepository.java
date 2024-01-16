@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long> {
-    List<OrderHistory> findAllByIsFreeCancelAndUserId(boolean isFreeCancel, Long UserId);
+    List<OrderHistory> findAllByIsFreeCancelAndIsSaleAndUserId(boolean isFreeCancel,boolean isSale, Long UserId);
 }

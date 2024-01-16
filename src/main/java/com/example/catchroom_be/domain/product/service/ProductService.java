@@ -28,7 +28,6 @@ public class ProductService {
         Product product = productRepository.getReferenceById(id);
         User sellMember = memberRepository.getReferenceById(product.getSeller().getId());
         UserIdentity checkUserIdentity = validateUserEqualSeller(sellMember.getId());
-
         List<String> chatRoomId = chatRoomRepository.findUniqueChatRoom(findLoginUserId(), sellMember.getId(), product.getId());
         return ProductGetResponse.fromEntity(product,checkUserIdentity,chatRoomId);
     }
