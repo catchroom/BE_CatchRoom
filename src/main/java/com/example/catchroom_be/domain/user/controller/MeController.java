@@ -10,6 +10,7 @@ import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
 import com.example.catchroom_be.domain.user.dto.request.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
@@ -48,7 +49,7 @@ public class MeController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         LoginResponse loginResponse = meLoginService.loginUser(loginRequest);
         return ResponseEntity.ok(ApiResponse.create(1006,loginResponse));
 

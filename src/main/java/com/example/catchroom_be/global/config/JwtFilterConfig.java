@@ -20,7 +20,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -31,6 +33,13 @@ public class JwtFilterConfig extends OncePerRequestFilter {
     private final MeJWTService meJWTService;
     private final UserEntityRepository userEntityRepository;
     private final JwtEntryPoint jwtEntryPoint;
+
+    private static final List<String> EXCLUDE_URLS = Arrays.asList("/v1/user/register", "/v1/user/login","/v1/user/nickname/check","v1/user/email/check");
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return EXCLUDE_URLS.contains(request.getServletPath());
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

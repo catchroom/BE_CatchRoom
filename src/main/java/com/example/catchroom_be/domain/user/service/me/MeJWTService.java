@@ -46,7 +46,7 @@ public class MeJWTService {
     }
 
     public boolean isTokenExpired(JwtPayload jwtPayload) {
-        Date expirationDate = jwtPayload.expiration();
+        Date expirationDate = jwtPayload.issuedAt();
         Date now = new Date();
         return now.after(expirationDate);
 

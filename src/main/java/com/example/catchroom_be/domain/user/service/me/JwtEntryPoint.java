@@ -26,16 +26,20 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        ApiResponse<Object> apiResponse;
+        ApiResponse<Object> apiResponse = null;
 
         if (authException instanceof CustomAuthenticationException) {
             // CustomAuthenticationException 유형의 예외에 대한 처리
             CustomAuthenticationException customException = (CustomAuthenticationException) authException;
             apiResponse = ApiResponse.create(customException.getErrorCode(), ErrorMessage.createErrorMessage(customException.getMessage()));
 
-        } else {
-            ErrorMessage errorMessage = ErrorMessage.createErrorMessage("인증을 제외한 에러가 발생했습니다.");
-            apiResponse = ApiResponse.create(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
+        }
+        else {
+            /*authException.printStackTrace();
+            ErrorMessage errorMessage = ErrorMessage.createErrorMessage("인증을 제외한 에러가 발생했습니다.")
+            apiResponse = ApiResponse.create(HttpServletResponse.SC_UNAUTHORIZED, errorMessage); */
+            apiResponse = ApiResponse.create(response.getStatus(), authException.getMessage());
+
 
         }
 

@@ -29,38 +29,76 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public void handleValidException(MethodArgumentNotValidException e) {
-        System.out.println("1");
+    public ResponseEntity<ApiResponse<ErrorMessage>> handleValidException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {
             List<ObjectError> errors = bindingResult.getAllErrors();
             for (ObjectError error : errors) {
+                ErrorCode errorCode;
                 if ("유효한 이메일 형식이 아닙니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_EMAIL_NOT_VALID);
+                    errorCode = ErrorCode.USER_EMAIL_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("이메일은 비어있을 수 없습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_EMAIL_NOT_VALID);
+                    errorCode = ErrorCode.USER_EMAIL_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("비밀번호는 비어있을 수 없습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_PASSWORD_NOT_VALID);
+                    errorCode = ErrorCode.USER_PASSWORD_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("비밀번호 형식이 유효하지 않습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_PASSWORD_NOT_VALID);
+                    errorCode = ErrorCode.USER_PASSWORD_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("전화번호는 비어있을 수 없습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_PHONE_NOT_VALID);
-                }else if ("전화번호 형식이 올바르지 않습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_PHONE_NOT_VALID);
+                    errorCode = ErrorCode.USER_PHONE_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
+                } else if ("전화번호 형식이 올바르지 않습니다.".equals(error.getDefaultMessage())) {
+                    errorCode = ErrorCode.USER_PHONE_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("닉네임은 비어있을 수 없습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_NICKNAME_NOT_VALID);
+                    errorCode = ErrorCode.USER_NICKNAME_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("닉네임 형식이 올바르지 않습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_NICKNAME_NOT_VALID);
+                    errorCode = ErrorCode.USER_NICKNAME_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("이름은 비어있을 수 없습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_NAME_NOT_VALID);
+                    errorCode = ErrorCode.USER_NAME_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 } else if ("이름 형식이 올바르지 않습니다.".equals(error.getDefaultMessage())) {
-                    throw new UserException(ErrorCode.USER_NAME_NOT_VALID);
-                }else {
-                    throw new UserException(ErrorCode.SERVER_ERROR);
+                    errorCode = ErrorCode.USER_NAME_NOT_VALID;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
+                } else {
+                    errorCode = ErrorCode.SERVER_ERROR;
+                    return ResponseEntity.badRequest().body(
+                            ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
+                    );
                 }
 
             }
 
         }
+        return ResponseEntity.badRequest().body(
+                ApiResponse.create(ErrorCode.SERVER_ERROR.getCode(),
+                        ErrorMessage.createErrorMessage(ErrorCode.SERVER_ERROR.getMessage()))
+        );
     }
+
 }
