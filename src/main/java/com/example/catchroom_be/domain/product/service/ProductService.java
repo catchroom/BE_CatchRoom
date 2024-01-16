@@ -2,7 +2,7 @@ package com.example.catchroom_be.domain.product.service;
 
 
 import com.example.catchroom_be.domain.chatroom.repository.ChatRoomRepository;
-import com.example.catchroom_be.domain.product.dto.ProductGetResponse;
+import com.example.catchroom_be.domain.product.dto.response.ProductGetResponse;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.product.type.UserIdentity;
