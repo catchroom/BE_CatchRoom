@@ -1,7 +1,9 @@
 package com.example.catchroom_be.domain.user.service.me;
 
+import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.global.config.JwtPayload;
 import com.example.catchroom_be.global.exception.CustomAuthenticationException;
+import com.example.catchroom_be.global.exception.ErrorCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +36,13 @@ public class MeJWTService {
 
 
     public String createRefreshToken(JwtPayload jwtPayload) {
+
+        try {// 1초의 지연 시간을 생성
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new UserException(ErrorCode.SERVER_ERROR);
+        }
+
         return Jwts.builder()
                 .claim("name", jwtPayload.name())
                 .claim("phoneNumber", jwtPayload.phoneNumber())
