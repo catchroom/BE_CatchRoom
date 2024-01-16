@@ -1,5 +1,6 @@
 package com.example.catchroom_be.domain.product.controller;
 
+import com.example.catchroom_be.domain.product.dto.request.SaleEditRequest;
 import com.example.catchroom_be.domain.product.dto.request.SaleRegistRequest;
 import com.example.catchroom_be.domain.product.service.SaleService;
 import com.example.catchroom_be.global.common.ApiResponse;
@@ -28,5 +29,13 @@ public class SaleController {
         return ResponseEntity.ok(
             ApiResponse.create(
                 4010, saleservice.registerProduct(productRegisterRequest)));
+    }
+
+    //TODO @AuthenticationPrincipal 추가 예정_정혜민
+    @PutMapping("/product")
+    public ResponseEntity<?> editProduct(@RequestParam("id") Long productId, @RequestBody SaleEditRequest saleEditRequest) {
+        return ResponseEntity.ok(
+            ApiResponse.create(
+                4020, saleservice.editProduct(productId,saleEditRequest)));
     }
 }
