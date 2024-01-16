@@ -1,6 +1,7 @@
 package com.example.catchroom_be.domain.product.entity;
 
 import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
+import com.example.catchroom_be.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,11 +18,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @ManyToOne
-//    @JoinColumn(name = "seller_id")
-//    private Member seller;
     @ManyToOne
-    @JoinColumn(name = "orderhisotry_id")
+    @JoinColumn(name = "seller_id")
+    private User seller;
+    @ManyToOne
+    @JoinColumn(name = "orderhistory_id")
     private OrderHistory orderHistory;
 
     private String accommodationName;

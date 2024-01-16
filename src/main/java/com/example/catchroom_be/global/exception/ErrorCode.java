@@ -20,6 +20,10 @@ public enum ErrorCode {
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
 
 
+    //객실 & 숙박
+    ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),
+    ACCOMMODATION_NOT_FOUND(4042, "유효하지 않는 숙박 정보입니다."),
+
     //기본 에러
     INVALID_ACCESS_TOKEN(5000,"유효하지 않은 엑세스 토큰입니다."),
     EXPIRE_ACCESS_TOKEN(5001,"액세스 토큰이 만료되었습니다."),
