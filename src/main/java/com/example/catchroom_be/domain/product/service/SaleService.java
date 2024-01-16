@@ -26,6 +26,7 @@ public class SaleService {
     @Transactional
     public SaleRegistResponse registerProduct(SaleRegistRequest saleRegisterRequest) {
         OrderHistory orderHistory = orderHistoryRepository.findById(saleRegisterRequest.getOrderHistoryId()).orElseThrow(IllegalArgumentException::new);
+        orderHistory.updateSaleState(true);
         Product product = productRepository.save(saleRegisterRequest.toEntity(orderHistory));
         return SaleRegistResponse.fromEntity(product);
     }
@@ -34,5 +35,12 @@ public class SaleService {
         Product product = productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
         product.updateProduct(saleEditRequest);
         return SaleEditResponse.fromEntity(product);
+    }
+    @Transactional
+    public void deleteProduct(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+        OrderHistory orderHistory = orderHistoryRepository.findById(product.getOrderHistory().getId()).orElseThrow(IllegalArgumentException::new);
+        orderHistory.updateSaleState(false);
+        productRepository.deleteById(productId);
     }
 }

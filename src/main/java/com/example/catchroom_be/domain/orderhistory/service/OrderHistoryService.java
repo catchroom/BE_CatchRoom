@@ -42,8 +42,8 @@ public class OrderHistoryService {
 //            // 사용자 정보 활용
 //            userEmail = userDetail.getUsername();
 //        }
-        User user = userEntityRepository.findByEmail(memberDetails.getUsername()).orElseThrow(IllegalArgumentException::new);
-        return orderHistoryRepository.findAllByIsFreeCancelAndUserId(false, user.getId())
+        User user = userEntityRepository.findByEmail("test@gmail.com").orElseThrow(IllegalArgumentException::new);
+        return orderHistoryRepository.findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId())
             .stream()
             .map(OrderHistoryCandidateResponse::fromEntity)
             .collect(Collectors.toList());
