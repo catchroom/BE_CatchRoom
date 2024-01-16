@@ -22,6 +22,19 @@ public class OrderHistory extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
+
     @Column(name = "price",nullable = false)
     private int price;
     @Column(name = "check_in")
@@ -36,16 +49,8 @@ public class OrderHistory extends BaseTime {
     @Enumerated(EnumType.STRING)
     private TransportationType transportation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id")
-    private Room room;
+    public void updateSaleState(boolean state) {
+        this.isSale = state;
+    }
 
 }

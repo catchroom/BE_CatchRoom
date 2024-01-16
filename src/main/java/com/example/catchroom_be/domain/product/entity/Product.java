@@ -23,7 +23,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "user_id")
     private User seller;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderhistory_id")
@@ -35,6 +35,7 @@ public class Product {
     private int sellPrice;
     private int actualProfit;
     private int catchPrice;
+    @Column(name = "end_date")
     private LocalDateTime endDate;
     private String introduction;
     private boolean isAutoCatch;
