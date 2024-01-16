@@ -1,6 +1,7 @@
 package com.example.catchroom_be.domain.user.service.me;
 
 import com.example.catchroom_be.global.config.JwtPayload;
+import com.example.catchroom_be.global.exception.CustomAuthenticationException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +15,7 @@ public class MeJWTService {
 
     @Value("${JWT_TOKEN_SECRET_KEY}")
     private String secretKey;
-    private final long accessTokenValidTime = 30 * 60 * 1000L; // access토큰의 유효시간 (30분)
+    private final long accessTokenValidTime = /*30 * 60 * */1000L; // access토큰의 유효시간 (30분)
     private final long refreshTokenValidTime = 3000 * 60 * 1000L; //refresh 토큰의 유효시간 (3000분)
 
 
@@ -53,31 +54,35 @@ public class MeJWTService {
     }
 
 
-    public JwtPayload verifyToken(String jwtToken) throws AuthenticationException {
+    public JwtPayload verifyToken(String jwtToken) throws CustomAuthenticationException {
+
+
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
+                    .setSigningKey(secretKey.getBytes())
                     .build()
                     .parseClaimsJws(jwtToken)
                     .getBody();
+
 
             return JwtPayload.builder()
                     .email(claims.get("email", String.class))
                     .nickName(claims.get("nickName", String.class))
                     .phoneNumber(claims.get("phoneNumber", String.class))
                     .name(claims.get("name", String.class))
-                    .issuedAt(claims.get("issuedAt", Date.class))
+                    .issuedAt(claims.getIssuedAt())
+                    /*.issuedAt(claims.get("issuedAt", Date.class))*/
                     .build();
 
 
         } catch (ExpiredJwtException e) {
-            throw new AuthenticationException();
+            throw new CustomAuthenticationException("엑세스 토큰이 만료되었습니다.",5001);
         } catch (MalformedJwtException e) {
-            throw new AuthenticationException();
+            throw new CustomAuthenticationException("유효하지 않은 엑세스 토큰입니다.",5000);
         } catch (SignatureException e) {
-            throw new AuthenticationException();
+            throw new CustomAuthenticationException("유효하지 않은 엑세스 토큰입니다.",5000);
         } catch (UnsupportedJwtException | IllegalArgumentException e) {
-            throw new AuthenticationException();
+            throw new CustomAuthenticationException("유효하지 않은 엑세스 토큰입니다.",5000);
         }
     }
 }

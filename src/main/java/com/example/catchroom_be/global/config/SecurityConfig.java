@@ -49,6 +49,7 @@ public class SecurityConfig {
                                 frameOptionsConfig.disable()
                         )
                 );
+        http.addFilterBefore(jwtFilterConfig, UsernamePasswordAuthenticationFilter.class);
 
         http
                 .authorizeHttpRequests(request -> {
@@ -70,9 +71,8 @@ public class SecurityConfig {
                 }
                 );
 
-        http.addFilterBefore(jwtFilterConfig, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();/**/
+        return http.build();
     }
 
 

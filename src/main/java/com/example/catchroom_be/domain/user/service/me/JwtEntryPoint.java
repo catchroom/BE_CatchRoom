@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtEntryPoint implements AuthenticationEntryPoint {
 
     private final ObjectMapper objectMapper;
@@ -35,9 +37,7 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
 
         }
         else {
-            /*authException.printStackTrace();
-            ErrorMessage errorMessage = ErrorMessage.createErrorMessage("인증을 제외한 에러가 발생했습니다.")
-            apiResponse = ApiResponse.create(HttpServletResponse.SC_UNAUTHORIZED, errorMessage); */
+            log.trace(authException.getMessage());
             apiResponse = ApiResponse.create(response.getStatus(), authException.getMessage());
 
 

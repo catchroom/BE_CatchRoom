@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class MeLoginService {
     private final StringRedisTemplate stringRedisTemplate;
 
 
-
+    @Transactional
     public LoginResponse loginUser(LoginRequest loginRequest) {
         String rawPassword = loginRequest.getPassword();
         String email = loginRequest.getEmail();
