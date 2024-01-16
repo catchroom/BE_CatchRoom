@@ -17,7 +17,7 @@ public class MeNickNameService {
     public void nicknameCheckUser(String nickname) {
 
         userEntityRepository.findByNickName(nickname)
-                .orElseThrow(() -> new UserException(ErrorCode.USER_NICKNAME_DUPLICATE));
+                .orElseThrow(() -> new UserException(ErrorCode.USER_NICKNAME_NOT_DUPLICATE));
 
 
     }
