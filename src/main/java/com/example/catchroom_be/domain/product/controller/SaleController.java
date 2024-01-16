@@ -1,0 +1,18 @@
+package com.example.catchroom_be.domain.product.controller;
+
+import com.example.catchroom_be.domain.product.service.SaleService;
+import com.example.catchroom_be.global.common.ApiResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("v1/sales")
+@RequiredArgsConstructor
+public class SaleController {
+    private final SaleService saleservice;
+    @GetMapping("/yanolja/product/detail")
+    public ResponseEntity<?> findProductDetailInfo(@RequestParam("id") Long orderHistoryId) {
+        return ResponseEntity.ok(ApiResponse.create(4002, saleservice.findProductDetailInfo(orderHistoryId)));
+    }
+}
