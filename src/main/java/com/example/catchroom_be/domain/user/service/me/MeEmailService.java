@@ -17,7 +17,7 @@ public class MeEmailService {
     public void emailCheckUser(String email) {
 
         userEntityRepository.findByEmail(email)
-                .orElseThrow(() -> new UserException(ErrorCode.USER_EMAIL_DUPLICATE));
+                .orElseThrow(() -> new UserException(ErrorCode.USER_EMAIL_NOT_DUPLICATE));
 
     }
 }
