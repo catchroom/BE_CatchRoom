@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.springframework.context.annotation.Lazy;
 
 @Entity
 @Getter
@@ -20,10 +23,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private User seller;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderhistory_id")
     private OrderHistory orderHistory;
 
@@ -33,12 +36,12 @@ public class Product {
     private int sellPrice;
     private int actualProfit;
     private int catchPrice;
-    private int endPrice;
+    private LocalDateTime endDate;
     private String introduction;
     private boolean isAutoCatch;
     private boolean isCatch;
     private boolean isNego;
-    private DateTime catchPriceStartDate;
+    private LocalDate catchPriceStartDate;
     private String accommodationName;
 
 }

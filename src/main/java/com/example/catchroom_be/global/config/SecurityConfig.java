@@ -59,7 +59,11 @@ public class SecurityConfig {
                             .requestMatchers(new AntPathRequestMatcher("/v1/user/register","POST")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/v1/user/login","POST")).permitAll()
                             .requestMatchers(new AntPathRequestMatcher("/v1/user/email/check","GET")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/user/nickname/check","GET")).permitAll();
+                            .requestMatchers(new AntPathRequestMatcher("/v1/user/nickname/check","GET")).permitAll()
+                        // TODO 서비스 로직에 인가정보 추가 후 삭제 예정_정혜민
+                            .requestMatchers(new AntPathRequestMatcher("/v1/sales/yanolja/product/detail","GET")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","POST")).permitAll();
+
 
 
                     request.anyRequest().authenticated();
