@@ -22,6 +22,7 @@ public class SaleController {
     }
 
     //TODO @AuthenticationPrincipal 추가 예정_정혜민
+
     @PostMapping("/product")
     public ResponseEntity<?> registerProduct(@RequestBody SaleRegistRequest productRegisterRequest) {
         return ResponseEntity.ok(
