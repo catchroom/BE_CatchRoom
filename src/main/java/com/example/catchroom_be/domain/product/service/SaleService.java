@@ -2,12 +2,13 @@ package com.example.catchroom_be.domain.product.service;
 
 import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.orderhistory.repository.OrderHistoryRepository;
+import com.example.catchroom_be.domain.product.dto.request.SaleEditRequest;
 import com.example.catchroom_be.domain.product.dto.request.SaleRegistRequest;
-import com.example.catchroom_be.domain.product.dto.response.SaleRegistResponse;
+import com.example.catchroom_be.domain.product.dto.response.SaleEditResponse;
 import com.example.catchroom_be.domain.product.dto.response.SaleGetDetailInfoResponse;
+import com.example.catchroom_be.domain.product.dto.response.SaleRegistResponse;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
-import com.sun.security.auth.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,5 +28,11 @@ public class SaleService {
         OrderHistory orderHistory = orderHistoryRepository.findById(saleRegisterRequest.getOrderHistoryId()).orElseThrow(IllegalArgumentException::new);
         Product product = productRepository.save(saleRegisterRequest.toEntity(orderHistory));
         return SaleRegistResponse.fromEntity(product);
+    }
+    @Transactional
+    public SaleEditResponse editProduct(Long productId, SaleEditRequest saleEditRequest) {
+        Product product = productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+        product.updateProduct(saleEditRequest);
+        return SaleEditResponse.fromEntity(product);
     }
 }

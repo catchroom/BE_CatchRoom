@@ -35,13 +35,13 @@ public class JwtFilterConfig extends OncePerRequestFilter {
     private final UserEntityRepository userEntityRepository;
     private final AuthenticationEntryPoint jwtEntryPoint;
 
-    //TODO 서비스로직에 인가 관련 코드 추가 후 v1/sales 삭제예정_정혜민
+  /*  //TODO 서비스로직에 인가 관련 코드 추가 후 v1/sales 삭제예정_정혜민
     private static final List<String> EXCLUDE_URLS = Arrays.asList("/v1/user/register", "/v1/user/login","/v1/user/nickname/check","v1/user/email/check","v1/sales/**");
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return EXCLUDE_URLS.contains(request.getServletPath());
-    }
+    }*/
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
