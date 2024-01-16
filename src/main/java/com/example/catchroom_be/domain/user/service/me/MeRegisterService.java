@@ -23,6 +23,7 @@ public class MeRegisterService {
     private final PasswordEncoder passwordEncoder;
     private final OrderHistoryService orderHistoryService;
 
+    @Transactional
     public void registerUser(RegisterRequest registerRequest) {
 
         if (userEntityRepository.countByEmail(registerRequest.getEmail()) > 0) {

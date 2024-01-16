@@ -85,7 +85,10 @@ public class GlobalExceptionHandler {
                     return ResponseEntity.badRequest().body(
                             ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
                     );
-                } else {
+                }
+                else {
+                    System.out.println(1);
+                    e.printStackTrace();
                     errorCode = ErrorCode.SERVER_ERROR;
                     return ResponseEntity.badRequest().body(
                             ApiResponse.create(errorCode.getCode(), ErrorMessage.createErrorMessage(errorCode.getMessage()))
@@ -95,6 +98,7 @@ public class GlobalExceptionHandler {
             }
 
         }
+        System.out.println(2);
         return ResponseEntity.badRequest().body(
                 ApiResponse.create(ErrorCode.SERVER_ERROR.getCode(),
                         ErrorMessage.createErrorMessage(ErrorCode.SERVER_ERROR.getMessage()))
