@@ -27,10 +27,10 @@ public class MeRegisterService {
     public void registerUser(RegisterRequest registerRequest) {
 
         if (userEntityRepository.countByEmail(registerRequest.getEmail()) > 0) {
-            throw new UserException(ErrorCode.USER_EMAIL_DUPLICATE);
+            throw new UserException(ErrorCode.USER_EMAIL_NOT_DUPLICATE);
         }
         if (userEntityRepository.countByNickName(registerRequest.getNickname()) > 0) {
-            throw new UserException(ErrorCode.USER_NICKNAME_DUPLICATE);
+            throw new UserException(ErrorCode.USER_NICKNAME_NOT_DUPLICATE);
         }
 
 
