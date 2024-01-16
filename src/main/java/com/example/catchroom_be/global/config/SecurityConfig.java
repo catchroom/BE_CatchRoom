@@ -42,9 +42,9 @@ public class SecurityConfig {
                         config.disable())
                 .formLogin((config) ->
                         config.disable())
-                .exceptionHandling((config)->
+                .exceptionHandling((config) ->
                         config.authenticationEntryPoint(jwtEntryPoint))
-                .headers((headersConfig)->
+                .headers((headersConfig) ->
                         headersConfig.frameOptions(frameOptionsConfig ->
                                 frameOptionsConfig.disable()
                         )
@@ -53,35 +53,31 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(request -> {
-                        request
-                            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**", "GET")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/user/register", "POST")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/user/login", "POST")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/user/email/check", "GET")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/user/nickname/check", "GET")).permitAll()
-                            // TODO 서비스 로직에 인가정보 추가 후 삭제 예정_정혜민
-                            .requestMatchers(new AntPathRequestMatcher("v1/orderhistory/yanolja/product/candidate","GET")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/product","GET")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/sales/yanolja/product/detail","GET")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","POST")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","PUT")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","DELETE")).permitAll();
+                            request
+                                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                    .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**", "GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/user/register", "POST")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/user/login", "POST")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/user/email/check", "GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/user/nickname/check", "GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v3/**", "GET")).permitAll()
+                                    // TODO 서비스 로직에 인가정보 추가 후 삭제 예정_정혜민
+                                    .requestMatchers(new AntPathRequestMatcher("v1/orderhistory/yanolja/product/candidate","GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/product","GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/sales/yanolja/product/detail","GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","POST")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","PUT")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","DELETE")).permitAll();
 
 
-
-                    request.anyRequest().authenticated();
-                }
+                            request.anyRequest().authenticated();
+                        }
                 );
 
 
         return http.build();
     }
-
-
-
-
 
 
 }
