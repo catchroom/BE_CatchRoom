@@ -6,10 +6,8 @@ import com.example.catchroom_be.domain.product.type.TransportationType;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
-
 import lombok.*;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

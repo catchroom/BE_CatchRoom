@@ -1,9 +1,9 @@
 package com.example.catchroom_be.domain.product.dto.request;
 
-import com.example.catchroom_be.domain.product.type.DealState;
 import lombok.*;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,6 +15,7 @@ public class SaleEditRequest {
     private int sellPrice;
     private int actualProfit;
     private int catchPrice;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
     private String introduction;
     private boolean isAutoCatch;
