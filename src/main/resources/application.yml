@@ -12,4 +12,11 @@ spring:
   database:
     enabled: true
   level: ERROR
+  data:
+    redis:
+      host: ec2-3-39-74-198.ap-northeast-2.compute.amazonaws.com
+      port: 6379
+      password: ${REDIS_PASSWORD}
+
+
 
