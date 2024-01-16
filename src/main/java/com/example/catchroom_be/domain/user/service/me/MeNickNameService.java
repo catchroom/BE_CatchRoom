@@ -5,6 +5,7 @@ import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class MeNickNameService {
     private final UserEntityRepository userEntityRepository;
 
-
+    @Transactional
     public void nicknameCheckUser(String nickname) {
 
         userEntityRepository.findByNickName(nickname)
-                .orElseThrow(() -> new UserException(ErrorCode.USER_NICKNAME_DUPLICATE));
+                .orElseThrow(() -> new UserException(ErrorCode.USER_NICKNAME_NOT_DUPLICATE));
 
 
     }

@@ -14,14 +14,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,44 +33,43 @@ public class JwtFilterConfig extends OncePerRequestFilter {
     private static final String AUTHENTICATION_SCHEME_JWT = "Bearer";
     private final MeJWTService meJWTService;
     private final UserEntityRepository userEntityRepository;
-    private final JwtEntryPoint jwtEntryPoint;
+    private final AuthenticationEntryPoint jwtEntryPoint;
 
-    private static final List<String> EXCLUDE_URLS = Arrays.asList("/v1/user/register", "/v1/user/login","/v1/user/nickname/check","v1/user/email/check");
+
+  /*  //TODO 서비스로직에 인가 관련 코드 추가 후 v1/sales 삭제예정_정혜민
+    private static final List<String> EXCLUDE_URLS = Arrays.asList("/v1/user/register", "/v1/user/login","/v1/user/nickname/check","v1/user/email/check","v1/sales/**");
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return EXCLUDE_URLS.contains(request.getServletPath());
-    }
+    }*/
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String rawAuthHeaderValue = request.getHeader(HttpHeaders.AUTHORIZATION);
+
             if (rawAuthHeaderValue == null) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
+
             String authHeaderValue = rawAuthHeaderValue.substring(7).trim();
-
-            if (isValidAuthHeader(authHeaderValue)) {
-                throw new CustomAuthenticationException("유효하지 않은 엑세스 토큰입니다.",5000);
-            }
-
             JwtPayload jwtPayload = meJWTService.verifyToken(authHeaderValue);
-
-            if (jwtPayload == null || meJWTService.isTokenExpired(jwtPayload)) {
-
-                throw new CustomAuthenticationException("토큰 기한이 만료되었습니다.",5001);
-            }
-
             Optional<User> result = userEntityRepository.findByEmail(jwtPayload.email());
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken.authenticated(result.get().getEmail(),authHeaderValue, Collections.emptyList());
-            SecurityContextHolder.getContextHolderStrategy().getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                    UsernamePasswordAuthenticationToken.authenticated(result.get(),authHeaderValue,List.of(new SimpleGrantedAuthority("USER")));
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
         } catch (AuthenticationException e) {
+
             jwtEntryPoint.commence(request,response,e);
+            return;
         }
+
+        filterChain.doFilter(request, response);
+
     }
 
     private static boolean isValidAuthHeader(String authHeaderValue) {

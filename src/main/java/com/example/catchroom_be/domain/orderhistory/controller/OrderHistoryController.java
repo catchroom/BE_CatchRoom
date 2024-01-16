@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderHistoryController {
     private final OrderHistoryService orderHistoryService;
+    //TODO @AuthenticationPrincipal 로직 완성 예정_정혜민
     @GetMapping("/yanolja/product/candidate")
     public ResponseEntity<?> findProductCandidate(@AuthenticationPrincipal UserDetails memberDetails) {
         return ResponseEntity.ok(
