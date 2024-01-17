@@ -1,7 +1,7 @@
-package com.example.catchroom_be.domain.user.service.me;
+package com.example.catchroom_be.global.jwt.service;
 
 import com.example.catchroom_be.domain.user.exception.UserException;
-import com.example.catchroom_be.global.config.JwtPayload;
+import com.example.catchroom_be.global.jwt.dto.JwtPayload;
 import com.example.catchroom_be.global.exception.CustomAuthenticationException;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import io.jsonwebtoken.*;
@@ -9,7 +9,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.security.sasl.AuthenticationException;
 import java.util.Date;
 
 @Service
@@ -55,12 +54,12 @@ public class MeJWTService {
                 .compact();
     }
 
-    public boolean isTokenExpired(JwtPayload jwtPayload) {
+   /* public boolean isTokenExpired(JwtPayload jwtPayload) {
         Date expirationDate = jwtPayload.issuedAt();
         Date now = new Date();
         return now.after(expirationDate);
 
-    }
+    }*/
 
 
     public JwtPayload verifyToken(String jwtToken) throws CustomAuthenticationException {

@@ -1,6 +1,7 @@
 package com.example.catchroom_be.global.config;
 
-import com.example.catchroom_be.domain.user.service.me.JwtEntryPoint;
+import com.example.catchroom_be.global.jwt.exception.JwtEntryPoint;
+import com.example.catchroom_be.global.jwt.config.JwtFilterConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
