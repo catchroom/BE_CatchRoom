@@ -1,6 +1,7 @@
 package com.example.catchroom_be.domain.orderhistory.controller;
 
 import com.example.catchroom_be.domain.orderhistory.service.OrderHistoryService;
+import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ public class OrderHistoryController {
     private final OrderHistoryService orderHistoryService;
     //TODO @AuthenticationPrincipal 로직 완성 예정_정혜민
     @GetMapping("/yanolja/product/candidate")
-    public ResponseEntity<?> findProductCandidate() {
+    public ResponseEntity<?> findProductCandidate(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(
                 ApiResponse.create(
-                    4000, orderHistoryService.findProductCandidate()
+                    4000, orderHistoryService.findProductCandidate(user)
                 )
             );
     }
