@@ -113,4 +113,10 @@ public class MeController {
 
     }
 
+    /** 채팅 서버에서 사용할 닉네임 받아오는 api **/
+    @GetMapping("/chat/nickname")
+    public String getNickName(@AuthenticationPrincipal User user) {
+        return user.getNickName();
+    }
+
 }
