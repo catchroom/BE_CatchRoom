@@ -1,4 +1,4 @@
-package com.example.catchroom_be.domain.chatroom.dto;
+package com.example.catchroom_be.domain.chatroom.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 
