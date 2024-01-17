@@ -28,9 +28,12 @@ public class ChatRoomController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createRoom(@RequestBody ChatRoomCreateRequest chatRoomCreateRequest) {
-        return ResponseEntity.ok(
-            ApiResponse.create(6002,chatRoomService.createChatRoom(chatRoomCreateRequest)));
+    public ResponseEntity<?> createRoom(
+            @RequestBody ChatRoomCreateRequest chatRoomCreateRequest
+    ) {
+        return ResponseEntity.ok(ApiResponse.create(6002,
+                chatRoomService.createChatRoom(chatRoomCreateRequest))
+        );
     }
 
 }

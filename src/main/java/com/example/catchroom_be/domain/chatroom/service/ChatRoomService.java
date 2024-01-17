@@ -58,9 +58,10 @@ public class ChatRoomService {
         ChatRoom chatRoom = ChatRoom.create(
             userEntityRepository.getReferenceById(chatRoomCreateRequest.getSellerId()),
             userEntityRepository.getReferenceById(chatRoomCreateRequest.getBuyerId()),
-            productRepository.getReferenceById(chatRoomCreateRequest.getProductId()));
+            productRepository.getReferenceById(chatRoomCreateRequest.getProductId())
+        );
         chatRoomRepository.save(chatRoom);
-        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getChatRoomNumber(), chatRoom);
+//        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getChatRoomNumber(), chatRoom);
         return ChatRoomCreateResponse.fromEntity(chatRoom);
     }
 
@@ -72,10 +73,12 @@ public class ChatRoomService {
             partner = userEntityRepository.findById(chatRoom.getSeller().getId())
                     .orElseThrow(
                             () -> new UserException(ErrorCode.CHATROOM_PARTNER_USER_NOT_FOUND));
-        } else {
+        } else if (user.getId() == chatRoom.getSeller().getId()){
             partner = userEntityRepository.findById(chatRoom.getBuyer().getId())
                     .orElseThrow(
                             () -> new UserException(ErrorCode.CHATROOM_PARTNER_USER_NOT_FOUND));
+        } else {
+            throw new ChatRoomException(ErrorCode.CHATROOM_USER_NOT_FOUND);
         }
 
         partnerNickName = partner.getNickName();

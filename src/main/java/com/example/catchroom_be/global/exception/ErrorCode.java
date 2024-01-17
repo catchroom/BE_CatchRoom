@@ -34,6 +34,7 @@ public enum ErrorCode {
 
 
     //채팅 관련
+    CHATROOM_USER_NOT_FOUND(7999, "접근할 수 없는 유저입니다."),
     CHATROOM_NOT_FOUND(7999, "유효하지 않는 채팅방 입니다."),
     CHATROOM_PARTNER_USER_NOT_FOUND(7999, "채팅방 상대방 유저 정보가 유효하지 않습니다."),
 
