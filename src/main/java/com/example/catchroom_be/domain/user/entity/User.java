@@ -48,6 +48,9 @@ public class User {
     private String accountOwner;
 
 
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
 
 

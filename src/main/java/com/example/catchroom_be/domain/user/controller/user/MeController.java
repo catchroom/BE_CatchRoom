@@ -1,4 +1,4 @@
-package com.example.catchroom_be.domain.user.controller;
+package com.example.catchroom_be.domain.user.controller.user;
 
 import com.example.catchroom_be.domain.user.dto.request.LoginRequest;
 import com.example.catchroom_be.domain.user.dto.response.LoginResponse;
@@ -6,28 +6,23 @@ import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.service.me.*;
 import com.example.catchroom_be.global.common.ApiResponse;
-import com.example.catchroom_be.global.config.JwtPayload;
+import com.example.catchroom_be.global.jwt.dto.JwtPayload;
 import com.example.catchroom_be.global.exception.CustomAuthenticationException;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
 import com.example.catchroom_be.domain.user.dto.request.RegisterRequest;
+import com.example.catchroom_be.global.jwt.service.MeJWTService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
-import javax.security.sasl.AuthenticationException;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,8 +34,8 @@ public class MeController {
     private final MeLoginService meLoginService;
     private final MeNickNameService meNickNameService;
     private final MeEmailService meEmailService;
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final MeJWTService meJWTService;
+    private final MeAccessTokenService meAccessTokenService;
+
 
 
 
@@ -53,9 +48,9 @@ public class MeController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
-        LoginResponse loginResponse = meLoginService.loginUser(loginRequest);
-        return ResponseEntity.ok(ApiResponse.create(1006,loginResponse));
+    public ResponseEntity<ApiResponse<SuccessMessage>> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        meLoginService.loginUser(loginRequest,response);
+        return ResponseEntity.ok(ApiResponse.create(1006,SuccessMessage.createSuccessMessage("로그인이 완료되었습니다.")));
 
     }
 
@@ -73,44 +68,9 @@ public class MeController {
 
 
     @PostMapping("/accesstoken")
-    public ResponseEntity<ApiResponse<String>> accessToken(HttpServletRequest request,@AuthenticationPrincipal User user) {
-
-        String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-
-        //header에 refresh token이 있는지 확인
-        if (bearerToken == null || !bearerToken.startsWith("Bearer")) {
-            throw new UserException(ErrorCode.USER_ACCESSTOKEN_MISSING);
-        }
-
-
-        String refreshToken = bearerToken.substring(7);
-
-
-        //redis에 있는 지 확인
-        Boolean tokenExists = redisTemplate.hasKey(String.valueOf(user.getId()));
-
-        if (tokenExists == null || !tokenExists) {
-            throw new UserException(ErrorCode.USER_ACCESSTOKEN_MISSING);
-        }
-
-
-        try {
-            // Refresh Token을 검증
-            JwtPayload jwtPayload = meJWTService.verifyToken(refreshToken);
-
-            // 새로운 Access Token을 생성
-            String newAccessToken = meJWTService.createAccessToken(jwtPayload);
-
-
-            // 새 Access Token을 클라이언트에게 반환
-            return ResponseEntity.ok(ApiResponse.create(1013, newAccessToken));
-
-        }  catch (CustomAuthenticationException e) {
-            throw new UserException(ErrorCode.SERVER_ERROR);
-        }
-
-
+    public ResponseEntity<ApiResponse<String>> accessToken(HttpServletRequest request,@AuthenticationPrincipal User user,HttpServletResponse response) {
+        meAccessTokenService.accessTokenService(request,user,response);
+        return ResponseEntity.ok(ApiResponse.create(1013,"엑세스 토큰이 재발급되었습니다."));
     }
 
 
