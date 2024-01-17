@@ -24,9 +24,21 @@ public enum ErrorCode {
     MYPAGE_PROFILE_REFACT_ERROR(2003,"프로필 수정에 실패하였습니다."),
 
 
+
+    //예치금 통장 관련
+    ACCOUNT_NOT_SAVED(1099, "계좌가 올바르게 저장되지 않았습니다."),
+
+
+
     //객실 & 숙박
     ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),
     ACCOMMODATION_NOT_FOUND(4042, "유효하지 않는 숙박 정보입니다."),
+
+
+    //채팅 관련
+    CHATROOM_NOT_FOUND(7999, "유효하지 않는 채팅방 입니다."),
+    CHATROOM_PARTNER_USER_NOT_FOUND(7999, "채팅방 상대방 유저 정보가 유효하지 않습니다."),
+
 
     //기본 에러
     INVALID_ACCESS_TOKEN(5000,"유효하지 않은 엑세스 토큰입니다."),

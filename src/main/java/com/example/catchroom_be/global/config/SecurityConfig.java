@@ -69,7 +69,15 @@ public class SecurityConfig {
                                     .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","PUT")).permitAll()
                                     .requestMatchers(new AntPathRequestMatcher("/v1/orderhistory/yanolja/product/candidate","GET")).permitAll()
                                     .requestMatchers(new AntPathRequestMatcher("/v1/product","GET")).permitAll()
+
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/chat/room/create","POST")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","DELETE")).permitAll()
+                                    // 채팅 서버 관련 config
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/accommodation")).permitAll();
+
+
                                     .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","DELETE")).permitAll();
+
 
 
                             request.anyRequest().authenticated();

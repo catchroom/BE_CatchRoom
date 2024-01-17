@@ -36,8 +36,22 @@ public class OrderHistoryService {
             .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
+        List<OrderHistory> orderHistoryList = orderHistoryRepository
+            .findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId());
+        return DatefilterOrderHisotryList(orderHistoryList);
+    }
+
+    private List<OrderHistoryCandidateResponse> DatefilterOrderHisotryList(List<OrderHistory> orderHistoryList) {
+        return orderHistoryList.stream()
+            .filter(orderHistory -> orderHistory.getCheckIn().isAfter(LocalDate.now().minusDays(1)))
+            .map(OrderHistoryCandidateResponse::fromEntity)
+            .collect(Collectors.toList());
+    }
+
     @Transactional
-    public void insertTestDataOrderHistory(User user) {
+    public void insertDataOrderHistory(User user) {
 
         LocalDate startDate = LocalDate.of(2024, 01, 15);
         LocalDate endDate = LocalDate.of(2024, 02, 28);
