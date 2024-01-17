@@ -14,6 +14,9 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 // Origin이 http:localhost:3000에 대해
                 .allowedOrigins(/*"*"*/"http://localhost:3000")
+
+                .allowedOrigins("*")
+
                 // GET, POST, PUT, PATCH, DELETE, OPTIONS 메서드를 허용한다.
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")

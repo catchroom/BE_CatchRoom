@@ -22,6 +22,19 @@ import java.util.stream.Collectors;
 public class OrderHistoryService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final RoomRepository roomRepository;
+    @Transactional(readOnly = true)
+    public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
+        List<OrderHistory> orderHistoryList = orderHistoryRepository
+            .findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId());
+        return DatefilterOrderHisotryList(orderHistoryList);
+    }
+
+    private List<OrderHistoryCandidateResponse> DatefilterOrderHisotryList(List<OrderHistory> orderHistoryList) {
+        return orderHistoryList.stream()
+            .filter(orderHistory -> orderHistory.getCheckIn().isAfter(LocalDate.now().minusDays(1)))
+            .map(OrderHistoryCandidateResponse::fromEntity)
+            .collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
