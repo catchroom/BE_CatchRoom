@@ -17,10 +17,10 @@ public class OrderHistoryController {
     private final OrderHistoryService orderHistoryService;
     //TODO @AuthenticationPrincipal 로직 완성 예정_정혜민
     @GetMapping("/yanolja/product/candidate")
-    public ResponseEntity<?> findProductCandidate(@AuthenticationPrincipal UserDetails memberDetails) {
+    public ResponseEntity<?> findProductCandidate() {
         return ResponseEntity.ok(
                 ApiResponse.create(
-                    4000, orderHistoryService.findProductCandidate(memberDetails)
+                    4000, orderHistoryService.findProductCandidate()
                 )
             );
     }
