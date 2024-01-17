@@ -1,4 +1,4 @@
-package com.example.catchroom_be.domain.user.service.me;
+package com.example.catchroom_be.global.jwt.exception;
 
 import com.example.catchroom_be.global.common.ApiResponse;
 import com.example.catchroom_be.global.exception.CustomAuthenticationException;

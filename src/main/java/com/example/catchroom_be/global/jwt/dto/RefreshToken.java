@@ -1,4 +1,4 @@
-package com.example.catchroom_be.global.token;
+package com.example.catchroom_be.global.jwt.dto;
 
 import jakarta.persistence.Id;
 import org.springframework.data.redis.core.RedisHash;

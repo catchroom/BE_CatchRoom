@@ -1,4 +1,4 @@
-package com.example.catchroom_be.global.config;
+package com.example.catchroom_be.global.jwt.dto;
 
 import lombok.Builder;
 

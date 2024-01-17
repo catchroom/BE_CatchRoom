@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableRedisRepositories
 public class RedisConfig {
+
     private final RedisProperties redisProperties;
 
     // RedisProperties로 yaml에 저장한 host, post를 연결
