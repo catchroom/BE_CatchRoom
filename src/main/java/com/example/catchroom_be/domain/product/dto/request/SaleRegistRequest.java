@@ -3,6 +3,7 @@ package com.example.catchroom_be.domain.product.dto.request;
 import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.type.DealState;
+import com.example.catchroom_be.domain.user.entity.User;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class SaleRegistRequest {
-//    private User seller; TODO 회원 도메인 완성 시 추가
+    private User seller;
     private Long orderHistoryId;
     private DealState dealState;
     private int discountRate;
@@ -29,9 +30,9 @@ public class SaleRegistRequest {
     private LocalDate catchPriceStartDate;
     private String accommodationName;
 
-    public Product toEntity(OrderHistory orderHistory) {
+    public Product toEntity(OrderHistory orderHistory,User loginUser) {
         return Product.builder()
-//            .seller(seller)
+            .seller(loginUser)
             .orderHistory(orderHistory)
             .dealState(dealState.ONSALE)
             .discountRate(discountRate)
