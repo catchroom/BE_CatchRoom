@@ -37,7 +37,6 @@ public class MeRegisterService {
         }
 
 
-
         String password = passwordEncoder.encode(registerRequest.getPassword());
 
         User user = User.builder().name(registerRequest.getName())
@@ -47,38 +46,17 @@ public class MeRegisterService {
                 .phonenumber(registerRequest.getPhonenumber())
                 .build();
 
-        userEntityRepository.save(user);
+        User saveUser = userEntityRepository.save(user);
 
         insertAccount(user.getName());
+        insertOrderHistoryList(saveUser);
+
     }
 
-//    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        insertUserTestOrderHistory();
-    }
 
-    @Transactional
-    public void insertUserTest() {
-        /** UserTest 넣는 로직 **/
-        List<User> userTestList = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            String name = "test" + i;
-            User userTest = User.builder().name(name).build();
-            userTestList.add(userTest);
-        }
-        userEntityRepository.saveAll(userTestList);
-    }
-
-    @Transactional
-    public void insertUserTestOrderHistory() {
-        /** 모든 UserTest에 OrderHistory 넣는 로직
-         * 만약 특정 계정에 값을 넣고 싶다면 findAll 대신 특정 계정의 id만을 사용해서 활용하세요
-         **/
-
-        List<User> userTestList = userEntityRepository.findAll();
-        for (User userTest : userTestList) {
-            orderHistoryService.insertTestDataOrderHistory(userTest);
-        }
+    public void insertOrderHistoryList(User user) {
+        /** 회원가입 시 주문 기록 넣어주는 로직 **/
+        orderHistoryService.insertDataOrderHistory(user);
     }
 
 
