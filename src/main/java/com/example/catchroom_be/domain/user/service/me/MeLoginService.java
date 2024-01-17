@@ -29,7 +29,7 @@ public class MeLoginService {
     private final PasswordEncoder passwordEncoder;
     private final StringRedisTemplate stringRedisTemplate;
     private final int idCookieValidTime = 60 * 1000;
-    private final int accessTokenCookieValidTime = /*30  **/ 60 * 1000; // access토큰의 유효시간 (30분)
+    private final int accessTokenCookieValidTime = 30 * 60 * 1000; // access토큰의 유효시간 (30분)
     private final int refreshTokenCookieValidTime = 3000 * 60 * 1000; //refresh 토큰의 유효시간 (3000분)
     private final int refreshTokenRedisValidTime = 3000 * 60 * 1000;
 
