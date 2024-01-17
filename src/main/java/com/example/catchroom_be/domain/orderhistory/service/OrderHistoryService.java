@@ -36,19 +36,19 @@ public class OrderHistoryService {
             .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+   /* @Transactional(readOnly = true)
     public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
         List<OrderHistory> orderHistoryList = orderHistoryRepository
             .findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId());
         return DatefilterOrderHisotryList(orderHistoryList);
     }
-
-    private List<OrderHistoryCandidateResponse> DatefilterOrderHisotryList(List<OrderHistory> orderHistoryList) {
+*/
+  /*  private List<OrderHistoryCandidateResponse> DatefilterOrderHisotryList(List<OrderHistory> orderHistoryList) {
         return orderHistoryList.stream()
             .filter(orderHistory -> orderHistory.getCheckIn().isAfter(LocalDate.now().minusDays(1)))
             .map(OrderHistoryCandidateResponse::fromEntity)
             .collect(Collectors.toList());
-    }
+    }*/
 
     @Transactional
     public void insertDataOrderHistory(User user) {
