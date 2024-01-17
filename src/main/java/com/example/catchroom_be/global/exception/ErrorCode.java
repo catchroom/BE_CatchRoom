@@ -19,6 +19,10 @@ public enum ErrorCode {
     USER_ACCESSTOKEN_MISSING(1014,"refresh token이 비어있습니다."),
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
 
+    //마이페이지
+    MYPAGE_LOGOUT_ERROR(2001,"로그아웃에 실패하였습니다."),
+    MYPAGE_PROFILE_REFACT_ERROR(2003,"프로필 수정에 실패하였습니다."),
+
 
     //객실 & 숙박
     ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),

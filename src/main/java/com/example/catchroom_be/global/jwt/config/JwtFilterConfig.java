@@ -1,10 +1,9 @@
-package com.example.catchroom_be.global.config;
+package com.example.catchroom_be.global.jwt.config;
 
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
-import com.example.catchroom_be.domain.user.service.me.JwtEntryPoint;
-import com.example.catchroom_be.domain.user.service.me.MeJWTService;
-import com.example.catchroom_be.global.exception.CustomAuthenticationException;
+import com.example.catchroom_be.global.jwt.service.MeJWTService;
+import com.example.catchroom_be.global.jwt.dto.JwtPayload;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +21,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
