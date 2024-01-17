@@ -24,16 +24,14 @@ public class MyPageLogOutService {
             throw new UserException(ErrorCode.MYPAGE_LOGOUT_ERROR);
         }
 
-        String refreshToken = bearerToken.substring(7);
+        Object checkToken = redisTemplate.opsForValue().get(String.valueOf(user.getId()));
 
-        //redis에 있는 지 확인
-        Boolean tokenExists = redisTemplate.hasKey(String.valueOf(user.getId()));
-
-        if (tokenExists == null || !tokenExists) {
-            throw new UserException(ErrorCode.MYPAGE_LOGOUT_ERROR);
+        if (checkToken == null) {
+            throw new UserException(ErrorCode.USER_REFRESHTOKEN_MISSING);
         } else {
             redisTemplate.delete(String.valueOf(user.getId()));
         }
+
 
     }
 }

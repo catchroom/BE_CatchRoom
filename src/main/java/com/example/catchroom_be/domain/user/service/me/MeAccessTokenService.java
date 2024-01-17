@@ -25,13 +25,13 @@ public class MeAccessTokenService {
     private final MeJWTService meJWTService;
     private final int accessTokenCookieValidTime = /*30  **/ 60 * 1000; // access토큰의 유효시간 (30분)
 
-    public void accessTokenService(HttpServletRequest request, @AuthenticationPrincipal User user, HttpServletResponse response) {
+    public String accessTokenService(HttpServletRequest request, @AuthenticationPrincipal User user, HttpServletResponse response) {
         String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 
 
         //header에 refresh token이 있는지 확인
         if (bearerToken == null || !bearerToken.startsWith("Bearer")) {
-            throw new UserException(ErrorCode.USER_ACCESSTOKEN_MISSING);
+            throw new UserException(ErrorCode.USER_REFRESHTOKEN_MISSING);
         }
 
 
@@ -43,8 +43,8 @@ public class MeAccessTokenService {
 
 
         if (checkToken == null || !checkToken.toString().equals(refreshToken)) {
-            System.out.println(1);
-            throw new UserException(ErrorCode.USER_ACCESSTOKEN_MISSING);
+
+            throw new UserException(ErrorCode.USER_REFRESHTOKEN_MISSING);
         }
 
 
@@ -55,11 +55,13 @@ public class MeAccessTokenService {
             // 새로운 Access Token을 생성
             String newAccessToken = meJWTService.createAccessToken(jwtPayload);
 
-            Cookie accessTokenCookie = new Cookie("accessToken", newAccessToken);
-            accessTokenCookie.setHttpOnly(false);
+           /* Cookie accessTokenCookie = new Cookie("accessToken", newAccessToken);
+            accessTokenCookie.setHttpOnly(true);
             accessTokenCookie.setMaxAge(accessTokenCookieValidTime); // 30분
             accessTokenCookie.setPath("/");
-            response.addCookie(accessTokenCookie);
+            response.addCookie(accessTokenCookie);*/
+
+            return newAccessToken;
 
 
         }  catch (CustomAuthenticationException e) {

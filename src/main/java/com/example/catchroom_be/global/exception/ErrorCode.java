@@ -16,7 +16,7 @@ public enum ErrorCode {
     USER_CANNOT_LOGIN(1007,"회원 아이디 또는 비밀번호가 올바르지 않습니다"),
     USER_NICKNAME_NOT_DUPLICATE(1010,"닉네임이 중복되지 않았습니다."),
     USER_EMAIL_NOT_DUPLICATE(1012,"이메일이 중복되지 않았습니다."),
-    USER_ACCESSTOKEN_MISSING(1014,"refresh token이 비어있습니다."),
+    USER_REFRESHTOKEN_MISSING(1014,"refresh token이 비어있습니다."),
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
 
     //마이페이지
@@ -36,8 +36,9 @@ public enum ErrorCode {
 
 
     //채팅 관련
-    CHATROOM_NOT_FOUND(7999, "유효하지 않는 채팅방 입니다."),
-    CHATROOM_PARTNER_USER_NOT_FOUND(7999, "채팅방 상대방 유저 정보가 유효하지 않습니다."),
+    CHATROOM_USER_NOT_FOUND(6997, "접근할 수 없는 유저입니다."),
+    CHATROOM_NOT_FOUND(6998, "유효하지 않는 채팅방 입니다."),
+    CHATROOM_PARTNER_USER_NOT_FOUND(6999, "채팅방 상대방 유저 정보가 유효하지 않습니다."),
 
 
     //기본 에러
