@@ -67,20 +67,20 @@ public class MeLoginService {
 
 
         Cookie idCookie = new Cookie("id", id);
-        idCookie.setHttpOnly(true);
+        idCookie.setHttpOnly(false);
         idCookie.setMaxAge(idCookieValidTime); // 30분
         idCookie.setPath("/");
         response.addCookie(idCookie);
 
         Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
-        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setHttpOnly(false);
         accessTokenCookie.setMaxAge(accessTokenCookieValidTime); // 30분
         accessTokenCookie.setPath("/");
         response.addCookie(accessTokenCookie);
 
         // 응답에 리프레시 토큰 쿠키 추가
         Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setHttpOnly(false);
         refreshTokenCookie.setMaxAge(refreshTokenCookieValidTime); // 3000분
         refreshTokenCookie.setPath("/");
         response.addCookie(refreshTokenCookie);

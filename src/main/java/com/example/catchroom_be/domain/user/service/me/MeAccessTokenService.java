@@ -56,7 +56,7 @@ public class MeAccessTokenService {
             String newAccessToken = meJWTService.createAccessToken(jwtPayload);
 
             Cookie accessTokenCookie = new Cookie("accessToken", newAccessToken);
-            accessTokenCookie.setHttpOnly(true);
+            accessTokenCookie.setHttpOnly(false);
             accessTokenCookie.setMaxAge(accessTokenCookieValidTime); // 30분
             accessTokenCookie.setPath("/");
             response.addCookie(accessTokenCookie);
