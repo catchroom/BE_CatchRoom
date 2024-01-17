@@ -9,7 +9,6 @@ import com.example.catchroom_be.domain.product.type.TransportationType;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * user에 OrderHistory 를 넣는 클래스입니다.
@@ -34,19 +32,17 @@ public class OrderHistoryService {
      * UserDetailsService 클래스 추가 시 인가코드 주석해제
      */
     @Transactional(readOnly = true)
-    public List<OrderHistoryCandidateResponse> findProductCandidate(UserDetails memberDetails) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String userEmail = null;
-//        if (authentication.getPrincipal() instanceof UserDetails) {
-//            UserDetails userDetail = (UserDetails) authentication.getPrincipal();
-//            // 사용자 정보 활용
-//            userEmail = userDetail.getUsername();
-//        }
-        User user = userEntityRepository.findByEmail("test@gmail.com").orElseThrow(IllegalArgumentException::new);
-        return orderHistoryRepository.findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId())
-            .stream()
-            .map(OrderHistoryCandidateResponse::fromEntity)
-            .collect(Collectors.toList());
+    public List<OrderHistoryCandidateResponse> findProductCandidate() {
+//        User user = userEntityRepository.findByEmail("test@gmail.com").orElseThrow(IllegalArgumentException::new);
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findAllByIsFreeCancelAndIsSaleAndUserId(false, false,4L);
+        List<OrderHistoryCandidateResponse> orderHistoryCandidateResponseList = new ArrayList<OrderHistoryCandidateResponse>();
+        for (OrderHistory orderHistory : orderHistoryList) {
+            // TODO 개선 필요 지점
+            if (orderHistory.getCheckIn().isAfter(LocalDate.now())) {
+                orderHistoryCandidateResponseList.add(OrderHistoryCandidateResponse.fromEntity(orderHistory));
+            }
+        }
+        return orderHistoryCandidateResponseList;
     }
 
     @Transactional

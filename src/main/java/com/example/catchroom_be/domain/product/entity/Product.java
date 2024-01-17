@@ -4,6 +4,7 @@ import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.product.dto.request.SaleEditRequest;
 import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product {
+public class Product extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/")
-    public ResponseEntity<?> findProduct(@RequestParam Long id) {
+    @GetMapping()
+    public ResponseEntity<?> findProduct(@RequestParam(name = "id") Long orderHistoryId) {
         return ResponseEntity.ok(
             ApiResponse.create(
-                4040, productService.findProduct(id)));
+                4040, productService.findProduct(orderHistoryId)));
     }
 
 }
