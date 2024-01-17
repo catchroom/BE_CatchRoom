@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class OrderHistoryService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final RoomRepository roomRepository;
+
     @Transactional(readOnly = true)
     public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
         List<OrderHistory> orderHistoryList = orderHistoryRepository
@@ -37,7 +38,7 @@ public class OrderHistoryService {
     }
 
     @Transactional
-    public void insertTestDataOrderHistory(User user) {
+    public void insertDataOrderHistory(User user) {
 
         LocalDate startDate = LocalDate.of(2024, 01, 15);
         LocalDate endDate = LocalDate.of(2024, 02, 28);

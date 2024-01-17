@@ -32,6 +32,12 @@ public enum ErrorCode {
     ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),
     ACCOMMODATION_NOT_FOUND(4042, "유효하지 않는 숙박 정보입니다."),
 
+
+    //채팅 관련
+    CHATROOM_NOT_FOUND(7999, "유효하지 않는 채팅방 입니다."),
+    CHATROOM_PARTNER_USER_NOT_FOUND(7999, "채팅방 상대방 유저 정보가 유효하지 않습니다."),
+
+
     //기본 에러
     INVALID_ACCESS_TOKEN(5000,"유효하지 않은 엑세스 토큰입니다."),
     EXPIRE_ACCESS_TOKEN(5001,"액세스 토큰이 만료되었습니다."),
