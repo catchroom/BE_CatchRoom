@@ -11,6 +11,7 @@ import com.example.catchroom_be.global.jwt.service.MeJWTService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +38,7 @@ public class MeLoginService {
 
 
     @Transactional
-    public void loginUser(LoginRequest loginRequest, HttpServletResponse response) {
+    public LoginResponse loginUser(LoginRequest loginRequest, HttpServletResponse response) {
         String rawPassword = loginRequest.getPassword();
         String email = loginRequest.getEmail();
 
@@ -56,34 +57,41 @@ public class MeLoginService {
                 .issuedAt(new Date())
                 .build();
 
-        String id = String.valueOf(user.getId());
-        String accessToken = meJWTService.createAccessToken(jwtPayload);
+        /*String id = String.valueOf(user.getId());
+        String accessToken = meJWTService.createAccessToken(jwtPayload);*/
         String refreshToken = meJWTService.createRefreshToken(jwtPayload);
 
 
         ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
         valueOperations.set(String.valueOf(user.getId()),refreshToken,refreshTokenRedisValidTime, TimeUnit.MILLISECONDS);
 
-
-
-        Cookie idCookie = new Cookie("id", id);
-        idCookie.setHttpOnly(false);
+         /*Cookie idCookie = new Cookie("id", id);
+        idCookie.setHttpOnly(true);
         idCookie.setMaxAge(idCookieValidTime); // 30분
         idCookie.setPath("/");
         response.addCookie(idCookie);
 
         Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
-        accessTokenCookie.setHttpOnly(false);
+        accessTokenCookie.setHttpOnly(true);
         accessTokenCookie.setMaxAge(accessTokenCookieValidTime); // 30분
         accessTokenCookie.setPath("/");
         response.addCookie(accessTokenCookie);
 
         // 응답에 리프레시 토큰 쿠키 추가
         Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-        refreshTokenCookie.setHttpOnly(false);
+        refreshTokenCookie.setHttpOnly(true);
         refreshTokenCookie.setMaxAge(refreshTokenCookieValidTime); // 3000분
         refreshTokenCookie.setPath("/");
-        response.addCookie(refreshTokenCookie);
+        response.addCookie(refreshTokenCookie);*/
+
+
+        return LoginResponse.builder()
+                .accessToken(meJWTService.createAccessToken(jwtPayload))
+                .refreshToken(refreshToken)
+                .id(user.getId())
+                .build();
+
+
 
     }
 

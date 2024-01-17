@@ -48,9 +48,9 @@ public class MeController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<SuccessMessage>> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
-        meLoginService.loginUser(loginRequest,response);
-        return ResponseEntity.ok(ApiResponse.create(1006,SuccessMessage.createSuccessMessage("로그인이 완료되었습니다.")));
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        LoginResponse loginResponse = meLoginService.loginUser(loginRequest,response);
+        return ResponseEntity.ok(ApiResponse.create(1006,loginResponse));
 
     }
 
@@ -69,8 +69,8 @@ public class MeController {
 
     @PostMapping("/accesstoken")
     public ResponseEntity<ApiResponse<String>> accessToken(HttpServletRequest request,@AuthenticationPrincipal User user,HttpServletResponse response) {
-        meAccessTokenService.accessTokenService(request,user,response);
-        return ResponseEntity.ok(ApiResponse.create(1013,"엑세스 토큰이 재발급되었습니다."));
+        String newAccessToken = meAccessTokenService.accessTokenService(request,user,response);
+        return ResponseEntity.ok(ApiResponse.create(1013,newAccessToken));
     }
 
 
