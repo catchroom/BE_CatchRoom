@@ -20,6 +20,10 @@ public enum ErrorCode {
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
 
 
+    //예치금 통장 관련
+    ACCOUNT_NOT_SAVED(1099, "계좌가 올바르게 저장되지 않았습니다."),
+
+
     //객실 & 숙박
     ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),
     ACCOMMODATION_NOT_FOUND(4042, "유효하지 않는 숙박 정보입니다."),
