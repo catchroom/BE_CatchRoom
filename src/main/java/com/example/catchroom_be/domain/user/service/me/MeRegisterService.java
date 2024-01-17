@@ -1,5 +1,6 @@
 package com.example.catchroom_be.domain.user.service.me;
 
+import com.example.catchroom_be.domain.account.service.AccountService;
 import com.example.catchroom_be.domain.orderhistory.service.OrderHistoryService;
 import com.example.catchroom_be.domain.user.dto.request.RegisterRequest;
 import com.example.catchroom_be.domain.user.entity.User;
@@ -8,6 +9,7 @@ import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class MeRegisterService {
     private final UserEntityRepository userEntityRepository;
     private final PasswordEncoder passwordEncoder;
     private final OrderHistoryService orderHistoryService;
+    private final AccountService accountService;
 
     @Transactional
     public void registerUser(RegisterRequest registerRequest) {
@@ -45,6 +48,8 @@ public class MeRegisterService {
                 .build();
 
         userEntityRepository.save(user);
+
+        insertAccount(user.getName());
     }
 
 //    @Override
@@ -74,5 +79,11 @@ public class MeRegisterService {
         for (User userTest : userTestList) {
             orderHistoryService.insertTestDataOrderHistory(userTest);
         }
+    }
+
+
+    public void insertAccount(String userName) {
+        /** 회원가입 시 계좌 만들어주는 로직 **/
+        accountService.createAccount(userName);
     }
 }
