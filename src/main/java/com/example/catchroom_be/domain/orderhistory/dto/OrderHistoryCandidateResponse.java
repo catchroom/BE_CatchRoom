@@ -10,11 +10,8 @@ import java.time.LocalDate;
 @Builder
 public class OrderHistoryCandidateResponse {
     private Long id;
-
     private int price;
-
     private LocalDate checkIn;
-
     private LocalDate checkOut;
 
     public static OrderHistoryCandidateResponse fromEntity(OrderHistory orderHistory) {

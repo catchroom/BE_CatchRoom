@@ -24,45 +24,33 @@ public class ProductService {
     private final ChatRoomRepository chatRoomRepository;
 
     @Transactional(readOnly = true)
-    public ProductGetResponse findProduct(Long id) {
-        Product product = productRepository.getReferenceById(id);
-        User sellMember = memberRepository.getReferenceById(product.getSeller().getId());
-        UserIdentity checkUserIdentity = validateUserEqualSeller(sellMember.getId());
-        List<String> chatRoomId = chatRoomRepository.findUniqueChatRoom(findLoginUserId(), sellMember.getId(), product.getId());
-        return ProductGetResponse.fromEntity(product,checkUserIdentity,chatRoomId);
+    public ProductGetResponse findProduct(Long productId, User user) {
+        Product product = productRepository.findById(productId).orElseThrow(IllegalArgumentException::new);
+        User productSeller = memberRepository.findById(product.getSeller().getId()).orElseThrow(IllegalArgumentException::new);
+        UserIdentity viewerIdentity = validateUserEqualSeller(productSeller.getId());
+        List<String> chatRoomId = chatRoomRepository.findUniqueChatRoom(findLoginUserId(user), productSeller.getId(), product.getId());
+        return ProductGetResponse.fromEntity(product,viewerIdentity,chatRoomId);
     }
 
     private UserIdentity validateUserEqualSeller(Long sellerId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication.getName() == null) {
-            throw new IllegalArgumentException("접근 권한이 없습니다.");
-        }
         String loginUserEmail = authentication.getName();
-
-        if (loginUserEmail.equals("anonymousUser")) {
+        if (authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser")) {
             return UserIdentity.NONLOGINUSER;
         }
         // 로그인 사용자가 판매자가 아니어야 함
-
-        else if (!loginUserEmail.equals(memberRepository.getReferenceById(sellerId).getEmail())) {
-            return UserIdentity.BUYER;
-        } else {
+        else if (loginUserEmail.equals(memberRepository.getReferenceById(sellerId).getEmail())) {
             return UserIdentity.SELLER;
+        } else {
+            return UserIdentity.BUYER;
         }
     }
 
-    private Long findLoginUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication.getName() == null) {
-            throw new IllegalArgumentException("접근 권한이 없습니다.");
-        }
-        String loginUserEmail = authentication.getName();
-
-        if (loginUserEmail.equals("anonymousUser")) {
+    private Long findLoginUserId(User user) {
+        if (user == null) {
             return 0L;
         } else {
-            User member = memberRepository.findByEmail(loginUserEmail).orElseThrow();
-            return member.getId();
+            return user.getId();
         }
     }
 

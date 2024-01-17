@@ -3,10 +3,12 @@ package com.example.catchroom_be.domain.product.controller;
 import com.example.catchroom_be.domain.product.dto.request.SaleEditRequest;
 import com.example.catchroom_be.domain.product.dto.request.SaleRegistRequest;
 import com.example.catchroom_be.domain.product.service.SaleService;
+import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.ApiResponse;
 import com.example.catchroom_be.global.exception.SuccessMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,34 +17,38 @@ import org.springframework.web.bind.annotation.*;
 public class SaleController {
     private final SaleService saleservice;
 
-    //TODO @AuthenticationPrincipal 추가 예정_정혜민
     @GetMapping("/yanolja/product/detail")
-    public ResponseEntity<?> findProductDetailInfo(@RequestParam("id") Long orderHistoryId) {
+    public ResponseEntity<?> findProductDetailInfo(
+        @RequestParam("id") Long orderHistoryId) {
         return ResponseEntity.ok(
             ApiResponse.create(
                 4002, saleservice.findProductDetailInfo(orderHistoryId)));
     }
 
-    //TODO @AuthenticationPrincipal 추가 예정_정혜민
     @PostMapping("/product")
-    public ResponseEntity<?> registerProduct(@RequestBody SaleRegistRequest productRegisterRequest) {
+    public ResponseEntity<?> registerProduct(
+        @RequestBody SaleRegistRequest productRegisterRequest,
+        @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(
             ApiResponse.create(
-                4010, saleservice.registerProduct(productRegisterRequest)));
+                4010, saleservice.registerProduct(productRegisterRequest,user)));
     }
 
-    //TODO @AuthenticationPrincipal 추가 예정_정혜민
     @PutMapping("/product")
-    public ResponseEntity<?> editProduct(@RequestParam("id") Long productId, @RequestBody SaleEditRequest saleEditRequest) {
+    public ResponseEntity<?> editProduct(
+        @RequestParam("id") Long productId,
+        @RequestBody SaleEditRequest saleEditRequest,
+        @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(
             ApiResponse.create(
-                4020, saleservice.editProduct(productId,saleEditRequest)));
+                4020, saleservice.editProduct(productId,saleEditRequest,user)));
     }
 
-    //TODO @AuthenticationPrincipal 추가 예정_정혜민
     @DeleteMapping("/product")
-    public ResponseEntity<?> deleteProduct(@RequestParam("id") Long productId) {
-        saleservice.deleteProduct(productId);
+    public ResponseEntity<?> deleteProduct(
+        @RequestParam("id") Long productId,
+        @AuthenticationPrincipal User user) {
+        saleservice.deleteProduct(productId,user);
         return ResponseEntity.ok(
             ApiResponse.create(
                 4030, SuccessMessage.createSuccessMessage("상품 삭제에 성공하셨습니다.")));
