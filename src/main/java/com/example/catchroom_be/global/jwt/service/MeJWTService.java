@@ -27,7 +27,7 @@ public class MeJWTService {
                 .claim("nickName",jwtPayload.nickName())
                 .claim("email",jwtPayload.email())
                 .setIssuer("catchroom")
-                .setIssuedAt(jwtPayload.issuedAt())
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(jwtPayload.issuedAt().getTime() + accessTokenValidTime))
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
                 .compact();
@@ -48,7 +48,7 @@ public class MeJWTService {
                 .claim("nickName",jwtPayload.nickName())
                 .claim("email",jwtPayload.email())
                 .setIssuer("catchroom")
-                .setIssuedAt(jwtPayload.issuedAt())
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(jwtPayload.issuedAt().getTime() + refreshTokenValidTime))
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
                 .compact();

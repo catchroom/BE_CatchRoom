@@ -23,10 +23,11 @@ public class MyPageLogOutService {
         if (bearerToken == null || !bearerToken.startsWith("Bearer")) {
             throw new UserException(ErrorCode.MYPAGE_LOGOUT_ERROR);
         }
-
+        String refreshToken = bearerToken.substring(7);
         Object checkToken = redisTemplate.opsForValue().get(String.valueOf(user.getId()));
+        System.out.println(String.valueOf(checkToken));
 
-        if (checkToken == null) {
+        if (checkToken == null || !checkToken.toString().equals(refreshToken)) {
             throw new UserException(ErrorCode.USER_REFRESHTOKEN_MISSING);
         } else {
             redisTemplate.delete(String.valueOf(user.getId()));
