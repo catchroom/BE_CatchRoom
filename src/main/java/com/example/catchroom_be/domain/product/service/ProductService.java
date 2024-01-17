@@ -24,8 +24,8 @@ public class ProductService {
     private final ChatRoomRepository chatRoomRepository;
 
     @Transactional(readOnly = true)
-    public ProductGetResponse findProduct(Long id) {
-        Product product = productRepository.getReferenceById(id);
+    public ProductGetResponse findProduct(Long orderHistoryId) {
+        Product product = productRepository.getReferenceById(orderHistoryId);
         User sellMember = memberRepository.getReferenceById(product.getSeller().getId());
         UserIdentity checkUserIdentity = validateUserEqualSeller(sellMember.getId());
         List<String> chatRoomId = chatRoomRepository.findUniqueChatRoom(findLoginUserId(), sellMember.getId(), product.getId());
