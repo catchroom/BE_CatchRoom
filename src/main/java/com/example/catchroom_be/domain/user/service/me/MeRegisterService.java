@@ -69,9 +69,9 @@ public class MeRegisterService {
     }
 
 //    @Override
-    public void run(ApplicationArguments args) throws Exception {
+    /*public void run(ApplicationArguments args) throws Exception {
         insertUserTestOrderHistory();
-    }
+    }*/
 
     @Transactional
     public void insertUserTest() {
@@ -85,15 +85,15 @@ public class MeRegisterService {
         userEntityRepository.saveAll(userTestList);
     }
 
-    @Transactional
+   /* @Transactional
     public void insertUserTestOrderHistory() {
-        /** 모든 UserTest에 OrderHistory 넣는 로직
+        *//** 모든 UserTest에 OrderHistory 넣는 로직
          * 만약 특정 계정에 값을 넣고 싶다면 findAll 대신 특정 계정의 id만을 사용해서 활용하세요
-         **/
+         **//*
 
         List<User> userTestList = userEntityRepository.findAll();
         for (User userTest : userTestList) {
             orderHistoryService.insertTestDataOrderHistory(userTest);
         }
-    }
+    }*/
 }
