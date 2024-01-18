@@ -27,4 +27,17 @@ public class MyPageProfileService {
            resultUser.setNickName(nickName);
 
     }
+
+    @Transactional
+    public String nickNameFindService(@AuthenticationPrincipal User user) {
+        Long id = user.getId();
+
+        Optional<User> result = Optional.ofNullable(userEntityRepository.findById(id)
+                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR)));
+
+        User resultUser = result.get();
+
+        return resultUser.getNickName();
+
+    }
 }
