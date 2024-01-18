@@ -1,5 +1,7 @@
 package com.example.catchroom_be.domain.user.controller.mypage;
 
+import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
+import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageLogOutService;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageProfileService;
@@ -40,4 +42,17 @@ public class MyPageController {
         String nickName = myPageProfileService.nickNameFindService(user);
         return ResponseEntity.ok(ApiResponse.create(2004,nickName));
     }
+
+    @GetMapping("/deposit/accountnum")
+    public ResponseEntity<ApiResponse<DepositAccountNumResponse>> depositAccountNumFind(@AuthenticationPrincipal User user) {
+        DepositAccountNumResponse depositAccountNumResponse = myPageProfileService.depositAccountNumFindService(user);
+        return ResponseEntity.ok(ApiResponse.create(2005,depositAccountNumResponse));
+    }
+
+    @PostMapping("/accountnum")
+    public ResponseEntity<ApiResponse<SuccessMessage>> accountNumSet(@AuthenticationPrincipal User user,@RequestBody AccountNumRequest accountNumRequest) {
+        myPageProfileService.accountNumSetService(user,accountNumRequest);
+        return ResponseEntity.ok(ApiResponse.create(2006,SuccessMessage.createSuccessMessage("예치금 계좌 등록이 완료되었습니다.")));
+    }
+
 }

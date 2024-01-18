@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface UserEntityRepository extends JpaRepository<User,Long> {
 
-    Optional<User> findByEmailAndPassword(String email, String password);
     Optional<User> findByNickName(String nickName);
     Optional<User> findByEmail(String email);
     int countByEmail(String email);
