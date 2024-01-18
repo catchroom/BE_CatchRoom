@@ -24,9 +24,9 @@ public class SaleRegistRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
     private String introduction;
-    private boolean isAutoCatch;
-    private boolean isCatch;
-    private boolean isNego;
+    private Boolean isAutoCatch;
+    private Boolean isCatch;
+    private Boolean isNego;
     private LocalDate catchPriceStartDate;
     private String accommodationName;
 
@@ -45,7 +45,7 @@ public class SaleRegistRequest {
             .isCatch(isCatch)
             .isNego(isNego)
             .catchPriceStartDate(catchPriceStartDate)
-            .accommodationName(accommodationName)
+            .accommodationName(orderHistory.getAccommodation().getName())
             .build();
     }
 
