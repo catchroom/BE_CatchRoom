@@ -40,7 +40,7 @@ public class MyPageProfileService {
         Long id = user.getId();
 
         Optional<User> result = Optional.ofNullable(userEntityRepository.findById(id)
-                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR)));
+                .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_NICKNAME_FIND_ERROR)));
 
         User resultUser = result.get();
 
@@ -48,37 +48,5 @@ public class MyPageProfileService {
 
     }
 
-    @Transactional
-    public DepositAccountNumResponse depositAccountNumFindService(@AuthenticationPrincipal User user) {
-        Long id = user.getId();
 
-        Optional<User> result = Optional.ofNullable(userEntityRepository.findById(id)
-                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR)));
-
-        User resultUser = result.get();
-
-        return DepositAccountNumResponse.fromEntity(resultUser);
-    }
-
-    @Transactional
-    public void accountNumSetService(@AuthenticationPrincipal User user, AccountNumRequest accountNumRequest) {
-        Long id = user.getId();
-
-        User resultUser = userEntityRepository.findById(id)
-                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR));
-
-        System.out.println(accountNumRequest.getAccountNumber());
-        System.out.println(accountNumRequest.getAccountOwner());
-        System.out.println(accountNumRequest.getBankName());
-
-        Optional<Account> result = Optional.ofNullable(accountEntityRepository.findByAccountNumberAndAccountOwnerAndBankName(accountNumRequest.getAccountNumber(),
-                accountNumRequest.getAccountOwner(),accountNumRequest.getBankName())
-                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR)));
-
-        Account resultAccount = result.get();
-
-        resultUser.setAccountBankAccountNumAccountOwnerBalance(resultAccount);
-
-
-    }
 }

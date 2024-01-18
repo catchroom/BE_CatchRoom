@@ -13,4 +13,5 @@ public interface UserEntityRepository extends JpaRepository<User,Long> {
     int countByNickName(String nickName);
 
 
+
 }

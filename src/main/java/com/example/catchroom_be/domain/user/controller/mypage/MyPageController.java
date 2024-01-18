@@ -3,6 +3,7 @@ package com.example.catchroom_be.domain.user.controller.mypage;
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
 import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
 import com.example.catchroom_be.domain.user.exception.UserException;
+import com.example.catchroom_be.domain.user.service.mypage.MyPageAccountService;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageLogOutService;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageProfileService;
 import com.example.catchroom_be.domain.user.entity.User;
@@ -22,6 +23,7 @@ public class MyPageController {
 
     private final MyPageLogOutService myPageLogOutService;
     private final MyPageProfileService myPageProfileService;
+    private final MyPageAccountService accountNumSetService;
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<SuccessMessage>> logout(HttpServletRequest request, @AuthenticationPrincipal User user) {
@@ -43,16 +45,29 @@ public class MyPageController {
         return ResponseEntity.ok(ApiResponse.create(2004,nickName));
     }
 
+
     @GetMapping("/deposit/accountnum")
     public ResponseEntity<ApiResponse<DepositAccountNumResponse>> depositAccountNumFind(@AuthenticationPrincipal User user) {
-        DepositAccountNumResponse depositAccountNumResponse = myPageProfileService.depositAccountNumFindService(user);
+        DepositAccountNumResponse depositAccountNumResponse = accountNumSetService.depositAccountNumFindService(user);
         return ResponseEntity.ok(ApiResponse.create(2005,depositAccountNumResponse));
     }
 
     @PostMapping("/accountnum")
     public ResponseEntity<ApiResponse<SuccessMessage>> accountNumSet(@AuthenticationPrincipal User user,@RequestBody AccountNumRequest accountNumRequest) {
-        myPageProfileService.accountNumSetService(user,accountNumRequest);
+        accountNumSetService.accountNumSetService(user,accountNumRequest);
         return ResponseEntity.ok(ApiResponse.create(2006,SuccessMessage.createSuccessMessage("예치금 계좌 등록이 완료되었습니다.")));
     }
+    @PutMapping("/accountnum")
+    public ResponseEntity<ApiResponse<SuccessMessage>> accountNumPut(@AuthenticationPrincipal User user,@RequestBody AccountNumRequest accountNumRequest) {
+        accountNumSetService.accountNumPutService(user,accountNumRequest);
+        return ResponseEntity.ok(ApiResponse.create(2010,SuccessMessage.createSuccessMessage("예치금 계좌 수정이 완료되었습니다.")));
+    }
+    @DeleteMapping("/accountnum")
+    public ResponseEntity<ApiResponse<SuccessMessage>> accountNumDelete(@AuthenticationPrincipal User user) {
+        accountNumSetService.accountNumDeleteService(user);
+        return ResponseEntity.ok(ApiResponse.create(2011,SuccessMessage.createSuccessMessage("예치금 계좌 삭제가 완료되었습니다.")));
+    }
+
+
 
 }

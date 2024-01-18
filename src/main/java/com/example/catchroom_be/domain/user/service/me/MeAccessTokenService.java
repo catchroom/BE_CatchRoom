@@ -23,7 +23,7 @@ public class MeAccessTokenService {
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final MeJWTService meJWTService;
-    private final int accessTokenCookieValidTime = /*30  **/ 60 * 1000; // access토큰의 유효시간 (30분)
+    private final int accessTokenCookieValidTime = 30 * 60 * 1000; // access토큰의 유효시간 (30분)
 
     public String accessTokenService(HttpServletRequest request, @AuthenticationPrincipal User user, HttpServletResponse response) {
         String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);

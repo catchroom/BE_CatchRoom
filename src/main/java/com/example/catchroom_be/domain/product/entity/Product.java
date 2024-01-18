@@ -6,6 +6,7 @@ import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,10 +39,11 @@ public class Product extends BaseTime {
     private int catchPrice;
     @Column(name = "end_date")
     private LocalDateTime endDate;
+    @Size(min = 9, message = "최소 10글자 이상 입력해주세요.")
     private String introduction;
-    private boolean isAutoCatch;
-    private boolean isCatch;
-    private boolean isNego;
+    private Boolean isAutoCatch;
+    private Boolean isCatch;
+    private Boolean isNego;
     private LocalDate catchPriceStartDate;
     private String accommodationName;
 
@@ -52,9 +54,9 @@ public class Product extends BaseTime {
         this.catchPrice = saleEditRequest.getCatchPrice();
         this.endDate = saleEditRequest.getEndDate();
         this.introduction = saleEditRequest.getIntroduction();
-        this.isAutoCatch = saleEditRequest.isAutoCatch();
-        this.isCatch = saleEditRequest.isCatch();
-        this.isNego = saleEditRequest.isNego();
+        this.isAutoCatch = saleEditRequest.getIsAutoCatch();
+        this.isCatch = saleEditRequest.getIsCatch();
+        this.isNego = saleEditRequest.getIsNego();
         this.catchPriceStartDate = saleEditRequest.getCatchPriceStartDate();
         this.accommodationName = saleEditRequest.getAccommodationName();
 
