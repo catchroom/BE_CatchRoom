@@ -22,7 +22,8 @@ public enum ErrorCode {
     //마이페이지
     MYPAGE_LOGOUT_ERROR(2001,"로그아웃에 실패하였습니다."),
     MYPAGE_PROFILE_REFACT_ERROR(2003,"프로필 수정에 실패하였습니다."),
-
+    MYPAGE_ACCOUNTNUM_BALANCE_ERROR(2030,"계좌번호,예치금 잔액 조회에 실패했습니다."),
+    MYPAGE_ACCOUNTNUM_REGISTER_REFACT_ERROR(2007,"예치금 계좌 등록/수정에 실패하였습니다."),
 
 
     //예치금 통장 관련

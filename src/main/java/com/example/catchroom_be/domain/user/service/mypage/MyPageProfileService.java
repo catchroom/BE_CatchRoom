@@ -53,7 +53,7 @@ public class MyPageProfileService {
         Long id = user.getId();
 
         Optional<User> result = Optional.ofNullable(userEntityRepository.findById(id)
-                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR)));
+                .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_ACCOUNTNUM_BALANCE_ERROR)));
 
         User resultUser = result.get();
 
@@ -67,13 +67,9 @@ public class MyPageProfileService {
         User resultUser = userEntityRepository.findById(id)
                 .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR));
 
-        System.out.println(accountNumRequest.getAccountNumber());
-        System.out.println(accountNumRequest.getAccountOwner());
-        System.out.println(accountNumRequest.getBankName());
-
         Optional<Account> result = Optional.ofNullable(accountEntityRepository.findByAccountNumberAndAccountOwnerAndBankName(accountNumRequest.getAccountNumber(),
                 accountNumRequest.getAccountOwner(),accountNumRequest.getBankName())
-                .orElseThrow(() -> new UserException(ErrorCode.SERVER_ERROR)));
+                .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_ACCOUNTNUM_REGISTER_REFACT_ERROR)));
 
         Account resultAccount = result.get();
 
