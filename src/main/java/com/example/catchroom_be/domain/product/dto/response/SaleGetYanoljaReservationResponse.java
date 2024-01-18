@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder
-public class SaleGetDetailInfoResponse {
+public class SaleGetYanoljaReservationResponse {
     private String accommdationName;
     private String roomType;
     private int price;
@@ -17,8 +17,8 @@ public class SaleGetDetailInfoResponse {
     private LocalDate checkIn;
     private LocalDate checkOut;
 
-    public static SaleGetDetailInfoResponse fromEntity(OrderHistory orderHistory) {
-        return SaleGetDetailInfoResponse.builder()
+    public static SaleGetYanoljaReservationResponse fromEntity(OrderHistory orderHistory) {
+        return SaleGetYanoljaReservationResponse.builder()
             .accommdationName(orderHistory.getAccommodation().getName())
             .roomType(orderHistory.getRoom().getName())
             .price(orderHistory.getPrice())

@@ -18,7 +18,7 @@ public enum ErrorCode {
     USER_EMAIL_NOT_DUPLICATE(1012,"이메일이 중복되지 않았습니다."),
     USER_REFRESHTOKEN_MISSING(1014,"refresh token이 비어있습니다."),
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
-
+    USER_NOT_FOUND(1016,"등록된 회원정보가 없습니다."),
     //마이페이지
     MYPAGE_LOGOUT_ERROR(2001,"로그아웃에 실패하였습니다."),
     MYPAGE_PROFILE_REFACT_ERROR(2003,"프로필 수정에 실패하였습니다."),
@@ -34,6 +34,13 @@ public enum ErrorCode {
     ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),
     ACCOMMODATION_NOT_FOUND(4042, "유효하지 않는 숙박 정보입니다."),
 
+    //판매 관련
+    PRODUCT_NOT_FOUND(4043, "등록된 상품이 없습니다."),
+    INVALID_PRODUCT_OWNER(4022, "본인의 숙박권/상품만 수정할 수 있습니다."),
+    INVALID_REGIST_TIME(4011, "판매 마감 날짜는 현시점 이후 ~ 체크인 날짜 사이 값으로 설정해야합니다."),
+    DUPLICATED_REGIST_PRODUCT(4012,"이미 등록된 상품입니다."),
+    //야놀자 데이터 관련
+    ORDERHISTROY_NOT_FOUND(4044, "구매하신 숙박권이 없습니다."),
 
     //채팅 관련
     CHATROOM_USER_NOT_FOUND(6997, "접근할 수 없는 유저입니다."),

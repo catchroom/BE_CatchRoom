@@ -18,11 +18,11 @@ public class SaleController {
     private final SaleService saleservice;
 
     @GetMapping("/yanolja/product/detail")
-    public ResponseEntity<?> findProductDetailInfo(
+    public ResponseEntity<?> findYanoljaReservationInfo(
         @RequestParam("id") Long orderHistoryId) {
         return ResponseEntity.ok(
             ApiResponse.create(
-                4002, saleservice.findProductDetailInfo(orderHistoryId)));
+                4002, saleservice.findYanoljaReservationInfo(orderHistoryId)));
     }
 
     @PostMapping("/product")
@@ -52,5 +52,14 @@ public class SaleController {
         return ResponseEntity.ok(
             ApiResponse.create(
                 4030, SuccessMessage.createSuccessMessage("상품 삭제에 성공하셨습니다.")));
+    }
+
+    @GetMapping("/edit/info/product")
+    public ResponseEntity<?> findProductAllInfo(
+        @RequestParam("id") Long productId,
+        @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(
+            ApiResponse.create(
+                4050, saleservice.findProductAllInfo(productId,user)));
     }
 }
