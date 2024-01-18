@@ -16,9 +16,8 @@ public class MeNickNameService {
     @Transactional
     public void nicknameCheckUser(String nickname) {
 
-        userEntityRepository.findByNickName(nickname)
-                .orElseThrow(() -> new UserException(ErrorCode.USER_NICKNAME_NOT_DUPLICATE));
-
-
+        if (userEntityRepository.countByNickName(nickname) > 0) {
+            throw new UserException(ErrorCode.USER_NICKNAME_DUPLICATE);
+        }
     }
 }
