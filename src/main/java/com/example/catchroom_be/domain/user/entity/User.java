@@ -54,11 +54,18 @@ public class User extends BaseTime {
         this.nickName = nickName;
     }
 
-    public void setAccountBankAccountNumAccountOwnerBalance(Account account) {
+    public void setBankAccountNumAccountOwnerBalance(Account account) {
         this.bankName = account.getBankName();
         this.accountNumber = account.getAccountNumber();
         this.accountOwner = account.getAccountOwner();
         this.balance = account.getBalance();
+    }
+
+    public void deleteBankAccountNumAccountOwnerBalance() {
+        this.bankName = null;
+        this.accountOwner = null;
+        this.accountNumber = null;
+        this. balance = null;
     }
 
 
