@@ -1,5 +1,7 @@
 package com.example.catchroom_be.domain.user.entity;
 
+
+import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name ="user")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,6 +52,13 @@ public class User {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public void setAccountBankAccountNumAccountOwnerBalance(Account account) {
+        this.bankName = account.getBankName();
+        this.accountNumber = account.getAccountNumber();
+        this.accountOwner = account.getAccountOwner();
+        this.balance = account.getBalance();
     }
 
 

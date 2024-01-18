@@ -57,13 +57,13 @@ public class MeController {
     @GetMapping("/nickname/check")
     public ResponseEntity<ApiResponse<SuccessMessage>> nicknameCheck(@Valid @RequestParam String nickname) {
         meNickNameService.nicknameCheckUser(nickname);
-        return ResponseEntity.ok(ApiResponse.create(1011,SuccessMessage.createSuccessMessage("닉네임이 중복되었습니다.")));
+        return ResponseEntity.ok(ApiResponse.create(1010,SuccessMessage.createSuccessMessage("닉네임이 중복되지 않았습니다.")));
     }
 
     @GetMapping("/email/check")
     public ResponseEntity<ApiResponse<SuccessMessage>> emailCheck(@Valid @RequestParam String email) {
         meEmailService.emailCheckUser(email);
-        return ResponseEntity.ok(ApiResponse.create(1005,SuccessMessage.createSuccessMessage("이메일이 중복되었습니다.")));
+        return ResponseEntity.ok(ApiResponse.create(1012,SuccessMessage.createSuccessMessage("이메일이 중복되지 않았습니다.")));
     }
 
 
