@@ -73,7 +73,7 @@ public class SecurityConfig {
                                     .requestMatchers(new AntPathRequestMatcher("/v1/chat/room/create","POST")).permitAll()
                                     .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","DELETE")).permitAll()
                                     // 채팅 서버 관련 config
-                                    .requestMatchers(new AntPathRequestMatcher("/v1/accommodation", "GET")).permitAll()
+                                    .requestMatchers(new AntPathRequestMatcher("/v1/accommodation/**", "GET")).permitAll()
                                     .requestMatchers(new AntPathRequestMatcher("/v1/sales/product","DELETE")).permitAll();
 
 
