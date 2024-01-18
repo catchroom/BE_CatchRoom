@@ -40,4 +40,7 @@ public class MyPageController {
         String nickName = myPageProfileService.nickNameFindService(user);
         return ResponseEntity.ok(ApiResponse.create(2004,nickName));
     }
+
+    
+
 }
