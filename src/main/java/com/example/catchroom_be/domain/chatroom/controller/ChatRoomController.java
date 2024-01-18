@@ -35,5 +35,10 @@ public class ChatRoomController {
                 chatRoomService.createChatRoom(chatRoomCreateRequest))
         );
     }
+    @GetMapping("/list")
+    public ResponseEntity<?> findChatRoomListByMemberId(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(
+            ApiResponse.create(6000, chatRoomService.findChatRoomListByMemberId(user)));
+    }
 
 }
