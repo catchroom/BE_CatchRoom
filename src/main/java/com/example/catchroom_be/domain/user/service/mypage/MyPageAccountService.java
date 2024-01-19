@@ -1,5 +1,6 @@
 package com.example.catchroom_be.domain.user.service.mypage;
 
+import com.example.catchroom_be.domain.user.enumlist.DepositType;
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
 import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
 import com.example.catchroom_be.domain.user.dto.response.DepositResponse;
@@ -97,7 +98,7 @@ public class MyPageAccountService {
             resultUser.minusDepositWithdraw(deposit);
 
             DepositDetails depositDetail = DepositDetails.builder()
-                    .type("출금") // 혹은 출금을 나타내는 다른 문자열
+                    .type(DepositType.WITHDRAW.getType()) // 혹은 출금을 나타내는 다른 문자열
                     .money(deposit.intValue()) // 출금 금액
                     .info("예치금") // 혹은 더 상세한 정보
                     .user(resultUser) // 연관된 사용자 엔티티
@@ -129,6 +130,9 @@ public class MyPageAccountService {
                         depositDetail.getId()))
                 .collect(Collectors.toList());
 
+        for (DepositResponse e : depositResponseList) {
+            System.out.println(e.getType());
+        }
 
 
         return depositResponseList;

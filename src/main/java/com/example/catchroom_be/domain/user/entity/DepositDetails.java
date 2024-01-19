@@ -1,5 +1,6 @@
 package com.example.catchroom_be.domain.user.entity;
 
+import com.example.catchroom_be.domain.user.enumlist.DepositType;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
