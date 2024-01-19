@@ -4,6 +4,7 @@ import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
 import com.example.catchroom_be.domain.chatroom.dto.request.ChatRoomCreateRequest;
 import com.example.catchroom_be.domain.chatroom.dto.response.ChatRoomCreateResponse;
 import com.example.catchroom_be.domain.chatroom.dto.response.ChatRoomInfoResponse;
+import com.example.catchroom_be.domain.chatroom.dto.response.ChatRoomListGetResponse;
 import com.example.catchroom_be.domain.chatroom.entity.ChatRoom;
 import com.example.catchroom_be.domain.chatroom.exception.ChatRoomException;
 import com.example.catchroom_be.domain.chatroom.repository.ChatRoomRepository;
@@ -19,6 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -63,6 +68,19 @@ public class ChatRoomService {
         chatRoomRepository.save(chatRoom);
 //        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getChatRoomNumber(), chatRoom);
         return ChatRoomCreateResponse.fromEntity(chatRoom);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChatRoomListGetResponse> findChatRoomListByMemberId(User user) {
+        List<ChatRoom> ChatRoomListUserIsBuyer = chatRoomRepository.findAllByBuyerIdOrSellerId(user.getId(),user.getId());
+        List<ChatRoom> chatRooms = new ArrayList<ChatRoom>();
+        for (ChatRoom chatRoom : ChatRoomListUserIsBuyer) {
+            chatRoom.updateUserIdentity(user.getId());
+            chatRooms.add(chatRoom);
+        }
+        return chatRooms.stream()
+            .map(ChatRoomListGetResponse::fromEntity)
+            .collect(Collectors.toList());
     }
 
     private String getPartnerNickName(User user, ChatRoom chatRoom) {
