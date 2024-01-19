@@ -2,6 +2,7 @@ package com.example.catchroom_be.domain.user.controller.mypage;
 
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
 import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
+import com.example.catchroom_be.domain.user.dto.response.DepositResponse;
 import com.example.catchroom_be.domain.user.dto.response.ProfileResponse;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageAccountService;
@@ -17,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/mypage")
@@ -24,7 +27,7 @@ public class MyPageController {
 
     private final MyPageLogOutService myPageLogOutService;
     private final MyPageProfileService myPageProfileService;
-    private final MyPageAccountService accountNumSetService;
+    private final MyPageAccountService myPageAccountService;
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<SuccessMessage>> logout(HttpServletRequest request, @AuthenticationPrincipal User user) {
@@ -49,24 +52,35 @@ public class MyPageController {
 
     @GetMapping("/deposit/accountnum")
     public ResponseEntity<ApiResponse<DepositAccountNumResponse>> depositAccountNumFind(@AuthenticationPrincipal User user) {
-        DepositAccountNumResponse depositAccountNumResponse = accountNumSetService.depositAccountNumFindService(user);
+        DepositAccountNumResponse depositAccountNumResponse = myPageAccountService.depositAccountNumFindService(user);
         return ResponseEntity.ok(ApiResponse.create(2005,depositAccountNumResponse));
     }
 
     @PostMapping("/accountnum")
     public ResponseEntity<ApiResponse<SuccessMessage>> accountNumSet(@AuthenticationPrincipal User user,@RequestBody AccountNumRequest accountNumRequest) {
-        accountNumSetService.accountNumSetService(user,accountNumRequest);
+        myPageAccountService.accountNumSetService(user,accountNumRequest);
         return ResponseEntity.ok(ApiResponse.create(2006,SuccessMessage.createSuccessMessage("예치금 계좌 등록이 완료되었습니다.")));
     }
     @PutMapping("/accountnum")
     public ResponseEntity<ApiResponse<SuccessMessage>> accountNumPut(@AuthenticationPrincipal User user,@RequestBody AccountNumRequest accountNumRequest) {
-        accountNumSetService.accountNumPutService(user,accountNumRequest);
+        myPageAccountService.accountNumPutService(user,accountNumRequest);
         return ResponseEntity.ok(ApiResponse.create(2010,SuccessMessage.createSuccessMessage("예치금 계좌 수정이 완료되었습니다.")));
     }
     @DeleteMapping("/accountnum")
     public ResponseEntity<ApiResponse<SuccessMessage>> accountNumDelete(@AuthenticationPrincipal User user) {
-        accountNumSetService.accountNumDeleteService(user);
+        myPageAccountService.accountNumDeleteService(user);
         return ResponseEntity.ok(ApiResponse.create(2011,SuccessMessage.createSuccessMessage("예치금 계좌 삭제가 완료되었습니다.")));
+    }
+    @PostMapping("deposit/withdraw")
+    public ResponseEntity<ApiResponse<SuccessMessage>> depositWithdraw(@AuthenticationPrincipal User user,@RequestParam Long deposit) {
+        myPageAccountService.depositWithdrawService(user,deposit);
+        return ResponseEntity.ok(ApiResponse.create(2012,SuccessMessage.createSuccessMessage("예치금 금액 출금이 완료되었습니다.")));
+    }
+
+    @GetMapping("deposit/detail")
+    public ResponseEntity<ApiResponse<List<DepositResponse>>> depositList(@AuthenticationPrincipal User user) {
+        List<DepositResponse> depositResponseList = myPageAccountService.depositListService(user);
+        return ResponseEntity.ok(ApiResponse.create(2014,depositResponseList));
     }
 
 

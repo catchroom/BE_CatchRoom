@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @Getter
@@ -19,19 +22,19 @@ public class User extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "nick_name", nullable = false)
-    private String  nickName;
+    private String nickName;
 
-    @Column(name = "email",nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "phone",nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phonenumber;
 
     @Column(name = "type")
@@ -49,6 +52,9 @@ public class User extends BaseTime {
     @Column(name = "account_owner")
     private String accountOwner;
 
+    @OneToMany(mappedBy = "user")
+    List<DepositDetails> depositDetailsList = new ArrayList<>();
+
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
@@ -65,9 +71,14 @@ public class User extends BaseTime {
         this.bankName = null;
         this.accountOwner = null;
         this.accountNumber = null;
-        this. balance = null;
+        this.balance = null;
     }
 
+    public void minusDepositWithdraw(Long deposit) {
+        int tempBalance = Integer.parseInt(this.balance);
+        tempBalance -= deposit;
+        this.balance = String.valueOf(tempBalance);
 
 
+    }
 }
