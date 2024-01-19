@@ -39,7 +39,7 @@ public class MyPageController {
         myPageProfileService.profileRefactService(nickName,user);
         return ResponseEntity.ok(ApiResponse.create(2002,SuccessMessage.createSuccessMessage("프로필 수정이 성공적으로 완료되었습니다.")));
     }
-    @GetMapping("/nickname")
+    @GetMapping("/profile/nickname")
     public ResponseEntity<ApiResponse<String>> nicknameFind(@AuthenticationPrincipal User user) {
         String nickName = myPageProfileService.nickNameFindService(user);
         return ResponseEntity.ok(ApiResponse.create(2004,nickName));
