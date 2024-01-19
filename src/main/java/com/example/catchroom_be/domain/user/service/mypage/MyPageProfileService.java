@@ -3,6 +3,7 @@ package com.example.catchroom_be.domain.user.service.mypage;
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
 import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
 /*import com.example.catchroom_be.domain.user.entity.Account;*/
+import com.example.catchroom_be.domain.user.dto.response.ProfileResponse;
 import com.example.catchroom_be.domain.user.entity.Account;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.exception.UserException;
@@ -25,26 +26,27 @@ public class MyPageProfileService {
     private final AccountEntityRepository accountEntityRepository;
 
     @Transactional
-    public void profileRefactService(String nickName, @AuthenticationPrincipal User user) {
+    public void nicknameRefactService(String nickName, @AuthenticationPrincipal User user) {
            Long id = user.getId();
 
            Optional<User> result = Optional.ofNullable(userEntityRepository.findById(id)
-                   .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_PROFILE_REFACT_ERROR)));
+                   .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_NICKNAME_REFACT_ERROR)));
            User resultUser = result.get();
            resultUser.setNickName(nickName);
 
     }
 
     @Transactional
-    public String nickNameFindService(@AuthenticationPrincipal User user) {
+    public ProfileResponse profileFindService(@AuthenticationPrincipal User user) {
         Long id = user.getId();
 
         Optional<User> result = Optional.ofNullable(userEntityRepository.findById(id)
-                .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_NICKNAME_FIND_ERROR)));
+                .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_PROFILE_FIND_ERROR)));
 
         User resultUser = result.get();
 
-        return resultUser.getNickName();
+
+        return ProfileResponse.fromEntity(resultUser);
 
     }
 
