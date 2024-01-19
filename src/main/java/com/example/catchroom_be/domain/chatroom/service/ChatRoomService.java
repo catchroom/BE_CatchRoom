@@ -8,15 +8,19 @@ import com.example.catchroom_be.domain.chatroom.dto.response.ChatRoomListGetResp
 import com.example.catchroom_be.domain.chatroom.entity.ChatRoom;
 import com.example.catchroom_be.domain.chatroom.exception.ChatRoomException;
 import com.example.catchroom_be.domain.chatroom.repository.ChatRoomRepository;
+import com.example.catchroom_be.domain.chatroom.type.ChatRoomState;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
+import com.example.catchroom_be.global.exception.SuccessMessage;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +37,7 @@ public class ChatRoomService {
 
     private final ChatRoomRepository chatRoomRepository;
     private final UserEntityRepository userEntityRepository;
-    @Resource(name = "redisTemplate") //redisTemplate bean 주입.
-    private HashOperations<String, String, ChatRoom> opsHashChatRoom;
-    private static final String CHAT_ROOMS = "CHAT_ROOM_REDIS";
+
 
     @Transactional(readOnly = true)
     public ChatRoomInfoResponse getChatRoomInfo(String roomId, User user) {
@@ -65,16 +67,24 @@ public class ChatRoomService {
             userEntityRepository.getReferenceById(chatRoomCreateRequest.getBuyerId()),
             productRepository.getReferenceById(chatRoomCreateRequest.getProductId())
         );
+
         chatRoomRepository.save(chatRoom);
-//        opsHashChatRoom.put(CHAT_ROOMS, chatRoom.getChatRoomNumber(), chatRoom);
         return ChatRoomCreateResponse.fromEntity(chatRoom);
     }
 
     @Transactional(readOnly = true)
     public List<ChatRoomListGetResponse> findChatRoomListByMemberId(User user) {
-        List<ChatRoom> ChatRoomListUserIsBuyer = chatRoomRepository.findAllByBuyerIdOrSellerId(user.getId(),user.getId());
-        List<ChatRoom> chatRooms = new ArrayList<ChatRoom>();
+        List<ChatRoom> ChatRoomListUserIsBuyer = chatRoomRepository.findAllByBuyerIdOrSellerId(
+                user.getId(),user.getId()
+        );
+        List<ChatRoom> chatRooms = new ArrayList<>();
+
         for (ChatRoom chatRoom : ChatRoomListUserIsBuyer) {
+            if (chatRoom.getBuyer().equals(user) && chatRoom.getBuyerState().equals(ChatRoomState.DONT_SEE)) {
+                continue;
+            } else if (chatRoom.getSeller().equals(user) && chatRoom.getSellerState().equals(ChatRoomState.DONT_SEE)) {
+                continue;
+            }
             chatRoom.updateUserIdentity(user.getId());
             chatRooms.add(chatRoom);
         }
@@ -102,5 +112,21 @@ public class ChatRoomService {
         partnerNickName = partner.getNickName();
 
         return partnerNickName;
+    }
+
+    @Transactional
+    public SuccessMessage deleteChatRoom(User user, String roomId) {
+        ChatRoom chatRoom = chatRoomRepository.findByChatRoomNumber(roomId)
+                .orElseThrow(() -> new ChatRoomException(ErrorCode.CHATROOM_NOT_FOUND));
+
+        if (chatRoom.getSeller().equals(user)) {
+            chatRoom.updateSellerState(ChatRoomState.DONT_SEE);
+        } else if (chatRoom.getBuyer().equals(user)) {
+            chatRoom.updateBuyerState(ChatRoomState.DONT_SEE);
+        }
+
+        ChatRoom saveChatRoom = chatRoomRepository.save(chatRoom);
+        if (saveChatRoom == null) return SuccessMessage.createSuccessMessage("FAILED");
+        return SuccessMessage.createSuccessMessage("SUCCESS");
     }
 }
