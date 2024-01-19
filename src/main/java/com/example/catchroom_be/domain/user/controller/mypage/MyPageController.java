@@ -2,6 +2,7 @@ package com.example.catchroom_be.domain.user.controller.mypage;
 
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
 import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
+import com.example.catchroom_be.domain.user.dto.response.ProfileResponse;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageAccountService;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageLogOutService;
@@ -31,18 +32,18 @@ public class MyPageController {
         return ResponseEntity.ok(ApiResponse.create(2000, SuccessMessage.createSuccessMessage("로그아웃이 성공적으로 완료되었습니다.")));
     }
 
-    @PutMapping("/profile")
-    public ResponseEntity<ApiResponse<SuccessMessage>> profileRefact(@RequestParam String nickName, @AuthenticationPrincipal User user) {
+    @PutMapping("/profile/nickname")
+    public ResponseEntity<ApiResponse<SuccessMessage>> nickNameRefact(@RequestParam String nickName, @AuthenticationPrincipal User user) {
         if (nickName == null || !nickName.matches("^[a-zA-Z0-9가-힣]*$")) {
             throw new UserException(ErrorCode.USER_NICKNAME_NOT_VALID);
         }
-        myPageProfileService.profileRefactService(nickName,user);
-        return ResponseEntity.ok(ApiResponse.create(2002,SuccessMessage.createSuccessMessage("프로필 수정이 성공적으로 완료되었습니다.")));
+        myPageProfileService.nicknameRefactService(nickName,user);
+        return ResponseEntity.ok(ApiResponse.create(2002,SuccessMessage.createSuccessMessage("닉네임 수정이 성공적으로 완료되었습니다.")));
     }
-    @GetMapping("/profile/nickname")
-    public ResponseEntity<ApiResponse<String>> nicknameFind(@AuthenticationPrincipal User user) {
-        String nickName = myPageProfileService.nickNameFindService(user);
-        return ResponseEntity.ok(ApiResponse.create(2004,nickName));
+    @GetMapping("/profile")
+    public ResponseEntity<ApiResponse<ProfileResponse>> profileFind(@AuthenticationPrincipal User user) {
+        ProfileResponse profileResponse = myPageProfileService.profileFindService(user);
+        return ResponseEntity.ok(ApiResponse.create(2004,profileResponse));
     }
 
 

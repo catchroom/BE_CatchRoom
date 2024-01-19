@@ -21,11 +21,11 @@ public enum ErrorCode {
     USER_NOT_FOUND(1016,"등록된 회원정보가 없습니다."),
     //마이페이지
     MYPAGE_LOGOUT_ERROR(2001,"로그아웃에 실패하였습니다."),
-    MYPAGE_PROFILE_REFACT_ERROR(2003,"프로필 수정에 실패하였습니다."),
+    MYPAGE_NICKNAME_REFACT_ERROR(2003,"닉네임 수정에 실패하였습니다."),
     MYPAGE_ACCOUNTNUM_BALANCE_ERROR(2030,"계좌번호,예치금 잔액 조회에 실패했습니다."),
     MYPAGE_ACCOUNTNUM_REGISTER_REFACT_ERROR(2007,"예치금 계좌 등록/수정에 실패하였습니다."),
     MYPAGE_ACCOUNTNUM_DELETE_ERROR(2031,"예치금 계좌 삭제를 실패하였습니다."),
-    MYPAGE_NICKNAME_FIND_ERROR(2032,"닉네임 조회에 실패하였습니다."),
+    MYPAGE_PROFILE_FIND_ERROR(2032,"회원 정보 조회에 실패하였습니다."),
 
 
     //예치금 통장 관련
