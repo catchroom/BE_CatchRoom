@@ -5,6 +5,7 @@ import com.example.catchroom_be.domain.chatroom.dto.response.ChatRoomListGetResp
 import com.example.catchroom_be.domain.chatroom.service.ChatRoomService;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.ApiResponse;
+import com.example.catchroom_be.global.exception.SuccessMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -47,6 +48,14 @@ public class ChatRoomController {
     @GetMapping("/list/chat")
     public List<ChatRoomListGetResponse> findChatRoomListByMemberIdChat(@AuthenticationPrincipal User user) {
         return chatRoomService.findChatRoomListByMemberId(user);
+    }
+
+
+    @DeleteMapping
+    public SuccessMessage deleteChatRoom(
+            @AuthenticationPrincipal User user, @RequestParam(name = "roomId") String roomId
+    ) {
+        return chatRoomService.deleteChatRoom(user, roomId);
     }
 
 }
