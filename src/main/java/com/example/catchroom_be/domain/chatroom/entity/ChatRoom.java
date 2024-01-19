@@ -1,5 +1,6 @@
 package com.example.catchroom_be.domain.chatroom.entity;
 
+import com.example.catchroom_be.domain.chatroom.type.ChatRoomState;
 import com.example.catchroom_be.domain.product.entity.Product;
 
 import com.example.catchroom_be.domain.product.type.UserIdentity;
@@ -39,11 +40,19 @@ public class ChatRoom implements Serializable {
     @Transient
     private UserIdentity loginUserIdentity;
 
-    public ChatRoom(User seller, User buyer, Product product, String chatRoomNumber) {
-        this.seller = seller;
-        this.buyer = buyer;
-        this.product = product;
-        this.chatRoomNumber = chatRoomNumber;
+    @Enumerated(EnumType.STRING)
+    private ChatRoomState buyerState;
+
+    @Enumerated(EnumType.STRING)
+    private ChatRoomState sellerState;
+
+
+    public void updateBuyerState(ChatRoomState buyerState) {
+        this.buyerState = buyerState;
+    }
+
+    public void updateSellerState(ChatRoomState sellerState) {
+        this.sellerState = sellerState;
     }
 
     public void updateUserIdentity(Long userId) {
@@ -56,7 +65,14 @@ public class ChatRoom implements Serializable {
 
     public static ChatRoom create(User seller, User buyer, Product product) {
         String chatRoomNumber = UUID.randomUUID().toString();
-        return new ChatRoom(seller,buyer,product,chatRoomNumber);
+        return ChatRoom.builder()
+                .seller(seller)
+                .sellerState(ChatRoomState.SEE)
+                .buyer(buyer)
+                .buyerState(ChatRoomState.SEE)
+                .product(product)
+                .chatRoomNumber(chatRoomNumber)
+                .build();
     }
 
 
