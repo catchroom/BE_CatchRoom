@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Builder
 public class OrderHistoryCandidateResponse {
     private Long id;
+    private String accommdationName;
     private int price;
     private LocalDate checkIn;
     private LocalDate checkOut;
@@ -17,6 +18,7 @@ public class OrderHistoryCandidateResponse {
     public static OrderHistoryCandidateResponse fromEntity(OrderHistory orderHistory) {
         return OrderHistoryCandidateResponse.builder()
             .id(orderHistory.getId())
+            .accommdationName(orderHistory.getAccommodation().getName())
             .price(orderHistory.getPrice())
             .checkIn(orderHistory.getCheckIn())
             .checkOut(orderHistory.getCheckOut())
