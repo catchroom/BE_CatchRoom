@@ -2,18 +2,20 @@ package com.example.catchroom_be.domain.orderhistory.entity;
 
 import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
 import com.example.catchroom_be.domain.accommodation.entity.Room;
+import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.type.TransportationType;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
-@Table(name =  "order_history")
+@Table(name = "order_history")
 @Getter
 public class OrderHistory extends BaseTime {
 
@@ -33,7 +35,7 @@ public class OrderHistory extends BaseTime {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    @Column(name = "price",nullable = false)
+    @Column(name = "price", nullable = false)
     private int price;
     @Column(name = "check_in")
     private LocalDate checkIn;
@@ -51,4 +53,7 @@ public class OrderHistory extends BaseTime {
         this.isSale = state;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }
