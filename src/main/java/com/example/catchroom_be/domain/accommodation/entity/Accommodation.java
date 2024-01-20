@@ -44,6 +44,8 @@ public class Accommodation {
 
     private String address;
 
+    private Integer phoneNumber;
+
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
 

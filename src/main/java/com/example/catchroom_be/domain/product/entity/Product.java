@@ -7,10 +7,8 @@ import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -61,4 +59,9 @@ public class Product extends BaseTime {
         this.accommodationName = saleEditRequest.getAccommodationName();
 
     }
+
+    public void setDealState() {
+        this.dealState = DealState.DONEDEAL;
+    }
+
 }
