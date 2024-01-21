@@ -1,6 +1,8 @@
 package com.example.catchroom_be.domain.user.entity;
 
 
+import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
+import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,6 +56,13 @@ public class User extends BaseTime {
 
     @OneToMany(mappedBy = "user")
     List<DepositDetails> depositDetailsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "seller")
+    private List<Product> productList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<OrderHistory> orderHistories = new ArrayList<>();
+
 
 
     public void setNickName(String nickName) {

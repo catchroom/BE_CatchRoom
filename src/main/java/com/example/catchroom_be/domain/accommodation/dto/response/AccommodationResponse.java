@@ -1,7 +1,7 @@
 package com.example.catchroom_be.domain.accommodation.dto.response;
 
 import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
-import com.example.catchroom_be.domain.accommodation.type.AccommodationType;
+import com.example.catchroom_be.domain.accommodation.type.AccommodationTypeUtil.AccommodationType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
