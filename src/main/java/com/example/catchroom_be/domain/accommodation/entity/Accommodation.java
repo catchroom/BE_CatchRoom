@@ -1,6 +1,6 @@
 package com.example.catchroom_be.domain.accommodation.entity;
 
-import com.example.catchroom_be.domain.accommodation.type.AccommodationType;
+import com.example.catchroom_be.domain.accommodation.type.AccommodationTypeUtil.AccommodationType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
