@@ -1,6 +1,5 @@
 package com.example.catchroom_be.domain.buyhistory.dto.response;
 
-import com.example.catchroom_be.domain.accommodation.type.AccommodationType;
 import com.example.catchroom_be.domain.product.type.TransportationType;
 import com.example.catchroom_be.global.common.ApiResponse;
 import lombok.Getter;
