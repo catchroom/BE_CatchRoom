@@ -1,14 +1,13 @@
 package com.example.catchroom_be.domain.user.controller.mypage;
 
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
-import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
-import com.example.catchroom_be.domain.user.dto.response.DepositResponse;
-import com.example.catchroom_be.domain.user.dto.response.ProfileResponse;
+import com.example.catchroom_be.domain.user.dto.response.*;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageAccountService;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageLogOutService;
 import com.example.catchroom_be.domain.user.service.mypage.MyPageProfileService;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.domain.user.service.mypage.MyPageSalesHistoryService;
 import com.example.catchroom_be.global.common.ApiResponse;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
@@ -28,6 +27,7 @@ public class MyPageController {
     private final MyPageLogOutService myPageLogOutService;
     private final MyPageProfileService myPageProfileService;
     private final MyPageAccountService myPageAccountService;
+    private final MyPageSalesHistoryService myPageSalesHistoryService;
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<SuccessMessage>> logout(HttpServletRequest request, @AuthenticationPrincipal User user) {
@@ -82,6 +82,27 @@ public class MyPageController {
         List<DepositResponse> depositResponseList = myPageAccountService.depositListService(user);
         return ResponseEntity.ok(ApiResponse.create(2014,depositResponseList));
     }
+
+    @GetMapping("saleshistory/now")
+    public ResponseEntity<ApiResponse<List<SalesHistoryNowResponse>>> salesHistoryNow(@AuthenticationPrincipal User user) {
+        List<SalesHistoryNowResponse> salesHistoryNowResponseList = myPageSalesHistoryService.salesHistoryNowService(user);
+        return ResponseEntity.ok(ApiResponse.create(2015, salesHistoryNowResponseList));
+    }
+
+    @GetMapping("saleshistory/done")
+    public ResponseEntity<ApiResponse<List<SalesHistoryDoneResponse>>> salesHistoryDone(@AuthenticationPrincipal User user) {
+        List<SalesHistoryDoneResponse> salesHistoryDoneResponseList = myPageSalesHistoryService.salesHistoryDoneService(user);
+        return ResponseEntity.ok(ApiResponse.create(2015, salesHistoryDoneResponseList));
+    }
+
+    @DeleteMapping("saleshistory")
+    public ResponseEntity<ApiResponse<SuccessMessage>> salesHistoryDelete(Long id) {
+        myPageSalesHistoryService.salesHistoryDeleteService(id);
+        return ResponseEntity.ok(ApiResponse.create(2017,SuccessMessage.createSuccessMessage("해당 판매내역이 성공적으로 삭제되었습니다.")));
+    }
+
+
+
 
 
 

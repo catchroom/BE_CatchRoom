@@ -27,7 +27,9 @@ public enum ErrorCode {
     MYPAGE_ACCOUNTNUM_DELETE_ERROR(2031,"예치금 계좌 삭제를 실패하였습니다."),
     MYPAGE_PROFILE_FIND_ERROR(2032,"회원 정보 조회에 실패하였습니다."),
     MYPAGE_DEPOSIT_WITHDRAW_ERROR(2013,"예치금 잔액보다 출금 금액이 더 큽니다."),
-    MYPAGE_DEPOSIT_LIST_ERROR(2033,"에치금 상세 내역 보기가 실패하였습니다."),
+    MYPAGE_DEPOSIT_LIST_ERROR(2033,"예치금 상세 내역 보기가 실패하였습니다."),
+    MYPAGE_SALESLIST_FIND_ERROR(2043,"판매내역 조회에 실패하였습니다."),
+    MYPAGE_SALESLIST_DELETE_ERROR(2044,"해당 판매내역을 삭제하는데 실패하였습니다."),
     //예치금 통장 관련
     ACCOUNT_NOT_SAVED(1099, "계좌가 올바르게 저장되지 않았습니다."),
 
