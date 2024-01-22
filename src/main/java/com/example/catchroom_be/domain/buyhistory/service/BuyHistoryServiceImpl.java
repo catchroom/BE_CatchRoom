@@ -41,7 +41,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
 
         BuyHistory buyHistory = buyRequest.toEntity(user, product);
         buyHistory.setReservationNumber();
-        product.setDealState();
+        product.updateDealState(DealState.DONEDEAL);
         buyHistoryRepository.save(buyHistory);
 
         User seller = userRepository.findById(product.getSeller().getId())
