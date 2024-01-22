@@ -17,9 +17,11 @@ public class SalesHistoryDoneResponse {
     Boolean isCatch;
     Long orderHistoryId;
     String dealState;
+    Long reviewId;
 
     public void fromProduct(LocalDate checkIn, LocalDate checkOut, LocalDateTime wirteDate,
-                            LocalDateTime endDate, Integer sellPrice, Boolean isCatch, Long orderHistoryId,String dealState) {
+                            LocalDateTime endDate, Integer sellPrice, Boolean isCatch,
+                            Long orderHistoryId,String dealState,Long reviewId) {
         this.accomodationName = accomodationName;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -30,6 +32,7 @@ public class SalesHistoryDoneResponse {
         this.isCatch = isCatch;
         this.orderHistoryId = orderHistoryId;
         this.dealState = dealState;
+        this.reviewId = reviewId;
     }
 
     public void fromAccommodation(String accommodationName,String thumbNailUrl) {

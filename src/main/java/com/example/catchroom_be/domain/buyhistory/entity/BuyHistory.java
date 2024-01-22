@@ -1,7 +1,9 @@
 package com.example.catchroom_be.domain.buyhistory.entity;
 
 import com.example.catchroom_be.domain.product.entity.Product;
+import com.example.catchroom_be.domain.review.entity.Review;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "buy_history")
 @Getter
-public class BuyHistory {
+public class BuyHistory extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +29,9 @@ public class BuyHistory {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    /*@OneToOne(mappedBy = "buyHistory", fetch = FetchType.LAZY)
+    private Review review;
+*/
     private int price;
 
     private boolean isCatch;
