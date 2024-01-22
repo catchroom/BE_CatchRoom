@@ -3,25 +3,22 @@ package com.example.catchroom_be.domain.product.repository;
 import com.example.catchroom_be.domain.accommodation.type.AccommodationTypeUtil.AccommodationType;
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse;
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse.ProductSearchResponse;
-import com.example.catchroom_be.domain.product.entity.Product;
-
 import com.example.catchroom_be.domain.product.type.ProductSortType;
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+
 import java.time.LocalDate;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 
+import static com.example.catchroom_be.domain.accommodation.entity.QAccommodation.accommodation;
+import static com.example.catchroom_be.domain.accommodation.entity.QRoom.room;
+import static com.example.catchroom_be.domain.orderhistory.entity.QOrderHistory.orderHistory;
 import static com.example.catchroom_be.domain.product.entity.QProduct.product;
+
 /**
  * 상품 조건 검색을 위한 queryDsl
  */
@@ -30,21 +27,44 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ProductSearchResponse> search(
+    public ProductSearchListResponse search(
             List<AccommodationType> accommodationTypeList, List<String> regionList, int pax,
             LocalDate checkInStart, LocalDate checkInEnd, ProductSortType filter, Pageable pageable
     ) {
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
+                .innerJoin(product.orderHistory, orderHistory).fetchJoin()
+                .innerJoin(orderHistory.room, room).fetchJoin()
+                .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
                 .where(eqRegionList(regionList), eqAccommodationTypeList(accommodationTypeList),
                         eqBetweenCheckInStartAndCheckInEnd(checkInStart, checkInEnd),
                         eqPaxIsLessThenMaxCapacity(pax))
                 .orderBy(
                         getOrderTypeByProductSortType(filter)
-                ).fetch()
-                .stream().map(ProductSearchResponse::fromEntity)
-                .collect(Collectors.toList());
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch()
+                .stream()
+                .map(ProductSearchResponse::fromEntity)
+                .toList();
 
-        return result;
+
+        long totalSize = queryFactory.selectFrom(product)
+                .where(eqRegionList(regionList), eqAccommodationTypeList(accommodationTypeList),
+                        eqBetweenCheckInStartAndCheckInEnd(checkInStart, checkInEnd),
+                        eqPaxIsLessThenMaxCapacity(pax))
+                .fetchCount();
+
+        int pageSize = pageable.getPageSize();
+        int pageNumber = pageable.getPageNumber();
+        boolean isNextPage = (pageNumber + 1) * pageSize < totalSize;
+
+        return ProductSearchListResponse.builder()
+                .size(totalSize)
+                .nextPage(isNextPage)
+                .list(result)
+                .message("Success")
+                .build();
     }
 
     private BooleanExpression eqRegionList(List<String> regionList) {
@@ -53,7 +73,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
         // regionList = {"서울", "인천", "강원"} 일 경우, where region regexp "서울|인천|강원" 와 같음.
         return regionList != null ? Expressions.anyOf(
                 regionList.stream().map(this::isEqRegion)
-                .toArray(BooleanExpression[]::new)) : null;
+                        .toArray(BooleanExpression[]::new)) : null;
     }
 
     private BooleanExpression isEqRegion(String region) {
@@ -65,7 +85,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
         // sql : where accommodationType=? or accommodationType=? (anyOf 는 or 와 같다)
         return accommodationTypeList != null ? Expressions.anyOf(
                 accommodationTypeList.stream().map(this::isEqAccommodationType)
-                .toArray(BooleanExpression[]::new)) : null;
+                        .toArray(BooleanExpression[]::new)) : null;
     }
 
     private BooleanExpression isEqAccommodationType(AccommodationType accommodationType) {

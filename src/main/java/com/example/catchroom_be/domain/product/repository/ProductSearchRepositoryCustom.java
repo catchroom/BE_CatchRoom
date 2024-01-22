@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public interface ProductSearchRepositoryCustom {
-    List<ProductSearchResponse> search(
+    ProductSearchListResponse search(
             List<AccommodationType> accommodationType, List<String> regionList, int pax,
             LocalDate checkInStart, LocalDate checkInEnd, ProductSortType filter, Pageable pageable
     );
