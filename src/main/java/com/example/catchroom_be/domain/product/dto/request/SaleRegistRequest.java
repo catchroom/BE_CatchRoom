@@ -29,6 +29,7 @@ public class SaleRegistRequest {
     private Boolean isNego;
     private LocalDate catchPriceStartDate;
     private String accommodationName;
+    private Boolean isDeleted;
 
     public Product toEntity(OrderHistory orderHistory,User loginUser) {
         return Product.builder()
