@@ -22,9 +22,9 @@ public class MainService {
     private final String ALL_REGION = "all"; //전체 지역 검색
 
     @Transactional(readOnly = true)
-    public ProductSearchListResponse catchMain(Pageable pageable) {
+    public ProductSearchListResponse catchMain() {
 
-        return mainRepository.getCatchMain(pageable);
+        return mainRepository.getCatchMain();
     }
 
     @Transactional(readOnly = true)
@@ -40,9 +40,9 @@ public class MainService {
     }
 
     @Transactional(readOnly = true)
-    public ProductSearchListResponse checkInMain(LocalDate date, Pageable pageable) {
+    public ProductSearchListResponse checkInMain(LocalDate date) {
 
-        return mainRepository.getCheckInMain(date, pageable);
+        return mainRepository.getCheckInMain(date);
     }
 
     @Transactional(readOnly = true)

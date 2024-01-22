@@ -10,16 +10,16 @@ import java.util.List;
 
 public interface MainRepositoryCustom {
 
-    ProductSearchListResponse getCatchMain(Pageable pageable);
+    ProductSearchListResponse getCatchMain();
 
     ProductSearchListResponse getCatchAll(ProductSortType filter,
-                                            List<String> regionList,
-                                            Pageable pageable);
+                                          List<String> regionList,
+                                          Pageable pageable);
 
-    ProductSearchListResponse getCheckInMain(LocalDate date, Pageable pageable);
+    ProductSearchListResponse getCheckInMain(LocalDate date);
 
     ProductSearchListResponse getCheckInAll(LocalDate date,
-                                              ProductSortType filter,
-                                              List<String> regionList,
-                                              Pageable pageable);
+                                            ProductSortType filter,
+                                            List<String> regionList,
+                                            Pageable pageable);
 }

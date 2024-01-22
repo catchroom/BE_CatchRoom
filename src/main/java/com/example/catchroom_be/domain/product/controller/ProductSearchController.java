@@ -28,7 +28,7 @@ public class ProductSearchController {
             @RequestParam(name = "checkInStart") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInStart,
             @RequestParam(name = "checkInEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInEnd,
             @RequestParam(name = "filter") ProductSortType filter,
-            @RequestParam(name = "pageNumber", required = false) int pageNumber
+            @RequestParam(name = "pageNumber") Integer pageNumber
     ) {
 
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, 10);
