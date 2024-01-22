@@ -92,7 +92,7 @@ public class MyPageAccountService {
 
         User resultUser = userEntityRepository.findById(id)
                 .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_DEPOSIT_WITHDRAW_ERROR));
-        int tempBalance = Integer.parseInt(resultUser.getBalance());
+        int tempBalance = resultUser.getBalance();
 
         if (tempBalance >= deposit) {
             resultUser.minusDepositWithdraw(deposit);
