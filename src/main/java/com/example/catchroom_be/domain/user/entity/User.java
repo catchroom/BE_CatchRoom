@@ -90,6 +90,9 @@ public class User extends BaseTime {
     }
 
     public void updateBalance(int actualSellProfit) {
-        this.balance = balance + actualSellProfit;
+        if (this.balance != null)
+            this.balance = balance + actualSellProfit;
+        else
+            this.balance = actualSellProfit;
     }
 }
