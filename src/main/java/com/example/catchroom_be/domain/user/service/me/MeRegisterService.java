@@ -20,6 +20,7 @@ public class MeRegisterService {
 
     private final UserEntityRepository userEntityRepository;
     private final PasswordEncoder passwordEncoder;
+    private final OrderHistoryService orderHistoryService;
 
 
 
@@ -44,6 +45,7 @@ public class MeRegisterService {
                 .phonenumber(registerRequest.getPhonenumber())
                 .build();
 
+        orderHistoryService.insertDataOrderHistory(user);
         User saveUser = userEntityRepository.save(user);
 
 

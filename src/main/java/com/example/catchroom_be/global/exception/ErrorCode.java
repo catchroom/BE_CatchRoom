@@ -32,17 +32,17 @@ public enum ErrorCode {
     ACCOUNT_NOT_SAVED(1099, "계좌가 올바르게 저장되지 않았습니다."),
 
 
-
     //객실 & 숙박
+    EMPTY_ORDER_HISTORY(4001,"야놀자에서 구매하신 숙박권이 없습니다."),
     ROOM_NOT_FOUND(4041, "유효하지 않는 객실 정보입니다."),
     ACCOMMODATION_NOT_FOUND(4042, "유효하지 않는 숙박 정보입니다."),
 
     //판매 관련
-    PRODUCT_NOT_FOUND(4043, "등록된 상품이 없습니다."),
-    INVALID_PRODUCT_OWNER(4022, "본인의 숙박권/상품만 수정할 수 있습니다."),
     INVALID_REGIST_TIME(4011, "판매 마감 날짜는 현시점 이후 ~ 체크인 날짜 사이 값으로 설정해야합니다."),
     DUPLICATED_REGIST_PRODUCT(4012,"이미 등록된 상품입니다."),
     INVALID_AUTOCATCH_PRICE(4013,"캐치특가 적용시점을 오늘 날짜 이후 ~ 상품 게시 종료 날짜 이전으로 설정해주세요."),
+    INVALID_PRODUCT_OWNER(4022, "본인의 숙박권/상품만 수정할 수 있습니다."),
+    PRODUCT_NOT_FOUND(4043, "등록된 상품이 없습니다."),
     //야놀자 데이터 관련
     ORDERHISTROY_NOT_FOUND(4044, "구매하신 숙박권이 없습니다."),
 

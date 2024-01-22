@@ -5,8 +5,10 @@ import com.example.catchroom_be.domain.accommodation.repository.RoomRepository;
 import com.example.catchroom_be.domain.orderhistory.dto.OrderHistoryCandidateResponse;
 import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.orderhistory.repository.OrderHistoryRepository;
+import com.example.catchroom_be.domain.product.exception.SaleException;
 import com.example.catchroom_be.domain.product.type.TransportationType;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,9 @@ public class OrderHistoryService {
     public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
         List<OrderHistory> orderHistoryList = orderHistoryRepository
             .findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId());
+        if (orderHistoryList.isEmpty()) {
+            throw new SaleException(ErrorCode.EMPTY_ORDER_HISTORY);
+        }
         return DatefilterOrderHisotryList(orderHistoryList);
     }
 
@@ -35,20 +40,6 @@ public class OrderHistoryService {
             .map(OrderHistoryCandidateResponse::fromEntity)
             .collect(Collectors.toList());
     }
-
-   /* @Transactional(readOnly = true)
-    public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
-        List<OrderHistory> orderHistoryList = orderHistoryRepository
-            .findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId());
-        return DatefilterOrderHisotryList(orderHistoryList);
-    }
-*/
-  /*  private List<OrderHistoryCandidateResponse> DatefilterOrderHisotryList(List<OrderHistory> orderHistoryList) {
-        return orderHistoryList.stream()
-            .filter(orderHistory -> orderHistory.getCheckIn().isAfter(LocalDate.now().minusDays(1)))
-            .map(OrderHistoryCandidateResponse::fromEntity)
-            .collect(Collectors.toList());
-    }*/
 
     @Transactional
     public void insertDataOrderHistory(User user) {
