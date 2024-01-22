@@ -55,6 +55,8 @@ public class Product extends BaseTime {
     private LocalDate catchPriceStartDate;
     @Column(name = "accommodation_name")
     private String accommodationName;
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
 
     public void updateProduct(SaleEditRequest saleEditRequest) {
         this.discountRate = saleEditRequest.getDiscountRate();
@@ -79,6 +81,10 @@ public class Product extends BaseTime {
         this.sellPrice = catchPrice;
         this.isCatch = true;
         this.actualProfit = catchPrice;
+    }
+
+    public void setIsDeleted(boolean delete) {
+        this.isDeleted = delete;
     }
 
 }
