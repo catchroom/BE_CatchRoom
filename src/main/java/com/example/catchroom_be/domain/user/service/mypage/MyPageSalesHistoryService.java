@@ -7,6 +7,9 @@ import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.orderhistory.repository.OrderHistoryRepository;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
+import com.example.catchroom_be.domain.review.entity.Review;
+import com.example.catchroom_be.domain.review.enumlist.ReviewType;
+import com.example.catchroom_be.domain.review.repository.ReviewEntityRepository;
 import com.example.catchroom_be.domain.user.dto.response.SalesHistoryDoneResponse;
 import com.example.catchroom_be.domain.user.dto.response.SalesHistoryNowResponse;
 import com.example.catchroom_be.domain.user.entity.User;
@@ -28,6 +31,7 @@ import java.util.Optional;
 public class MyPageSalesHistoryService {
     private final ProductRepository productRepository;
     private final AccommodationRepository accommodationRepository;
+    private final ReviewEntityRepository reviewEntityRepository;
 
 
     @Transactional
@@ -73,9 +77,16 @@ public class MyPageSalesHistoryService {
             if (!product.getDealState().name().equals("ONSALE")) {
                 OrderHistory orderHistory = product.getOrderHistory();
 
+                Long reviewId = Optional.ofNullable(product.getReview())
+                        .filter(review -> review.getType().equals(ReviewType.SELL))
+                        .map(Review::getId)
+                        .orElse(null);
+
+
                 SalesHistoryDoneResponse response = new SalesHistoryDoneResponse();
                 response.fromProduct(orderHistory.getCheckIn(), orderHistory.getCheckOut()
-                        , product.getCreatedAt(), product.getEndDate(), product.getSellPrice(), product.getIsCatch(), orderHistory.getId(), product.getDealState().name());
+                        , product.getCreatedAt(), product.getEndDate(), product.getSellPrice(),
+                        product.getIsCatch(), orderHistory.getId(), product.getDealState().name(), reviewId);
                 Accommodation accommodation = accommodationRepository.findById(orderHistory.getAccommodation().getId())
                         .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_SALESLIST_FIND_ERROR));
 
@@ -86,17 +97,7 @@ public class MyPageSalesHistoryService {
 
         return responses;
     }
-    @Transactional
-    public void salesHistoryDeleteService(Long id) {
-        Optional<Product> productOptional = productRepository.findById(id);
-        if (!productOptional.isPresent()) {
-            throw new UserException(ErrorCode.MYPAGE_SALESLIST_DELETE_ERROR);
-        }
 
-        Product product = productOptional.get();
-        product.setIsDeleted(true);  // Product를 '삭제' 상태로 표시
-        productRepository.save(product);
-    }
 
 
 
