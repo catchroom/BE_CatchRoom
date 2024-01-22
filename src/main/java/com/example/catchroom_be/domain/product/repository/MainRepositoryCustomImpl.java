@@ -26,7 +26,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
 
 
     @Override
-    public ProductSearchListResponse getCatchMain(Pageable pageable) {
+    public ProductSearchListResponse getCatchMain() {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
@@ -85,7 +85,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
     }
 
     @Override
-    public ProductSearchListResponse getCheckInMain(LocalDate date, Pageable pageable) {
+    public ProductSearchListResponse getCheckInMain(LocalDate date) {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
