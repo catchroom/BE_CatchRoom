@@ -18,19 +18,12 @@ public class OrderHistoryController {
 
     @GetMapping("/yanolja/product/candidate")
     public ResponseEntity<?> findProductCandidate(@AuthenticationPrincipal User user) {
-        if (orderHistoryService.findProductCandidate(user).isEmpty()) {
-            return ResponseEntity.ok(
-                ApiResponse.create(
-                    4001, "야놀자에서 구매하신 숙박권이 없습니다."
-                )
-            );
-        } else {
-            return ResponseEntity.ok(
-                ApiResponse.create(
-                    4000, orderHistoryService.findProductCandidate(user)
-                )
-            );
-        }
-
+        return ResponseEntity.ok(
+            ApiResponse.create(
+                4000, orderHistoryService.findProductCandidate(user)
+            )
+        );
     }
+
 }
+
