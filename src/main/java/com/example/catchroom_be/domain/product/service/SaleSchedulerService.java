@@ -6,6 +6,7 @@ import com.example.catchroom_be.domain.product.type.DealState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,15 +17,17 @@ import java.util.List;
 public class SaleSchedulerService {
     private final ProductRepository productRepository;
     @Scheduled(cron = "0 0 0 * * *",zone = "Asia/Seoul")
+    @Transactional
     public void applyCatchPrice() {
         List<Product> productList = productRepository
-            .findAllByCatchPriceStartDateBeforeAndDealState(LocalDate.now(),DealState.ONSALE);
+            .findAllByCatchPriceStartDateBeforeAndDealStateAndIsAutoCatch(LocalDate.now(),DealState.ONSALE,true);
         for (Product product : productList) {
             product.updateIsCatch(product.getCatchPrice());
         }
     }
 
     @Scheduled(cron = "0 * * * * *",zone = "Asia/Seoul")
+    @Transactional
     public void applyProductEndDate() {
         List<Product> productList = productRepository
             .findAllByEndDateBeforeAndDealState(LocalDateTime.now(),DealState.ONSALE);

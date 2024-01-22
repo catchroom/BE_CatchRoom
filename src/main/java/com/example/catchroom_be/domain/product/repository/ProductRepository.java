@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
-    List<Product> findAllByCatchPriceStartDateBeforeAndDealState(LocalDate today, DealState onSale);
+    List<Product> findAllByCatchPriceStartDateBeforeAndDealStateAndIsAutoCatch(LocalDate today, DealState onSale, boolean isAutoCatch);
 
     List<Product> findAllByEndDateBeforeAndDealState(LocalDateTime now, DealState onSale);
 }
