@@ -47,6 +47,7 @@ public class SaleRegistRequest {
             .isNego(isNego)
             .catchPriceStartDate(catchPriceStartDate)
             .accommodationName(orderHistory.getAccommodation().getName())
+            .isDeleted(false)
             .build();
     }
 
