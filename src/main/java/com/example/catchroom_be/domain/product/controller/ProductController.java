@@ -19,7 +19,9 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping()
-    public ResponseEntity<?> findProduct(@RequestParam(name = "id") Long productId, @AuthenticationPrincipal User user) {
+    public ResponseEntity<?> findProduct(
+        @RequestParam(name = "id") Long productId,
+        @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(
             ApiResponse.create(
                 4040, productService.findProduct(productId,user)));

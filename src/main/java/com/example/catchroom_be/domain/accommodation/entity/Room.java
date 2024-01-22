@@ -39,7 +39,7 @@ public class Room {
 
     private int count;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 

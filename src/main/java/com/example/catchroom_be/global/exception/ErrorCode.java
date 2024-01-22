@@ -42,6 +42,7 @@ public enum ErrorCode {
     INVALID_PRODUCT_OWNER(4022, "본인의 숙박권/상품만 수정할 수 있습니다."),
     INVALID_REGIST_TIME(4011, "판매 마감 날짜는 현시점 이후 ~ 체크인 날짜 사이 값으로 설정해야합니다."),
     DUPLICATED_REGIST_PRODUCT(4012,"이미 등록된 상품입니다."),
+    INVALID_AUTOCATCH_PRICE(4013,"캐치특가 적용시점을 오늘 날짜 이후 ~ 상품 게시 종료 날짜 이전으로 설정해주세요."),
     //야놀자 데이터 관련
     ORDERHISTROY_NOT_FOUND(4044, "구매하신 숙박권이 없습니다."),
 

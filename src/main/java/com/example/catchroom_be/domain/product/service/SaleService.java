@@ -38,6 +38,10 @@ public class SaleService {
     public SaleRegistResponse registerProduct(SaleRegistRequest saleRegisterRequest, User user) {
         OrderHistory orderHistory = validatedOrderHistoryOwner(saleRegisterRequest, user);
         validatedSaleEndDate(saleRegisterRequest.getEndDate(),orderHistory.getCheckIn());
+        if (saleRegisterRequest.getIsAutoCatch()) {
+            validatedAutoCatchDate(saleRegisterRequest.getCatchPriceStartDate(),saleRegisterRequest.getEndDate());
+        }
+
         if (orderHistory.isSale()) {
             throw new SaleException(ErrorCode.DUPLICATED_REGIST_PRODUCT);
         }
@@ -89,6 +93,13 @@ public class SaleService {
 
         if (endDate.isBefore(LocalDateTime.now()) || endDate.isAfter(checkIn.plusDays(1).atStartOfDay())) {
             throw new SaleException(ErrorCode.INVALID_REGIST_TIME);
+        }
+    }
+
+    private void validatedAutoCatchDate(LocalDate autoCatchDate, LocalDateTime endDate) {
+
+        if (autoCatchDate.isBefore(LocalDate.now()) || autoCatchDate.isAfter(endDate.toLocalDate())) {
+            throw new SaleException(ErrorCode.INVALID_AUTOCATCH_PRICE);
         }
     }
 }
