@@ -28,7 +28,6 @@ public class Product extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderhistory_id")
     private OrderHistory orderHistory;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "deal_state")
     private DealState dealState;
@@ -56,7 +55,7 @@ public class Product extends BaseTime {
     @Column(name = "accommodation_name")
     private String accommodationName;
     @Column(name = "is_deleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted;
 
     public void updateProduct(SaleEditRequest saleEditRequest) {
         this.discountRate = saleEditRequest.getDiscountRate();
@@ -69,7 +68,7 @@ public class Product extends BaseTime {
         this.isCatch = saleEditRequest.getIsCatch();
         this.isNego = saleEditRequest.getIsNego();
         this.catchPriceStartDate = saleEditRequest.getCatchPriceStartDate();
-        this.accommodationName = saleEditRequest.getAccommodationName();
+        this.isDeleted = false;
 
     }
 
@@ -83,7 +82,7 @@ public class Product extends BaseTime {
         this.actualProfit = catchPrice;
     }
 
-    public void setIsDeleted(boolean delete) {
+    public void setIsDeleted(Boolean delete) {
         this.isDeleted = delete;
     }
 
