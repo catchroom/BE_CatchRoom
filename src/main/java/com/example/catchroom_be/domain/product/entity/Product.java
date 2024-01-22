@@ -71,8 +71,14 @@ public class Product extends BaseTime {
 
     }
 
-    public void setDealState() {
-        this.dealState = DealState.DONEDEAL;
+    public void updateDealState(DealState updateDealState) {
+        this.dealState = updateDealState;
+    }
+
+    public void updateIsCatch(int catchPrice) {
+        this.sellPrice = catchPrice;
+        this.isCatch = true;
+        this.actualProfit = catchPrice;
     }
 
 }
