@@ -8,9 +8,10 @@ import lombok.Getter;
 @Builder
 public class DepositAccountNumResponse {
     String accountNumber;
-    String balance;
+    Integer balance;
     String accountOwner;
     String bankName;
+
 
 
     public static DepositAccountNumResponse fromEntity(User user) {

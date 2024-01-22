@@ -12,6 +12,7 @@ import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.common.ApiResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
 
     private final BuyHistoryRepository buyHistoryRepository;
     private final ProductRepository productRepository;
+    private final UserEntityRepository userRepository;
 
     @Override
     @Transactional
@@ -41,6 +43,10 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
         buyHistory.setReservationNumber();
         product.setDealState();
         buyHistoryRepository.save(buyHistory);
+
+        User seller = userRepository.findById(product.getSeller().getId())
+            .orElseThrow(() -> new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
+        seller.updateBalance(product.getActualProfit());
 
         System.out.println("buyHistory = " + buyHistory.getId());
 

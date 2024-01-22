@@ -6,7 +6,6 @@ import com.example.catchroom_be.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderHistoryController {
     private final OrderHistoryService orderHistoryService;
-    //TODO @AuthenticationPrincipal 로직 완성 예정_정혜민
+
     @GetMapping("/yanolja/product/candidate")
     public ResponseEntity<?> findProductCandidate(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(

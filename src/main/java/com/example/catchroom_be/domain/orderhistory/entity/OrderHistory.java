@@ -37,15 +37,15 @@ public class OrderHistory extends BaseTime {
 
     @Column(name = "price", nullable = false)
     private int price;
-    @Column(name = "check_in")
+    @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
-    @Column(name = "check_out")
+    @Column(name = "check_out", nullable = false)
     private LocalDate checkOut;
     @Column(name = "is_sale", nullable = false)
     private boolean isSale;
     @Column(name = "is_free_cancel", nullable = false)
     private boolean isFreeCancel;
-    @Column(name = "transportation")
+    @Column(name = "transportation", nullable = false)
     @Enumerated(EnumType.STRING)
     private TransportationType transportation;
 

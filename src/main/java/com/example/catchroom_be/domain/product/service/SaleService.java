@@ -11,7 +11,6 @@ import com.example.catchroom_be.domain.product.dto.response.SaleRegistResponse;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.exception.SaleException;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
-import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
