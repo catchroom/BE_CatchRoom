@@ -1,23 +1,22 @@
 package com.example.catchroom_be.domain.product.dto.response;
 
 import com.example.catchroom_be.domain.product.entity.Product;
-import java.time.LocalDate;
-import java.util.List;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder
 @AllArgsConstructor
 public class ProductSearchListResponse {
-    private int size;
+    private Long size;
+    private boolean nextPage;
     private List<ProductSearchResponse> list;
     private String message;
-//    private boolean nextPage;
 
 
     @Getter

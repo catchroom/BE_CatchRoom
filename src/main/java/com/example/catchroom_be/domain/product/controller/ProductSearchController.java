@@ -5,6 +5,7 @@ import com.example.catchroom_be.domain.product.type.ProductSortType;
 import com.example.catchroom_be.global.common.ApiResponse;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +22,20 @@ public class ProductSearchController {
 
     @GetMapping("/search")
     public ResponseEntity<?> getSearchList (
-          @RequestParam(name = "accommodationType") String accommodationType,
-          @RequestParam(name = "region") String region,
-          @RequestParam(name = "pax") int pax,
-          @RequestParam(name = "checkInStart") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInStart,
-          @RequestParam(name = "checkInEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInEnd,
-          @RequestParam(name = "filter") ProductSortType filter,
-          Pageable pageable // TODO 무한스크롤 구현 예정
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "region") String region,
+            @RequestParam(name = "pax") int pax,
+            @RequestParam(name = "checkInStart") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInStart,
+            @RequestParam(name = "checkInEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInEnd,
+            @RequestParam(name = "filter") ProductSortType filter,
+            @RequestParam(name = "pageNumber", required = false) int pageNumber
     ) {
+
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, 10);
 
         return ResponseEntity.ok(
                 ApiResponse.create(3005, productSearchService.getSearchList(
-                        accommodationType, region, pax, checkInStart, checkInEnd, filter, pageable
+                        type, region, pax, checkInStart, checkInEnd, filter, pageRequest
                 ))
         );
     }

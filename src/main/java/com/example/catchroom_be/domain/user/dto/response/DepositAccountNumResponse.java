@@ -9,6 +9,9 @@ import lombok.Getter;
 public class DepositAccountNumResponse {
     String accountNumber;
     Integer balance;
+    String accountOwner;
+    String bankName;
+
 
 
     public static DepositAccountNumResponse fromEntity(User user) {
@@ -16,6 +19,8 @@ public class DepositAccountNumResponse {
         return DepositAccountNumResponse.builder()
                 .accountNumber(user.getAccountNumber())
                 .balance(user.getBalance())
+                .accountOwner(user.getAccountOwner())
+                .bankName(user.getBankName())
                 .build();
     }
 }
