@@ -25,7 +25,7 @@ public class Account {
     private String accountOwner;
 
     @Column (name= "balance",nullable = false)
-    private String balance;
+    private Integer balance;
 
     @Column (name = "bank",nullable = false)
     private  String bankName;

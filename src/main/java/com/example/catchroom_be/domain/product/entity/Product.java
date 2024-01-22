@@ -30,19 +30,30 @@ public class Product extends BaseTime {
     private OrderHistory orderHistory;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "deal_state")
     private DealState dealState;
+    @Column(name = "discount_rate")
     private int discountRate;
+    @Column(name = "sell_price")
     private int sellPrice;
+    @Column(name = "actual_profit")
     private int actualProfit;
+    @Column(name = "catch_price")
     private int catchPrice;
     @Column(name = "end_date")
     private LocalDateTime endDate;
     @Size(min = 9, message = "최소 10글자 이상 입력해주세요.")
+    @Column(name = "introduction")
     private String introduction;
+    @Column(name = "is_auto_catch")
     private Boolean isAutoCatch;
+    @Column(name = "is_catch")
     private Boolean isCatch;
+    @Column(name = "is_nego")
     private Boolean isNego;
+    @Column(name = "catch_price_start_date")
     private LocalDate catchPriceStartDate;
+    @Column(name = "accommodation_name")
     private String accommodationName;
 
     public void updateProduct(SaleEditRequest saleEditRequest) {

@@ -34,7 +34,7 @@ public class SaleRegistRequest {
         return Product.builder()
             .seller(loginUser)
             .orderHistory(orderHistory)
-            .dealState(dealState.ONSALE)
+            .dealState(DealState.ONSALE)
             .discountRate(discountRate)
             .sellPrice(sellPrice)
             .actualProfit(actualProfit)

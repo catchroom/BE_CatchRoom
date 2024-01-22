@@ -49,7 +49,7 @@ public class User extends BaseTime {
     private String accountNumber;
 
     @Column(name = "balance")
-    private String balance;
+    private Integer balance;
 
     @Column(name = "account_owner")
     private String accountOwner;
@@ -84,10 +84,12 @@ public class User extends BaseTime {
     }
 
     public void minusDepositWithdraw(Long deposit) {
-        int tempBalance = Integer.parseInt(this.balance);
+        int tempBalance = balance;
         tempBalance -= deposit;
-        this.balance = String.valueOf(tempBalance);
+        this.balance = tempBalance;
+    }
 
-
+    public void updateBalance(int actualSellProfit) {
+        this.balance = balance + actualSellProfit;
     }
 }

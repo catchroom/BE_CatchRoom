@@ -35,15 +35,18 @@ public class ChatRoom implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "chatRoomNumber")
     private String chatRoomNumber;
 
     @Transient
     private UserIdentity loginUserIdentity;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "buyerState")
     private ChatRoomState buyerState;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "sellerState")
     private ChatRoomState sellerState;
 
 
