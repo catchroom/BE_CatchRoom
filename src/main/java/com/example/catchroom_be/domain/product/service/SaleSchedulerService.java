@@ -37,7 +37,7 @@ public class SaleSchedulerService {
         }
     }
 
-    @Scheduled(cron = "0 15 * * * *",zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 15 * * ?",zone = "Asia/Seoul")
     @Transactional
     public void applyProductUnsold() {
         List<Product> productList = productRepository
