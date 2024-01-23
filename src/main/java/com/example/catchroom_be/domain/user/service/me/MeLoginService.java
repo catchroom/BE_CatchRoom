@@ -29,11 +29,6 @@ public class MeLoginService {
     private final MeJWTService meJWTService;
     private final PasswordEncoder passwordEncoder;
     private final StringRedisTemplate stringRedisTemplate;
-    private final int idCookieValidTime = 60 * 1000;
-
-    private final int accessTokenCookieValidTime = 30  * 60 * 1000; // access토큰의 유효시간 (30분)
-
-    private final int refreshTokenCookieValidTime = 3000 * 60 * 1000; //refresh 토큰의 유효시간 (3000분)
     private final int refreshTokenRedisValidTime = 3000 * 60 * 1000;
 
 
@@ -57,32 +52,11 @@ public class MeLoginService {
                 .issuedAt(new Date())
                 .build();
 
-        /*String id = String.valueOf(user.getId());
-        String accessToken = meJWTService.createAccessToken(jwtPayload);*/
         String refreshToken = meJWTService.createRefreshToken(jwtPayload);
 
 
         ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
         valueOperations.set(String.valueOf(user.getId()),refreshToken,refreshTokenRedisValidTime, TimeUnit.MILLISECONDS);
-
-         /*Cookie idCookie = new Cookie("id", id);
-        idCookie.setHttpOnly(true);
-        idCookie.setMaxAge(idCookieValidTime); // 30분
-        idCookie.setPath("/");
-        response.addCookie(idCookie);
-
-        Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
-        accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setMaxAge(accessTokenCookieValidTime); // 30분
-        accessTokenCookie.setPath("/");
-        response.addCookie(accessTokenCookie);
-
-        // 응답에 리프레시 토큰 쿠키 추가
-        Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-        refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setMaxAge(refreshTokenCookieValidTime); // 3000분
-        refreshTokenCookie.setPath("/");
-        response.addCookie(refreshTokenCookie);*/
 
 
         return LoginResponse.builder()
