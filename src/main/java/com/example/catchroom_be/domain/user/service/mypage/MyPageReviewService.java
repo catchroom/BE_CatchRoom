@@ -8,7 +8,7 @@ import com.example.catchroom_be.domain.review.entity.Review;
 import com.example.catchroom_be.domain.review.enumlist.ReviewRefactType;
 import com.example.catchroom_be.domain.review.enumlist.ReviewStatusType;
 import com.example.catchroom_be.domain.review.enumlist.ReviewType;
-import com.example.catchroom_be.domain.review.repository.ReviewEntityRepository;
+import com.example.catchroom_be.domain.review.repository.ReviewRepository;
 import com.example.catchroom_be.domain.user.dto.request.ReviewPostRequest;
 import com.example.catchroom_be.domain.user.dto.request.ReviewRefactRequest;
 import com.example.catchroom_be.domain.user.dto.response.ReviewResponse;
@@ -28,7 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MyPageReviewService {
 
-    private final ReviewEntityRepository reviewEntityRepository;
+    private final ReviewRepository reviewEntityRepository;
     private final AccommodationRepository accommodationRepository;
     private final ProductRepository productRepository;
 

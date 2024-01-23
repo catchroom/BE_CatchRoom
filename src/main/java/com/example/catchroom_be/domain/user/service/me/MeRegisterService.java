@@ -45,8 +45,8 @@ public class MeRegisterService {
                 .phonenumber(registerRequest.getPhonenumber())
                 .build();
 
-        orderHistoryService.insertDataOrderHistory(user);
         User saveUser = userEntityRepository.save(user);
+        orderHistoryService.insertDataOrderHistory(saveUser);
 
 
     }

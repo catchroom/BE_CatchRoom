@@ -65,8 +65,26 @@ public class MainController {
     }
 
     @GetMapping("/review/list")
-    public ResponseEntity<?> getSearchList(){
+    public ResponseEntity<?> getReviewList(
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber, // page는 0부터 시작
+            @RequestParam(name = "dataType") int dataType
+    ) {
 
-        return null;
+        // 리뷰-메인홈
+        if (dataType == 1) {
+
+            return ResponseEntity.ok(
+                    ApiResponse.create(3005, mainService.reviewMain())
+            );
+        }
+
+        // 리뷰-전체보기
+        else {
+            PageRequest pageRequest = PageRequest.of(pageNumber - 1, 10);
+
+            return ResponseEntity.ok(
+                    ApiResponse.create(3005, mainService.reviewAll(pageRequest))
+            );
+        }
     }
 }
