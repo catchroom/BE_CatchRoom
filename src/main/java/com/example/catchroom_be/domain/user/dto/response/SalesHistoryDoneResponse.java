@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class SalesHistoryDoneResponse {
-    String accomodationName;
+    String accommodationName;
     LocalDate checkIn;
     LocalDate checkOut;
     LocalDateTime wirteDate;
@@ -37,7 +37,7 @@ public class SalesHistoryDoneResponse {
     }
 
     public void fromAccommodation(String accommodationName,String thumbNailUrl) {
-        this.accomodationName = accommodationName;
+        this.accommodationName = accommodationName;
         this.thumbNailUrl = thumbNailUrl;
     }
 }

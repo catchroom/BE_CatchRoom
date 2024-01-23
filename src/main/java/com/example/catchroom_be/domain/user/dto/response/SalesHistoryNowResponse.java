@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class SalesHistoryNowResponse {
 
-    String accomodationName;
+    String accommodationName;
     LocalDate checkIn;
     LocalDate checkOut;
     LocalDateTime wirteDate;
@@ -21,19 +21,18 @@ public class SalesHistoryNowResponse {
 
     public void fromProduct(LocalDate checkIn, LocalDate checkOut, LocalDateTime wirteDate,
                             LocalDateTime endDate, Integer sellPrice, Boolean isCatch, Long orderHistoryId) {
-        this.accomodationName = accomodationName;
+
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.wirteDate = wirteDate;
         this.endDate = endDate;
         this.sellPrice = sellPrice;
-        this.thumbNailUrl = thumbNailUrl;
         this.isCatch = isCatch;
         this.orderHistoryId = orderHistoryId;
     }
 
     public void fromAccommodation(String accommodationName,String thumbNailUrl) {
-        this.accomodationName = accommodationName;
+        this.accommodationName = accommodationName;
         this.thumbNailUrl = thumbNailUrl;
     }
 }
