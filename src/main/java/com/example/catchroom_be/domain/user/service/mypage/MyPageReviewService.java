@@ -54,10 +54,10 @@ public class MyPageReviewService {
         String content = e.getContent();
         Boolean isModify = false;
 
-        LocalDateTime modifiedAt = e.getModifiedAt();
-        if (modifiedAt != null) {
+        LocalDateTime createdAt = e.getCreatedAt();
+        if (createdAt != null) {
             LocalDateTime now = LocalDateTime.now();
-            Duration duration = Duration.between(modifiedAt, now);
+            Duration duration = Duration.between(createdAt, now);
             long diff = Math.abs(duration.toHours());
             if (diff <= 48) {
                 isModify = true;
