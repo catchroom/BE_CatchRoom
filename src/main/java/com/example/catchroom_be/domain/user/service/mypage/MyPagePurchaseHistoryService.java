@@ -96,7 +96,7 @@ public class MyPagePurchaseHistoryService {
 
     public String setReviewStatusType(Product product,Long reviewId) {
         if (reviewId == null) {
-            LocalDateTime createdAt = product.getCreatedAt();
+            LocalDateTime createdAt = product.getEndDate();
             LocalDateTime fourteenDaysAgo = LocalDateTime.now().minusDays(14);
 
             if (createdAt.isAfter(fourteenDaysAgo)) {
@@ -105,8 +105,16 @@ public class MyPagePurchaseHistoryService {
                 return ReviewStatusType.REVIEWWIRTEEXPIRE.getType(); // "리뷰 작성기한 만료"
             }
         }
+        else if (reviewId != null){
+            if (product.getReview().getReviewDeleteType()) {
+                return ReviewStatusType.REVIEWDELETE.getType(); //리뷰 삭제 완료
+            } else{
+                return ReviewStatusType.REVIEWWRTIEN.getType(); //리뷰 작성 완료
+            }
+
+        }
         else {
-            return ReviewStatusType.REVIEWWRTIEN.getType(); //리뷰 작성 완료
+            return ReviewStatusType.REVIEWWRTIEN.getType();
         }
     }
 }

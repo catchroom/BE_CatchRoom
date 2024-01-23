@@ -23,13 +23,11 @@ public class SalesHistoryDoneResponse {
     public void fromProduct(LocalDate checkIn, LocalDate checkOut, LocalDateTime wirteDate,
                             LocalDateTime endDate, Integer sellPrice, Boolean isCatch,
                             Long orderHistoryId,String dealState,Long reviewId,String ReviewStatusType) {
-        this.accomodationName = accomodationName;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.wirteDate = wirteDate;
         this.endDate = endDate;
         this.sellPrice = sellPrice;
-        this.thumbNailUrl = thumbNailUrl;
         this.isCatch = isCatch;
         this.orderHistoryId = orderHistoryId;
         this.dealState = dealState;

@@ -35,8 +35,7 @@ public class MyPageReviewService {
 
     @Transactional
     public ReviewResponse reviewFindService(ReviewType type, Long id) {
-        System.out.println(type);
-        System.out.println(id);
+
 
         Optional<Review> optionalReview = reviewEntityRepository.findByIdAndType(id,type);
 
