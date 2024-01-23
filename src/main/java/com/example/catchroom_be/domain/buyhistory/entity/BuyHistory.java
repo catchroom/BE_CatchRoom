@@ -29,9 +29,6 @@ public class BuyHistory extends BaseTime {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    /*@OneToOne(mappedBy = "buyHistory", fetch = FetchType.LAZY)
-    private Review review;
-*/
     private int price;
 
     private boolean isCatch;
