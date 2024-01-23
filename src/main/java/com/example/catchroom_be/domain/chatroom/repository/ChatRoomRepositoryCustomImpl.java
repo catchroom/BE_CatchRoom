@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static com.example.catchroom_be.domain.accommodation.entity.QAccommodation.accommodation;
 import static com.example.catchroom_be.domain.chatroom.entity.QChatRoom.chatRoom;
-import static com.example.catchroom_be.domain.product.entity.QProduct.product;
 
 
 @RequiredArgsConstructor
