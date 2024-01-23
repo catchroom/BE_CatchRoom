@@ -21,8 +21,6 @@ public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom{
         return queryFactory
             .select(chatRoom.chatRoomNumber)
             .from(chatRoom)
-            .innerJoin(chatRoom.product, product).fetchJoin()
-            .innerJoin(chatRoom.product.orderHistory.accommodation, accommodation).fetchJoin()
             .where(loginUserIdEq(loginUserId),
                 sellerIdEq(sellerId),
                 productIdEq(productId))
