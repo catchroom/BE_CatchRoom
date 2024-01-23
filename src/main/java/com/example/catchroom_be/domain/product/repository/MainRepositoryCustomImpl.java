@@ -17,6 +17,7 @@ import static com.example.catchroom_be.domain.accommodation.entity.QAccommodatio
 import static com.example.catchroom_be.domain.accommodation.entity.QRoom.room;
 import static com.example.catchroom_be.domain.orderhistory.entity.QOrderHistory.orderHistory;
 import static com.example.catchroom_be.domain.product.entity.QProduct.product;
+import static com.example.catchroom_be.domain.review.entity.QReview.review;
 
 
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
     public ProductSearchListResponse getCatchMain() {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
+                .innerJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
@@ -55,6 +57,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
             Pageable pageable) {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
+                .innerJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
@@ -88,6 +91,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
     public ProductSearchListResponse getCheckInMain(LocalDate date) {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
+                .innerJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
@@ -115,6 +119,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
 
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
+                .innerJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
