@@ -62,7 +62,7 @@ public class SaleService {
         OrderHistory orderHistory = orderHistoryRepository.findById(product.getOrderHistory().getId())
             .orElseThrow(() -> new SaleException(ErrorCode.ORDERHISTROY_NOT_FOUND));
         orderHistory.updateSaleState(false);
-        productRepository.deleteById(productId);
+        product.setIsDeleted(true);
     }
     @Transactional(readOnly = true)
     public SaleGetAllInfoResponse findProductAllInfo(Long productId, User user) {

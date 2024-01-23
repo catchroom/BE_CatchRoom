@@ -29,6 +29,7 @@ public class SaleRegistRequest {
     private Boolean isNego;
     private LocalDate catchPriceStartDate;
     private String accommodationName;
+    private Boolean isDeleted;
 
     public Product toEntity(OrderHistory orderHistory,User loginUser) {
         return Product.builder()
@@ -46,6 +47,7 @@ public class SaleRegistRequest {
             .isNego(isNego)
             .catchPriceStartDate(catchPriceStartDate)
             .accommodationName(orderHistory.getAccommodation().getName())
+            .isDeleted(false)
             .build();
     }
 

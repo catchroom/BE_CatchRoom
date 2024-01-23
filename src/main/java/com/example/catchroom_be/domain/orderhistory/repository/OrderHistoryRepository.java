@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long> {
     List<OrderHistory> findAllByIsFreeCancelAndIsSaleAndUserId(boolean isFreeCancel,boolean isSale, Long UserId);
+    OrderHistory findByProductId(Long id);
 }

@@ -3,6 +3,7 @@ package com.example.catchroom_be.domain.product.entity;
 import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.product.dto.request.SaleEditRequest;
 import com.example.catchroom_be.domain.product.type.DealState;
+import com.example.catchroom_be.domain.review.entity.Review;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
@@ -28,7 +29,6 @@ public class Product extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderhistory_id")
     private OrderHistory orderHistory;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "deal_state")
     private DealState dealState;
@@ -55,6 +55,10 @@ public class Product extends BaseTime {
     private LocalDate catchPriceStartDate;
     @Column(name = "accommodation_name")
     private String accommodationName;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+    private Review review;
 
     public void updateProduct(SaleEditRequest saleEditRequest) {
         this.discountRate = saleEditRequest.getDiscountRate();
@@ -67,7 +71,7 @@ public class Product extends BaseTime {
         this.isCatch = saleEditRequest.getIsCatch();
         this.isNego = saleEditRequest.getIsNego();
         this.catchPriceStartDate = saleEditRequest.getCatchPriceStartDate();
-        this.accommodationName = saleEditRequest.getAccommodationName();
+        this.isDeleted = false;
 
     }
 
@@ -79,6 +83,10 @@ public class Product extends BaseTime {
         this.sellPrice = catchPrice;
         this.isCatch = true;
         this.actualProfit = catchPrice;
+    }
+
+    public void setIsDeleted(Boolean delete) {
+        this.isDeleted = delete;
     }
 
 }

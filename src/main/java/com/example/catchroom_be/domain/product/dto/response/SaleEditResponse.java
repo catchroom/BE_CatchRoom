@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 public class SaleEditResponse {
     private String accommodationName;
-    //TODO 응답 방식 고려
     public static SaleEditResponse fromEntity(Product product) {
         return SaleEditResponse.builder()
             .accommodationName(product.getAccommodationName())

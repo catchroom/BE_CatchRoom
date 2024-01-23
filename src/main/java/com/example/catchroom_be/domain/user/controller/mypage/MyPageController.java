@@ -1,13 +1,12 @@
 package com.example.catchroom_be.domain.user.controller.mypage;
 
+import com.example.catchroom_be.domain.review.enumlist.ReviewType;
 import com.example.catchroom_be.domain.user.dto.request.AccountNumRequest;
-import com.example.catchroom_be.domain.user.dto.response.DepositAccountNumResponse;
-import com.example.catchroom_be.domain.user.dto.response.DepositResponse;
-import com.example.catchroom_be.domain.user.dto.response.ProfileResponse;
+import com.example.catchroom_be.domain.user.dto.request.ReviewPostRequest;
+import com.example.catchroom_be.domain.user.dto.request.ReviewRefactRequest;
+import com.example.catchroom_be.domain.user.dto.response.*;
 import com.example.catchroom_be.domain.user.exception.UserException;
-import com.example.catchroom_be.domain.user.service.mypage.MyPageAccountService;
-import com.example.catchroom_be.domain.user.service.mypage.MyPageLogOutService;
-import com.example.catchroom_be.domain.user.service.mypage.MyPageProfileService;
+import com.example.catchroom_be.domain.user.service.mypage.*;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.ApiResponse;
 import com.example.catchroom_be.global.exception.ErrorCode;
@@ -28,6 +27,9 @@ public class MyPageController {
     private final MyPageLogOutService myPageLogOutService;
     private final MyPageProfileService myPageProfileService;
     private final MyPageAccountService myPageAccountService;
+    private final MyPageSalesHistoryService myPageSalesHistoryService;
+    private final MyPagePurchaseHistoryService myPagePurchaseHistoryService;
+    private final MyPageReviewService myPageReviewService;
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<SuccessMessage>> logout(HttpServletRequest request, @AuthenticationPrincipal User user) {
@@ -82,6 +84,51 @@ public class MyPageController {
         List<DepositResponse> depositResponseList = myPageAccountService.depositListService(user);
         return ResponseEntity.ok(ApiResponse.create(2014,depositResponseList));
     }
+
+    @GetMapping("saleshistory/now")
+    public ResponseEntity<ApiResponse<List<SalesHistoryNowResponse>>> salesHistoryNow(@AuthenticationPrincipal User user) {
+        List<SalesHistoryNowResponse> salesHistoryNowResponseList = myPageSalesHistoryService.salesHistoryNowService(user);
+        return ResponseEntity.ok(ApiResponse.create(2015, salesHistoryNowResponseList));
+    }
+
+    @GetMapping("saleshistory/done")
+    public ResponseEntity<ApiResponse<List<SalesHistoryDoneResponse>>> salesHistoryDone(@AuthenticationPrincipal User user) {
+        List<SalesHistoryDoneResponse> salesHistoryDoneResponseList = myPageSalesHistoryService.salesHistoryDoneService(user);
+        return ResponseEntity.ok(ApiResponse.create(2015, salesHistoryDoneResponseList));
+    }
+    @GetMapping("/purchasehistory")
+    public ResponseEntity<ApiResponse<List<PurChaseHistoryResponse>>> purchaseHistory(@AuthenticationPrincipal User user) {
+        List<PurChaseHistoryResponse> purChaseHistoryResponseList = myPagePurchaseHistoryService.purchaseHistoryService(user);
+        return ResponseEntity.ok(ApiResponse.create(2018,purChaseHistoryResponseList));
+    }
+
+    @GetMapping("/review")
+    public ResponseEntity<ApiResponse<ReviewResponse>> reviewFind(@RequestParam String type,@RequestParam Long reviewId) {
+        ReviewType reviewType = ReviewType.fromString(type);
+        ReviewResponse reviewResponse = myPageReviewService.reviewFindService(reviewType,reviewId);
+        return ResponseEntity.ok(ApiResponse.create(2016,reviewResponse));
+    }
+
+    @PostMapping("/review")
+    public ResponseEntity<ApiResponse<SuccessMessage>> reviewPost(@AuthenticationPrincipal User user,@RequestBody ReviewPostRequest reviewPostRequest) {
+        myPageReviewService.reviewPostService(user,reviewPostRequest);
+        return ResponseEntity.ok(ApiResponse.create(2021,SuccessMessage.createSuccessMessage("리뷰 작성에 성공하셨습니다.")));
+    }
+    @PutMapping("/review")
+    public ResponseEntity<ApiResponse<SuccessMessage>> reviewRefact(@RequestBody ReviewRefactRequest reviewRefactRequest) {
+        myPageReviewService.reviewRefactService(reviewRefactRequest);
+        return ResponseEntity.ok(ApiResponse.create(2023,SuccessMessage.createSuccessMessage("리뷰 수정에 성공하셨습니다.")));
+    }
+    @DeleteMapping("/review")
+    public ResponseEntity<ApiResponse<SuccessMessage>> reviewDelete(@RequestParam String type,@RequestParam Long reviewId) {
+        ReviewType reviewType = ReviewType.fromString(type);
+        myPageReviewService.reviewDeleteService(reviewType,reviewId);
+        return ResponseEntity.ok(ApiResponse.create(2025,SuccessMessage.createSuccessMessage("리뷰 삭제에 성공하셨습니다.")));
+    }
+
+
+
+
 
 
 
