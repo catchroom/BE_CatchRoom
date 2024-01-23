@@ -23,7 +23,6 @@ import java.util.Optional;
 public class MyPageProfileService {
 
     private final UserEntityRepository userEntityRepository;
-    private final AccountEntityRepository accountEntityRepository;
 
     @Transactional
     public void nicknameRefactService(String nickName, @AuthenticationPrincipal User user) {
