@@ -1,12 +1,12 @@
 package com.example.catchroom_be.domain.user.service.mypage;
 
 import com.example.catchroom_be.domain.accommodation.entity.Accommodation;
-import com.example.catchroom_be.domain.accommodation.entity.QAccommodation;
 import com.example.catchroom_be.domain.accommodation.repository.AccommodationRepository;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.review.entity.Review;
 import com.example.catchroom_be.domain.review.enumlist.ReviewRefactType;
+import com.example.catchroom_be.domain.review.enumlist.ReviewStatusType;
 import com.example.catchroom_be.domain.review.enumlist.ReviewType;
 import com.example.catchroom_be.domain.review.repository.ReviewEntityRepository;
 import com.example.catchroom_be.domain.user.dto.request.ReviewPostRequest;
@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +46,11 @@ public class MyPageReviewService {
 
 
         Review e = optionalReview.get();
+
+        if (e.getReviewDeleteType()) {
+            throw new UserException(ErrorCode.MYPAGE_REVIEW_FIND_ERROR);
+        }
+
         Optional<Accommodation> optionalAccommodation = accommodationRepository.findById(e.getProduct().getOrderHistory().getAccommodation().getId());
         Accommodation accommodation = optionalAccommodation.get();
         String accommodationName = accommodation.getName();
@@ -109,8 +112,9 @@ public class MyPageReviewService {
     public void reviewDeleteService(ReviewType type,Long id) {
         Optional<Review> optionalProduct = Optional.ofNullable(reviewEntityRepository.findById(id)
                 .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_REVIEW_DELETE_ERROR)));
-        Long reviewId = optionalProduct.get().getId();
+        Review review = optionalProduct.get();
+        review.deleteReview();
 
-        reviewEntityRepository.deleteById(reviewId);
+
     }
 }
