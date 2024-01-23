@@ -47,7 +47,7 @@ public class OrderHistoryService {
     @Transactional
     public void insertDataOrderHistory(User user) {
 
-        LocalDate startDate = LocalDate.of(2024, 01, 15);
+        LocalDate startDate = LocalDate.of(2024, 01, 25);
         LocalDate endDate = LocalDate.of(2024, 02, 28);
         LocalDate currDate = startDate;
 
