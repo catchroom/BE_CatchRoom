@@ -16,20 +16,27 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChatRoomListGetResponse {
     private String chatRoomNumber;
+
     private Long buyerId;
+
     private Long sellerId;
+
     private Long productId;
 
     private String accommodationName;
+
     private int sellPrice;
 
     private UserIdentity loginUserIdentity;
+
     private String accommodationUrl;
 
     private String partnerNickName;
 
     private DealState dealState;
+
     private ChatRoomState buyerState;
+
     private ChatRoomState sellerState;
 
     private static String getPartnerNickName(ChatRoom chatRoom) {
