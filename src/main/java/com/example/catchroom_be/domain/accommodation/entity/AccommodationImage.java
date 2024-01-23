@@ -1,5 +1,6 @@
 package com.example.catchroom_be.domain.accommodation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class AccommodationImage {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommodation_id")
+    @JoinColumn(name = "accommodation_id")@JsonIgnore
     private Accommodation accommodation;
 
     private String url;

@@ -16,7 +16,7 @@ public class ProductGetResponse {
     private String accommodationName;
     private UserIdentity userIdentity;
     private String chatRoomNumber;
-    private String accommodationUrl;
+    private List<?> accommodationUrl;
     private String roomType;
     private List<?> roomUrl;
     private Double star;
@@ -42,9 +42,9 @@ public class ProductGetResponse {
                 .accommodationName(product.getAccommodationName())
                 .userIdentity(checkUserIdentity)
                 .chatRoomNumber("0")
-                .accommodationUrl(product.getOrderHistory().getAccommodation().getThumbnailUrl())
+                .accommodationUrl(product.getOrderHistory().getAccommodation().getAccommodationImageList())
                 .roomType(product.getOrderHistory().getRoom().getName())
-//                .roomUrl(product.getOrderHistory().getRoom().getRoomImageList())
+                .roomUrl(product.getOrderHistory().getRoom().getRoomImageList())
                 .star(product.getOrderHistory().getAccommodation().getStar())
                 .originalPrice(product.getOrderHistory().getPrice())
                 .discountRate(product.getDiscountRate())
@@ -67,9 +67,9 @@ public class ProductGetResponse {
                 .accommodationName(product.getAccommodationName())
                 .userIdentity(checkUserIdentity)
                 .chatRoomNumber(chatRoomId.get(0))
-                .accommodationUrl(product.getOrderHistory().getAccommodation().getThumbnailUrl())
+                .accommodationUrl(product.getOrderHistory().getAccommodation().getAccommodationImageList())
                 .roomType(product.getOrderHistory().getRoom().getName())
-//                .roomUrl(product.getOrderHistory().getRoom().getRoomImageList())
+                .roomUrl(product.getOrderHistory().getRoom().getRoomImageList())
                 .star(product.getOrderHistory().getAccommodation().getStar())
                 .originalPrice(product.getOrderHistory().getPrice())
                 .discountRate(product.getDiscountRate())
