@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +34,22 @@ public class SaleSchedulerService {
             .findAllByEndDateBeforeAndDealState(LocalDateTime.now(),DealState.ONSALE);
         for (Product product : productList) {
             product.updateDealState(DealState.EXPIRED);
+        }
+    }
+
+    @Scheduled(cron = "0 15 * * * *",zone = "Asia/Seoul")
+    @Transactional
+    public void applyProductUnsold() {
+        List<Product> productList = productRepository
+            .findAllByEndDateBeforeAndDealState(LocalDateTime.now(),DealState.ONSALE);
+        List<Product> checkInProductList = new ArrayList<Product>();
+        for (Product product : productList) {
+            if (product.getOrderHistory().getCheckIn().equals(LocalDate.now())) {
+                checkInProductList.add(product);
+            }
+        }
+        for (Product product : checkInProductList) {
+            product.updateDealState(DealState.UNSOLD);
         }
     }
 }

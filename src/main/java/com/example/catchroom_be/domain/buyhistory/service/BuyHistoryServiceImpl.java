@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Service
@@ -46,6 +47,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
         BuyHistory buyHistory = buyRequest.toEntity(user, product);
         buyHistory.setReservationNumber();
         product.updateDealState(DealState.DONEDEAL);
+        product.updateEndDate(LocalDateTime.now());
         buyHistoryRepository.save(buyHistory);
 
         recordSellHistory(product);

@@ -87,4 +87,8 @@ public class Product extends BaseTime {
         this.isDeleted = delete;
     }
 
+    public void updateEndDate(LocalDateTime now) {
+        this.endDate = now;
+    }
+
 }
