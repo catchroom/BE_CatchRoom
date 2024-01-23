@@ -119,14 +119,20 @@ public class ChatRoomService {
         ChatRoom chatRoom = chatRoomRepository.findByChatRoomNumber(roomId)
                 .orElseThrow(() -> new ChatRoomException(ErrorCode.CHATROOM_NOT_FOUND));
 
-        if (chatRoom.getSeller().equals(user)) {
+        StringBuilder sb = new StringBuilder();
+
+        if (chatRoom.getSeller().getId().equals(user.getId())) {
             chatRoom.updateSellerState(ChatRoomState.DONT_SEE);
-        } else if (chatRoom.getBuyer().equals(user)) {
+            sb.append("this is seller -> ");
+        } else if (chatRoom.getBuyer().getId().equals(user.getId())) {
             chatRoom.updateBuyerState(ChatRoomState.DONT_SEE);
+            sb.append("this is buyer -> ");
         }
 
         ChatRoom saveChatRoom = chatRoomRepository.save(chatRoom);
+
+        sb.append(roomId).append(" : ").append(user.getId()).append(" delete SUCCESS");
         if (saveChatRoom == null) return SuccessMessage.createSuccessMessage("FAILED");
-        return SuccessMessage.createSuccessMessage("SUCCESS");
+        return SuccessMessage.createSuccessMessage(sb.toString());
     }
 }
