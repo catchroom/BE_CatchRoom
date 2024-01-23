@@ -1,12 +1,15 @@
 package com.example.catchroom_be.domain.chatroom.repository;
 
+import com.example.catchroom_be.domain.accommodation.entity.QAccommodation;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import static com.example.catchroom_be.domain.accommodation.entity.QAccommodation.accommodation;
 import static com.example.catchroom_be.domain.chatroom.entity.QChatRoom.chatRoom;
+import static com.example.catchroom_be.domain.product.entity.QProduct.product;
 
 
 @RequiredArgsConstructor
@@ -18,6 +21,8 @@ public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom{
         return queryFactory
             .select(chatRoom.chatRoomNumber)
             .from(chatRoom)
+            .innerJoin(chatRoom.product, product).fetchJoin()
+            .innerJoin(chatRoom.product.orderHistory.accommodation, accommodation).fetchJoin()
             .where(loginUserIdEq(loginUserId),
                 sellerIdEq(sellerId),
                 productIdEq(productId))
