@@ -8,9 +8,11 @@ import lombok.*;
 @Getter
 @Builder
 public class SaleRegistResponse {
+    private Long id;
     private String accommodationName;
     public static SaleRegistResponse fromEntity(Product product) {
         return SaleRegistResponse.builder()
+            .id(product.getId())
             .accommodationName(product.getAccommodationName())
             .build();
     }
