@@ -30,7 +30,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
     public ProductSearchListResponse getCatchMain() {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
-                .innerJoin(product.review,review).fetchJoin()
+                .leftJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
@@ -57,7 +57,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
             Pageable pageable) {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
-                .innerJoin(product.review,review).fetchJoin()
+                .leftJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
@@ -91,7 +91,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
     public ProductSearchListResponse getCheckInMain(LocalDate date) {
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
-                .innerJoin(product.review,review).fetchJoin()
+                .leftJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
@@ -119,7 +119,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
 
 
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
-                .innerJoin(product.review,review).fetchJoin()
+                .leftJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
