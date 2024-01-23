@@ -33,7 +33,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
             LocalDate checkInStart, LocalDate checkInEnd, ProductSortType filter, Pageable pageable
     ) {
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
-                .innerJoin(product.review,review).fetchJoin()
+                .leftJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
