@@ -7,7 +7,6 @@ import com.example.catchroom_be.domain.review.entity.Review;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.BaseTime;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -42,7 +41,6 @@ public class Product extends BaseTime {
     private int catchPrice;
     @Column(name = "end_date")
     private LocalDateTime endDate;
-    @Size(min = 9, message = "최소 10글자 이상 입력해주세요.")
     @Column(name = "introduction")
     private String introduction;
     @Column(name = "is_auto_catch")
@@ -79,10 +77,10 @@ public class Product extends BaseTime {
         this.dealState = updateDealState;
     }
 
-    public void updateIsCatch(int catchPrice) {
-        this.sellPrice = catchPrice;
+    public void updateIsCatch(int reserveCatchPrice) {
+        this.sellPrice = reserveCatchPrice;
         this.isCatch = true;
-        this.actualProfit = catchPrice;
+        this.actualProfit = reserveCatchPrice;
     }
 
     public void setIsDeleted(Boolean delete) {

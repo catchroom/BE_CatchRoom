@@ -177,7 +177,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
         DepositDetails depositDetail = DepositDetails.builder()
             .type(DepositType.DEPOSIT.getType())
             .money(product.getSellPrice())
-            .info("예치금")
+            .info(product.getOrderHistory().getAccommodation().getName())
             .user(seller)
             .build();
         depositRepository.save(depositDetail);
