@@ -80,9 +80,9 @@ public class ChatRoomService {
         List<ChatRoom> chatRooms = new ArrayList<>();
 
         for (ChatRoom chatRoom : ChatRoomListUserIsBuyer) {
-            if (chatRoom.getBuyer().equals(user) && chatRoom.getBuyerState().equals(ChatRoomState.DONT_SEE)) {
+            if (chatRoom.getBuyer().getId().equals(user.getId()) && chatRoom.getBuyerState().equals(ChatRoomState.DONT_SEE)) {
                 continue;
-            } else if (chatRoom.getSeller().equals(user) && chatRoom.getSellerState().equals(ChatRoomState.DONT_SEE)) {
+            } else if (chatRoom.getSeller().getId().equals(user.getId()) && chatRoom.getSellerState().equals(ChatRoomState.DONT_SEE)) {
                 continue;
             }
             chatRoom.updateUserIdentity(user.getId());
