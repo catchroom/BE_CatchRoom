@@ -51,7 +51,6 @@ public class ChatRoomListGetResponse {
                 .sellPrice(chatRoom.getProduct().getSellPrice())
                 .loginUserIdentity(chatRoom.getLoginUserIdentity())
                 .accommodationUrl(chatRoom.getProduct().getOrderHistory().getAccommodation().getThumbnailUrl())
-                .partnerNickName(chatRoom.getBuyer().getNickName())
                 .dealState(chatRoom.getProduct().getDealState())
                 .buyerState(chatRoom.getBuyerState())
                 .sellerState(chatRoom.getSellerState())
