@@ -8,7 +8,7 @@ import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.review.entity.Review;
 import com.example.catchroom_be.domain.review.enumlist.ReviewStatusType;
 import com.example.catchroom_be.domain.review.enumlist.ReviewType;
-import com.example.catchroom_be.domain.review.repository.ReviewEntityRepository;
+import com.example.catchroom_be.domain.review.repository.ReviewRepository;
 import com.example.catchroom_be.domain.user.dto.response.SalesHistoryDoneResponse;
 import com.example.catchroom_be.domain.user.dto.response.SalesHistoryNowResponse;
 import com.example.catchroom_be.domain.user.entity.User;
@@ -31,7 +31,7 @@ import java.util.Optional;
 public class MyPageSalesHistoryService {
     private final ProductRepository productRepository;
     private final AccommodationRepository accommodationRepository;
-    private final ReviewEntityRepository reviewEntityRepository;
+    private final ReviewRepository reviewEntityRepository;
 
 
     @Transactional
