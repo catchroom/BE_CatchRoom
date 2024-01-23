@@ -29,20 +29,25 @@ public class ChatRoomController {
         );
     }
     @GetMapping("/list")
-    public ResponseEntity<?> findChatRoomListByMemberId(@AuthenticationPrincipal User user) {
+    public ResponseEntity<?> findChatRoomListByMemberId(
+            @AuthenticationPrincipal User user
+    ) {
         return ResponseEntity.ok(
             ApiResponse.create(6000, chatRoomService.findChatRoomListByMemberId(user)));
     }
 
     @GetMapping("/list/chat")
-    public List<ChatRoomListGetResponse> findChatRoomListByMemberIdChat(@AuthenticationPrincipal User user) {
+    public List<ChatRoomListGetResponse> findChatRoomListByMemberIdChat(
+            @AuthenticationPrincipal User user
+    ) {
         return chatRoomService.findChatRoomListByMemberId(user);
     }
 
 
     @DeleteMapping
     public SuccessMessage deleteChatRoom(
-            @AuthenticationPrincipal User user, @RequestParam(name = "roomId") String roomId
+            @AuthenticationPrincipal User user,
+            @RequestParam(name = "roomId") String roomId
     ) {
         return chatRoomService.deleteChatRoom(user, roomId);
     }
