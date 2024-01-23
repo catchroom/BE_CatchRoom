@@ -18,6 +18,7 @@ import static com.example.catchroom_be.domain.accommodation.entity.QAccommodatio
 import static com.example.catchroom_be.domain.accommodation.entity.QRoom.room;
 import static com.example.catchroom_be.domain.orderhistory.entity.QOrderHistory.orderHistory;
 import static com.example.catchroom_be.domain.product.entity.QProduct.product;
+import static com.example.catchroom_be.domain.review.entity.QReview.review;
 
 /**
  * 상품 조건 검색을 위한 queryDsl
@@ -32,6 +33,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
             LocalDate checkInStart, LocalDate checkInEnd, ProductSortType filter, Pageable pageable
     ) {
         List<ProductSearchResponse> result = queryFactory.selectFrom(product)
+                .innerJoin(product.review,review).fetchJoin()
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
