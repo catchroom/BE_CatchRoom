@@ -11,7 +11,10 @@ import com.example.catchroom_be.domain.orderhistory.entity.OrderHistory;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.product.type.DealState;
+import com.example.catchroom_be.domain.user.entity.DepositDetails;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.domain.user.enumlist.DepositType;
+import com.example.catchroom_be.domain.user.repository.DepositDetailsRepository;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.common.ApiResponse;
 import jakarta.transaction.Transactional;
@@ -28,6 +31,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
     private final BuyHistoryRepository buyHistoryRepository;
     private final ProductRepository productRepository;
     private final UserEntityRepository userRepository;
+    private final DepositDetailsRepository depositRepository;
 
     @Override
     @Transactional
@@ -44,10 +48,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
         product.updateDealState(DealState.DONEDEAL);
         buyHistoryRepository.save(buyHistory);
 
-        User seller = userRepository.findById(product.getSeller().getId())
-            .orElseThrow(() -> new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
-        seller.updateBalance(product.getActualProfit());
-
+        recordSellHistory(product);
         System.out.println("buyHistory = " + buyHistory.getId());
 
         return ApiResponse.create(2039, "상품 구매에 성공했습니다.");
@@ -166,5 +167,19 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
                 (int) (product.getSellPrice() * 0.05),
                 (int) (product.getSellPrice() * 1.05)
         );
+    }
+
+    private void recordSellHistory(Product product) {
+        User seller = userRepository.findById(product.getSeller().getId())
+            .orElseThrow(() -> new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
+        seller.updateBalance(product.getActualProfit());
+
+        DepositDetails depositDetail = DepositDetails.builder()
+            .type(DepositType.DEPOSIT.getType())
+            .money(product.getSellPrice())
+            .info("예치금")
+            .user(seller)
+            .build();
+        depositRepository.save(depositDetail);
     }
 }
