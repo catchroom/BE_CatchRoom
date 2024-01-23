@@ -96,6 +96,7 @@ public class MyPageController {
         List<SalesHistoryDoneResponse> salesHistoryDoneResponseList = myPageSalesHistoryService.salesHistoryDoneService(user);
         return ResponseEntity.ok(ApiResponse.create(2015, salesHistoryDoneResponseList));
     }
+
     @GetMapping("/purchasehistory")
     public ResponseEntity<ApiResponse<List<PurChaseHistoryResponse>>> purchaseHistory(@AuthenticationPrincipal User user) {
         List<PurChaseHistoryResponse> purChaseHistoryResponseList = myPagePurchaseHistoryService.purchaseHistoryService(user);
