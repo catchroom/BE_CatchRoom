@@ -14,4 +14,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findAllByEndDateBeforeAndDealState(LocalDateTime now, DealState onSale);
 
     List<Product> findBySellerIdAndIsDeletedFalseOrderByCreatedAtDesc(Long id);
+
+
 }

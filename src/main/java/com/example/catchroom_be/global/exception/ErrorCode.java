@@ -34,6 +34,8 @@ public enum ErrorCode {
     MYPAGE_REVIEW_WRITE_ERROR(2022,"리뷰 작성에 실패하였습니다."),
     MYPAGE_REVIEW_REFACT_ERROR(2024,"리뷰 수정에 실패하였습니다."),
     MYPAGE_REVIEW_DELETE_ERROR(2026,"삭제하고자 하는 리뷰가 존재하지 않습니다."),
+    MYPAGE_WISHLIST_FIND_ERROR(2045,"나의 찜 목록을 조회해오는데 실패하였습니다."),
+    MYPAGE_WISHLIST_DELETE_ERROR(2029,"삭제하고자 하는 찜 id가 존재하지 않습니다."),
     //예치금 통장 관련
     ACCOUNT_NOT_SAVED(1099, "계좌가 올바르게 저장되지 않았습니다."),
 

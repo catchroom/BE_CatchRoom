@@ -8,6 +8,7 @@ import com.example.catchroom_be.domain.user.dto.response.*;
 import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.service.mypage.*;
 import com.example.catchroom_be.domain.user.entity.User;
+import com.example.catchroom_be.domain.wish.entity.Wish;
 import com.example.catchroom_be.global.common.ApiResponse;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
@@ -30,6 +31,7 @@ public class MyPageController {
     private final MyPageSalesHistoryService myPageSalesHistoryService;
     private final MyPagePurchaseHistoryService myPagePurchaseHistoryService;
     private final MyPageReviewService myPageReviewService;
+    private final MyPageWishService myPageWishService;
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<SuccessMessage>> logout(HttpServletRequest request, @AuthenticationPrincipal User user) {
@@ -125,6 +127,18 @@ public class MyPageController {
         ReviewType reviewType = ReviewType.fromString(type);
         myPageReviewService.reviewDeleteService(reviewType,reviewId);
         return ResponseEntity.ok(ApiResponse.create(2025,SuccessMessage.createSuccessMessage("리뷰 삭제에 성공하셨습니다.")));
+    }
+    @GetMapping("/wishlist")
+    public ResponseEntity<ApiResponse<List<WishResponse>>> wishFind(@AuthenticationPrincipal User user) {
+        List<WishResponse> wishResponseList = myPageWishService.wishFindService(user);
+        return ResponseEntity.ok(ApiResponse.create(2027,wishResponseList));
+
+    }
+
+    @DeleteMapping("wishlist")
+    public ResponseEntity<ApiResponse<SuccessMessage>> wishDelete(@AuthenticationPrincipal User user,@RequestParam Long id) {
+        myPageWishService.wishDeleteService(user,id);
+        return ResponseEntity.ok(ApiResponse.create(2028,SuccessMessage.createSuccessMessage("찜 삭제에 성공하였습니다.")));
     }
 
 
