@@ -20,17 +20,6 @@ public class ChatRoomController {
 
     private final ChatRoomService chatRoomService;
 
-    /** 채팅방 내부 정보 반환하는 API */
-    @GetMapping()
-    public ResponseEntity<?> getChatRoomInfo(
-            @RequestParam(name = "roomId") final String roomId,
-            @AuthenticationPrincipal User user
-    ) {
-        return ResponseEntity.ok(ApiResponse.create(6010,
-            chatRoomService.getChatRoomInfo(roomId, user))
-        );
-    }
-
     @PostMapping("/create")
     public ResponseEntity<?> createRoom(
             @RequestBody ChatRoomCreateRequest chatRoomCreateRequest
@@ -40,20 +29,25 @@ public class ChatRoomController {
         );
     }
     @GetMapping("/list")
-    public ResponseEntity<?> findChatRoomListByMemberId(@AuthenticationPrincipal User user) {
+    public ResponseEntity<?> findChatRoomListByMemberId(
+            @AuthenticationPrincipal User user
+    ) {
         return ResponseEntity.ok(
             ApiResponse.create(6000, chatRoomService.findChatRoomListByMemberId(user)));
     }
 
     @GetMapping("/list/chat")
-    public List<ChatRoomListGetResponse> findChatRoomListByMemberIdChat(@AuthenticationPrincipal User user) {
+    public List<ChatRoomListGetResponse> findChatRoomListByMemberIdChat(
+            @AuthenticationPrincipal User user
+    ) {
         return chatRoomService.findChatRoomListByMemberId(user);
     }
 
 
     @DeleteMapping
     public SuccessMessage deleteChatRoom(
-            @AuthenticationPrincipal User user, @RequestParam(name = "roomId") String roomId
+            @AuthenticationPrincipal User user,
+            @RequestParam(name = "roomId") String roomId
     ) {
         return chatRoomService.deleteChatRoom(user, roomId);
     }

@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
 public class OrderHistoryService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final RoomRepository roomRepository;
+
+    private final static long ROOM_TOTAL_NUMBER = 815L;
+
     @Transactional(readOnly = true)
     public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
         List<OrderHistory> orderHistoryList = orderHistoryRepository
@@ -44,7 +47,7 @@ public class OrderHistoryService {
     @Transactional
     public void insertDataOrderHistory(User user) {
 
-        LocalDate startDate = LocalDate.of(2024, 01, 15);
+        LocalDate startDate = LocalDate.of(2024, 01, 25);
         LocalDate endDate = LocalDate.of(2024, 02, 28);
         LocalDate currDate = startDate;
 
@@ -56,7 +59,7 @@ public class OrderHistoryService {
         Random random = new Random();
 
         while (!currDate.isAfter(endDate)) {
-            long roomIdRandom = random.nextLong(815L) + 1;
+            long roomIdRandom = random.nextLong(ROOM_TOTAL_NUMBER) + 1;
             Room room = null;
             while (true) {
                 room = roomRepository.findById(roomIdRandom).orElseThrow();
@@ -82,14 +85,17 @@ public class OrderHistoryService {
             int nextDays = random.nextInt(5) + 1;
             currDate = currDate.plusDays(nextDays);
         }
+
         orderHistoryRepository.saveAll(orderHistoryList);
     }
 
     private TransportationType getTransportationType(Random random) {
         int transportationRandomInt = random.nextInt(2);
         TransportationType transportationType;
+
         if (transportationRandomInt == 0) transportationType = TransportationType.CAR;
         else transportationType = TransportationType.WALK;
+
         return transportationType;
     }
 
