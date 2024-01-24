@@ -16,12 +16,13 @@ public class PurChaseHistoryResponse {
     String thumbNailUrl;
     Long reviewId;
     String ReviewStatusType;
+    Long productId;
 
 
     public void fromEntity(LocalDateTime buyDate,Boolean isCatch,Integer buyPrice,
                                               LocalDate checkIn,LocalDate checkOut,
                                               String accommodationName,String thumbNailUrl,
-                           Long reviewId,String ReviewStatusType) {
+                           Long reviewId,String ReviewStatusType,Long productId) {
         this. buyDate = buyDate;
         this.isCatch = isCatch;
         this.buyPrice = buyPrice;
@@ -31,6 +32,7 @@ public class PurChaseHistoryResponse {
         this.thumbNailUrl = thumbNailUrl;
         this.reviewId = reviewId;
         this.ReviewStatusType = ReviewStatusType;
+        this.productId = productId;
     }
 
 }
