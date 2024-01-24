@@ -23,43 +23,31 @@ public class MeAccessTokenService {
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final MeJWTService meJWTService;
-    private final int accessTokenCookieValidTime = 30 * 60 * 1000; // access토큰의 유효시간 (30분)
+
 
     public String accessTokenService(HttpServletRequest request, @AuthenticationPrincipal User user, HttpServletResponse response) {
         String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 
 
-        //header에 refresh token이 있는지 확인
-        if (bearerToken == null || !bearerToken.startsWith("Bearer")) {
-            throw new UserException(ErrorCode.USER_REFRESHTOKEN_MISSING);
-        }
-
-
         String refreshToken = bearerToken.substring(7);
 
-        System.out.println(refreshToken);
+
         //redis에 있는 지 확인
         Object checkToken = redisTemplate.opsForValue().get(String.valueOf(user.getId()));
 
 
         if (checkToken == null || !checkToken.toString().equals(refreshToken)) {
 
-            throw new UserException(ErrorCode.USER_REFRESHTOKEN_MISSING);
+            throw new UserException(ErrorCode.USER_REFRESH_TOKEN_NOT_IN_REDIS);
         }
 
 
         try {
             // Refresh Token을 검증
             JwtPayload jwtPayload = meJWTService.verifyToken(refreshToken);
-
             // 새로운 Access Token을 생성
             String newAccessToken = meJWTService.createAccessToken(jwtPayload);
 
-           /* Cookie accessTokenCookie = new Cookie("accessToken", newAccessToken);
-            accessTokenCookie.setHttpOnly(true);
-            accessTokenCookie.setMaxAge(accessTokenCookieValidTime); // 30분
-            accessTokenCookie.setPath("/");
-            response.addCookie(accessTokenCookie);*/
 
             return newAccessToken;
 
