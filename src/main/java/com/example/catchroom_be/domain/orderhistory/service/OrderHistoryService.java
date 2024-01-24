@@ -31,17 +31,20 @@ public class OrderHistoryService {
     public List<OrderHistoryCandidateResponse> findProductCandidate(User user) {
         List<OrderHistory> orderHistoryList = orderHistoryRepository
             .findAllByIsFreeCancelAndIsSaleAndUserId(false, false,user.getId());
-        if (orderHistoryList.isEmpty()) {
-            throw new SaleException(ErrorCode.EMPTY_ORDER_HISTORY);
-        }
         return DatefilterOrderHisotryList(orderHistoryList);
     }
 
     private List<OrderHistoryCandidateResponse> DatefilterOrderHisotryList(List<OrderHistory> orderHistoryList) {
-        return orderHistoryList.stream()
+        List<OrderHistoryCandidateResponse> orderHistoryCandidateResponseList = orderHistoryList.stream()
             .filter(orderHistory -> orderHistory.getCheckIn().isAfter(LocalDate.now().minusDays(1)))
             .map(OrderHistoryCandidateResponse::fromEntity)
             .collect(Collectors.toList());
+
+        if (orderHistoryCandidateResponseList.isEmpty()) {
+            throw new SaleException(ErrorCode.EMPTY_ORDER_HISTORY);
+        }
+
+        return orderHistoryCandidateResponseList;
     }
 
     @Transactional
