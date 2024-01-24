@@ -1,10 +1,10 @@
 package com.example.catchroom_be.domain.user.dto.response;
 
-import com.example.catchroom_be.domain.user.enumlist.DepositType;
+
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 @Getter
 public class DepositResponse {
