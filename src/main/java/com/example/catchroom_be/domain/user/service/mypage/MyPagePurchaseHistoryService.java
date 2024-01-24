@@ -83,9 +83,11 @@ public class MyPagePurchaseHistoryService {
                   LocalDate checkOut = orderHistory.getCheckOut();
                   String accmmodationName = accommodation.getName();
                   String thumbNaialUrl = accommodation.getThumbnailUrl();
+                  Long productId = e.getProduct().getId();
 
                   purChaseHistoryResponse.fromEntity(buyDate,isCatch,buyPrice,
-                          checkIn,checkOut,accmmodationName,thumbNaialUrl,reviewId,reviewStatusType);
+                          checkIn,checkOut,accmmodationName,thumbNaialUrl,
+                          reviewId,reviewStatusType,productId);
 
                   purChaseHistoryResponseList.add(purChaseHistoryResponse);
 

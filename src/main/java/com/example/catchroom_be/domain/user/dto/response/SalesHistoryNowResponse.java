@@ -18,9 +18,10 @@ public class SalesHistoryNowResponse {
     String thumbNailUrl;
     Boolean isCatch;
     Long orderHistoryId;
+    Long productId;
 
     public void fromProduct(LocalDate checkIn, LocalDate checkOut, LocalDateTime wirteDate,
-                            LocalDateTime endDate, Integer sellPrice, Boolean isCatch, Long orderHistoryId) {
+                            LocalDateTime endDate, Integer sellPrice, Boolean isCatch, Long orderHistoryId,Long productId) {
 
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -29,6 +30,7 @@ public class SalesHistoryNowResponse {
         this.sellPrice = sellPrice;
         this.isCatch = isCatch;
         this.orderHistoryId = orderHistoryId;
+        this.productId = productId;
     }
 
     public void fromAccommodation(String accommodationName,String thumbNailUrl) {

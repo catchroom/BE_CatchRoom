@@ -47,11 +47,14 @@ public class MyPageSalesHistoryService {
 
         for (Product product : products) {
             if (product.getDealState().name().equals("ONSALE")) {
+                Long productId = product.getId();
                 OrderHistory orderHistory = product.getOrderHistory();
 
                 SalesHistoryNowResponse response = new SalesHistoryNowResponse();
                 response.fromProduct(orderHistory.getCheckIn(), orderHistory.getCheckOut()
-                        , product.getCreatedAt(), product.getEndDate(), product.getSellPrice(), product.getIsCatch(), orderHistory.getId());
+                        , product.getCreatedAt(), product.getEndDate(), product.getSellPrice(),
+                        product.getIsCatch(), orderHistory.getId(),productId);
+
                 Accommodation accommodation = accommodationRepository.findById(orderHistory.getAccommodation().getId())
                         .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_SALESLIST_FIND_ERROR));
 
@@ -75,6 +78,7 @@ public class MyPageSalesHistoryService {
 
         for (Product product : products) {
             if (!product.getDealState().name().equals("ONSALE")) {
+                Long productId = product.getId();
                 OrderHistory orderHistory = product.getOrderHistory();
 
                 Long reviewId = Optional.ofNullable(product.getReview())
@@ -98,7 +102,9 @@ public class MyPageSalesHistoryService {
                 SalesHistoryDoneResponse response = new SalesHistoryDoneResponse();
                 response.fromProduct(orderHistory.getCheckIn(), orderHistory.getCheckOut()
                         , product.getCreatedAt(), product.getEndDate(), product.getSellPrice(),
-                        product.getIsCatch(), orderHistory.getId(), product.getDealState().name(), reviewId,reviewStatusType);
+                        product.getIsCatch(), orderHistory.getId(), product.getDealState().name(),
+                        reviewId,reviewStatusType,productId);
+
                 Accommodation accommodation = accommodationRepository.findById(orderHistory.getAccommodation().getId())
                         .orElseThrow(() -> new UserException(ErrorCode.MYPAGE_SALESLIST_FIND_ERROR));
 
