@@ -5,6 +5,11 @@ spring:
     url: jdbc-secretsmanager:mysql://catchroomdb.c1aeg6a0abt3.ap-northeast-2.rds.amazonaws.com:3306/catchroomdb
     username: catchroom-secret-manager
     driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
+    hikari:
+      maximum-pool-size: 1 #최대 pool 크기
+      minimum-idle: 1 #최소 pool 크기
+      idle-timeout: 600000 #연결위한 최대 유후 시간
+      max-lifetime: 1800000 #반납된 커넥션의 최대 수명
   jpa:
     hibernate:
       ddl-auto: update
