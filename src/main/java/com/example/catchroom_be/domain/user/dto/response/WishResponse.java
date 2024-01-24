@@ -13,7 +13,7 @@ public class WishResponse {
     String roomName;
     Integer sellPrice;
     double discountRate;
-    double discoutPrice;
+    double discountPrice;
     Long wishId;
 
 
@@ -29,7 +29,7 @@ public class WishResponse {
         this.roomName = roomName;
         this.sellPrice = sellPrice;
         this.discountRate = discountRate;
-        this.discoutPrice = discoutPrice;
+        this.discountPrice = discoutPrice;
         this.wishId = wishId;
 
     }
