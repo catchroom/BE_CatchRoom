@@ -31,7 +31,7 @@ public class ProductGetResponse {
     private String address;
     private int roomNormalCapacity;
     private int roomMaxCapacity;
-    private String accommodationService;
+    private String[] accommodationService;
     private String roomService;
     private int totalRoomCapacity;
 
@@ -57,9 +57,7 @@ public class ProductGetResponse {
                 .address(product.getOrderHistory().getAccommodation().getAddress())
                 .roomNormalCapacity(product.getOrderHistory().getRoom().getNormalCapacity())
                 .roomMaxCapacity(product.getOrderHistory().getRoom().getMaxCapacity())
-                .accommodationService(product.getOrderHistory().getAccommodation().getService())
-                .roomService(product.getOrderHistory().getRoom().getService())
-                .totalRoomCapacity(product.getOrderHistory().getAccommodation().getRoomCount())
+                .accommodationService(product.getOrderHistory().getAccommodation().getService().split(","))
                 .build();
         } else {
             return ProductGetResponse.builder()
@@ -82,9 +80,7 @@ public class ProductGetResponse {
                 .address(product.getOrderHistory().getAccommodation().getAddress())
                 .roomNormalCapacity(product.getOrderHistory().getRoom().getNormalCapacity())
                 .roomMaxCapacity(product.getOrderHistory().getRoom().getMaxCapacity())
-                .accommodationService(product.getOrderHistory().getAccommodation().getService())
-                .roomService(product.getOrderHistory().getRoom().getService())
-                .totalRoomCapacity(product.getOrderHistory().getAccommodation().getRoomCount())
+                .accommodationService(product.getOrderHistory().getAccommodation().getService().split(","))
                 .build();
         }
 

@@ -9,9 +9,11 @@ import lombok.*;
 @Builder
 public class SaleEditResponse {
     private String accommodationName;
+    private Long id;
     public static SaleEditResponse fromEntity(Product product) {
         return SaleEditResponse.builder()
             .accommodationName(product.getAccommodationName())
+            .id(product.getId())
             .build();
     }
 }

@@ -37,11 +37,13 @@ public class SaleSchedulerService {
         }
     }
 
-    @Scheduled(cron = "0 0 15 * * ?",zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 15 * * *",zone = "Asia/Seoul")
     @Transactional
     public void applyProductUnsold() {
+        System.out.println("17시 스케줄링 알람입니다.");
         List<Product> productList = productRepository
-            .findAllByEndDateBeforeAndDealState(LocalDateTime.now(),DealState.ONSALE);
+            .findAllByDealState(DealState.ONSALE);
+        System.out.println(productList);
         List<Product> checkInProductList = new ArrayList<Product>();
         for (Product product : productList) {
             if (product.getOrderHistory().getCheckIn().equals(LocalDate.now())) {
