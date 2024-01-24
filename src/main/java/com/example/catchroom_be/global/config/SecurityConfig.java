@@ -3,6 +3,7 @@ package com.example.catchroom_be.global.config;
 import com.example.catchroom_be.global.jwt.exception.JwtEntryPoint;
 import com.example.catchroom_be.global.jwt.config.JwtFilterConfig;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,16 +15,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+
 public class SecurityConfig {
 
     private final JwtEntryPoint jwtEntryPoint;
     private final JwtFilterConfig jwtFilterConfig;
+    private final CorsConfigurationSource configurationSource;
+
+    public SecurityConfig(JwtEntryPoint jwtEntryPoint, JwtFilterConfig jwtFilterConfig, @Qualifier("corsConfigurationSource")CorsConfigurationSource configurationSource) {
+        this.jwtEntryPoint = jwtEntryPoint;
+        this.jwtFilterConfig = jwtFilterConfig;
+        this.configurationSource = configurationSource;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,6 +45,9 @@ public class SecurityConfig {
         http
                 .csrf((csrfConfig) ->
                         csrfConfig.disable()
+                )
+                .cors((corsConfig) ->
+                        corsConfig.configurationSource(configurationSource)
                 )
                 .sessionManagement((config) ->
                         config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
