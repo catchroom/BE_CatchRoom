@@ -37,9 +37,6 @@ public class MeController {
     private final MeAccessTokenService meAccessTokenService;
 
 
-
-
-
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<SuccessMessage>> register(@Valid @RequestBody RegisterRequest registerRequest) {
         meRegisterService.registerUser(registerRequest);

@@ -16,7 +16,8 @@ public enum ErrorCode {
     USER_CANNOT_LOGIN(1007,"회원 아이디 또는 비밀번호가 올바르지 않습니다"),
     USER_NICKNAME_DUPLICATE(1011,"닉네임이 중복되었습니다."),
     USER_EMAIL_DUPLICATE(1005,"이메일이 중복되었습니다."),
-    USER_REFRESHTOKEN_MISSING(1014,"refresh token이 비어있습니다."),
+    USER_REFRESH_TOKEN_NOT_IN_REDIS(1017,"리프레시 토큰이 레디스에 존재하지 않습니다."),
+
     USER_REFRESHTOKEN_EXPIRE(1015,"refresh token이 만료되었습니다."),
     USER_NOT_FOUND(1016,"등록된 회원정보가 없습니다."),
     //마이페이지
