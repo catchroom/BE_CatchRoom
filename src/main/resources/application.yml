@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.amazonaws.secretsmanager.sql.AWSSecretsManagerMySQLDriver
     hikari:
       maximum-pool-size: 1 #최대 pool 크기
-      minimum-idle: 10 #최소 pool 크기
+      minimum-idle: 1 #최소 pool 크기
       idle-timeout: 600000 #연결위한 최대 유후 시간
       max-lifetime: 1800000 #반납된 커넥션의 최대 수명
   jpa:
