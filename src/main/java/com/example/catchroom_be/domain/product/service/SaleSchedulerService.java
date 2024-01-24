@@ -25,7 +25,7 @@ public class SaleSchedulerService {
         for (Product product : productList) {
             product.updateIsCatch(product.getCatchPrice());
         }
-    }
+    }//test
 
     @Scheduled(cron = "0 0 0 * * *",zone = "Asia/Seoul")
     @Transactional
