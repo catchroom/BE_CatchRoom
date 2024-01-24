@@ -19,11 +19,11 @@ public class SalesHistoryDoneResponse {
     String dealState;
     Long reviewId;
     String ReviewStatusType;
-    Long proudctId;
+    Long productId;
 
     public void fromProduct(LocalDate checkIn, LocalDate checkOut, LocalDateTime wirteDate,
                             LocalDateTime endDate, Integer sellPrice, Boolean isCatch,
-                            Long orderHistoryId,String dealState,Long reviewId,String ReviewStatusType,Long proudctId) {
+                            Long orderHistoryId,String dealState,Long reviewId,String ReviewStatusType,Long productId) {
 
         this.checkIn = checkIn;
         this.checkOut = checkOut;
@@ -35,7 +35,7 @@ public class SalesHistoryDoneResponse {
         this.dealState = dealState;
         this.reviewId = reviewId;
         this.ReviewStatusType = ReviewStatusType;
-        this.proudctId = proudctId;
+        this.productId = productId;
     }
 
     public void fromAccommodation(String accommodationName,String thumbNailUrl) {
