@@ -48,10 +48,13 @@ public class ProductSearchListResponse {
 
         private String longitude;
 
+        private String region;
+
         public static ProductSearchResponse fromEntity(Product product) {
             return ProductSearchResponse.builder()
                     .productId(product.getId())
                     .accommodationName(product.getAccommodationName())
+                    .region(product.getOrderHistory().getAccommodation().getRegion())
                     .image(product.getOrderHistory().getAccommodation().getThumbnailUrl())
                     .checkIn(product.getOrderHistory().getCheckIn())
                     .checkOut(product.getOrderHistory().getCheckOut())
