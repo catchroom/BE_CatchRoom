@@ -71,6 +71,8 @@ dependencies {
 
 	//Redis 사용을 위한 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    
+
 
 }
 
@@ -103,3 +105,7 @@ task buildZip(type: Zip) {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+
+
