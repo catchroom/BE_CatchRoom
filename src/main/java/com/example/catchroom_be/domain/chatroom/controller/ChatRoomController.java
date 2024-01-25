@@ -2,9 +2,11 @@ package com.example.catchroom_be.domain.chatroom.controller;
 
 import com.example.catchroom_be.domain.chatroom.dto.request.ChatRoomCreateRequest;
 import com.example.catchroom_be.domain.chatroom.dto.response.ChatRoomListGetResponse;
+import com.example.catchroom_be.domain.chatroom.exception.ChatRoomException;
 import com.example.catchroom_be.domain.chatroom.service.ChatRoomService;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.global.common.ApiResponse;
+import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +25,11 @@ public class ChatRoomController {
 
     /** 채팅방 내부 정보 반환하는 API */
     @GetMapping("/info")
-    public ChatRoomListGetResponse getChatRoomInfoChat(
+    public String getChatRoomInfoChat(
             @AuthenticationPrincipal User user,
             @RequestParam(name = "roomId") String roomId
     ) {
-        return chatRoomService.getChatRoomInfo(roomId, user);
+        return "왜 안돼";
     }
 
 
