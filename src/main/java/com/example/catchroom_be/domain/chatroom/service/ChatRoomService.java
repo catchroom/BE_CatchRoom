@@ -30,6 +30,18 @@ public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
     private final UserEntityRepository userEntityRepository;
 
+
+    @Transactional(readOnly = true)
+    public ChatRoomListGetResponse getChatRoomInfo(String roomId, User user) {
+        ChatRoom chatRoom = chatRoomRepository.findByChatRoomNumber(roomId)
+                .orElseThrow(() -> new ChatRoomException(ErrorCode.CHATROOM_NOT_FOUND));
+
+        chatRoom.updateUserIdentity(user.getId());
+
+        return ChatRoomListGetResponse.fromEntity(chatRoom);
+
+    }
+
     @Transactional
     public ChatRoomCreateResponse createChatRoom(ChatRoomCreateRequest chatRoomCreateRequest) {
         ChatRoom chatRoom = ChatRoom.create(
