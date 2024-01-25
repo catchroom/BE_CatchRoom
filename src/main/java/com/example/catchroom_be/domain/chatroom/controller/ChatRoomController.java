@@ -25,11 +25,11 @@ public class ChatRoomController {
 
     /** 채팅방 내부 정보 반환하는 API */
     @GetMapping("/info")
-    public String getChatRoomInfoChat(
-            @AuthenticationPrincipal User user,
+    public ChatRoomListGetResponse getChatRoomInfoChat(
+            @RequestParam(name = "userId") Long userId,
             @RequestParam(name = "roomId") String roomId
     ) {
-        return "왜 안돼";
+        return chatRoomService.getChatRoomInfo(roomId, userId);
     }
 
 
