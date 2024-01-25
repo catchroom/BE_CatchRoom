@@ -22,7 +22,7 @@ public class ChatRoomController {
 
 
     /** 채팅방 내부 정보 반환하는 API */
-    @GetMapping
+    @GetMapping("/info")
     public ChatRoomListGetResponse getChatRoomInfoChat(
             @AuthenticationPrincipal User user,
             @RequestParam(name = "roomId") final String roomId
