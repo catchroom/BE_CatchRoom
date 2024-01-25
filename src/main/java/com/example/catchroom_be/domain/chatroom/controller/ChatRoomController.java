@@ -20,6 +20,17 @@ public class ChatRoomController {
 
     private final ChatRoomService chatRoomService;
 
+
+    /** 채팅방 내부 정보 반환하는 API */
+    @GetMapping()
+    public ChatRoomListGetResponse getChatRoomInfoChat(
+            @AuthenticationPrincipal User user,
+            @RequestParam(name = "roomId") final String roomId
+    ) {
+        return chatRoomService.getChatRoomInfo(roomId, user);
+    }
+
+
     @PostMapping("/create")
     public ResponseEntity<?> createRoom(
             @RequestBody ChatRoomCreateRequest chatRoomCreateRequest
