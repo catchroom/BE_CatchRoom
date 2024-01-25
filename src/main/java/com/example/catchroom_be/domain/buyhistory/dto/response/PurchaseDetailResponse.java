@@ -26,6 +26,7 @@ public class PurchaseDetailResponse extends ApiResponse<PurchaseDetailResponse.P
         private final SellPriceInfo sellPrice;
         private final SellerInfo seller;
         private final String introduction;
+        private final String paymentMethod;
     }
 
 

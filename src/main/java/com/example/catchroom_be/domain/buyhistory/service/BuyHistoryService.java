@@ -10,5 +10,5 @@ public interface BuyHistoryService {
 
     ApiResponse getPaymentInfo(User user, Long productId);
 
-    ApiResponse purchaseHistory(User user, Long buyHistoryId);
+    ApiResponse purchaseHistory(User user, Long productId);
 }

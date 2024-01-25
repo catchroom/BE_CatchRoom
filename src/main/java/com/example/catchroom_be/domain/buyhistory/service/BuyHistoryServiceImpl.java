@@ -79,14 +79,15 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
     }
 
     @Override
-    public ApiResponse purchaseHistory(User user, Long buyHistoryId) {
-        BuyHistory buyHistory = buyHistoryRepository.findById(buyHistoryId).
-                orElseThrow(() -> new IllegalArgumentException("구매 내역이 존재하지 않습니다."));
+    public ApiResponse purchaseHistory(User user, Long productId) {
+        Product product = productRepository.findById(productId).
+                orElseThrow(() -> new IllegalArgumentException("상품이 존재하지 않습니다."));
 
-        Product product = buyHistory.getProduct();
         OrderHistory orderHistory = product.getOrderHistory();
         Accommodation accommodation = orderHistory.getAccommodation();
         Room room = orderHistory.getRoom();
+        BuyHistory buyHistory = buyHistoryRepository.findByBuyerAndProduct(user, product).
+                orElseThrow(() -> new IllegalArgumentException("구매 내역이 존재하지 않습니다,"));
 
 
         PurchaseDetailResponse.BuyerInfo buyerInfo = createBuyerInfo(user);
@@ -97,7 +98,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
         PurchaseDetailResponse.SellerInfo sellerInfo = createSellInfo(product);
 
         return PurchaseDetailResponse.create(2041, new PurchaseDetailResponse.PurchaseHistoryDetailData(
-                buyerInfo, userInfo, accommodationInfo, sellPriceInfo, sellerInfo, room.getIntroduction()));
+                buyerInfo, userInfo, accommodationInfo, sellPriceInfo, sellerInfo, room.getIntroduction(),buyHistory.getPaymentMethod()));
     }
 
     public static PurchaseDetailResponse.BuyerInfo createBuyerInfo(User user) {
@@ -173,15 +174,15 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
 
     private void recordSellHistory(Product product) {
         User seller = userRepository.findById(product.getSeller().getId())
-            .orElseThrow(() -> new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저는 존재하지 않습니다."));
         seller.updateBalance(product.getActualProfit());
 
         DepositDetails depositDetail = DepositDetails.builder()
-            .type(DepositType.DEPOSIT.getType())
-            .money(product.getSellPrice())
-            .info(product.getOrderHistory().getAccommodation().getName())
-            .user(seller)
-            .build();
+                .type(DepositType.DEPOSIT.getType())
+                .money(product.getSellPrice())
+                .info(product.getOrderHistory().getAccommodation().getName())
+                .user(seller)
+                .build();
         depositRepository.save(depositDetail);
     }
 }
