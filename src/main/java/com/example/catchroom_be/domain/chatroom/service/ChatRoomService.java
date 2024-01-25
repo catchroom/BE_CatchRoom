@@ -32,11 +32,11 @@ public class ChatRoomService {
 
 
     @Transactional
-    public ChatRoomListGetResponse getChatRoomInfo(String roomId, Long userId) {
+    public ChatRoomListGetResponse getChatRoomInfo(User user, String roomId) {
         ChatRoom chatRoom = chatRoomRepository.findByChatRoomNumber(roomId)
                 .orElseThrow(() -> new ChatRoomException(ErrorCode.CHATROOM_NOT_FOUND));
 
-        chatRoom.updateUserIdentity(userId);
+        chatRoom.updateUserIdentity(user.getId());
 
         return ChatRoomListGetResponse.fromEntity(chatRoom);
 
