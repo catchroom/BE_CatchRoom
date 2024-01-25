@@ -37,7 +37,7 @@ public class SaleGetAllInfoResponse {
         return SaleGetAllInfoResponse.builder()
             .accommdationName(product.getAccommodationName())
             .roomType(product.getOrderHistory().getRoom().getName())
-            .price(product.getSellPrice())
+            .price(product.getOrderHistory().getPrice())
             .accommdationUrl(product.getOrderHistory().getAccommodation().getThumbnailUrl())
             .checkIn(product.getOrderHistory().getCheckIn())
             .checkOut(product.getOrderHistory().getCheckOut())
