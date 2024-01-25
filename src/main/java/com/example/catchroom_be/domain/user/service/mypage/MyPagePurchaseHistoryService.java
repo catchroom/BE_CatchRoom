@@ -46,7 +46,7 @@ public class MyPagePurchaseHistoryService {
            for (BuyHistory e : buyHistoryList) {
                   PurChaseHistoryResponse purChaseHistoryResponse = new PurChaseHistoryResponse();
                   LocalDateTime buyDate = e.getCreatedAt();
-
+                 Long buyHistoryId = e.getId();
                   Product product = e.getProduct();
                   Boolean isCatch = product.getIsCatch();
                   Integer buyPrice = product.getSellPrice();
@@ -87,7 +87,7 @@ public class MyPagePurchaseHistoryService {
 
                   purChaseHistoryResponse.fromEntity(buyDate,isCatch,buyPrice,
                           checkIn,checkOut,accmmodationName,thumbNaialUrl,
-                          reviewId,reviewStatusType,productId);
+                          reviewId,reviewStatusType,productId,buyHistoryId);
 
                   purChaseHistoryResponseList.add(purChaseHistoryResponse);
 
