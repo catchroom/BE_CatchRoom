@@ -85,6 +85,7 @@ public class MyPageReviewService {
                                         .content(reviewPostRequest.getContent())
                                                 .type(reviewPostRequest.getType())
                 .reviewRefactType(ReviewRefactType.REVIEWREFACTVALID)
+                .reviewDeleteType(false)
                                                         .build();
         reviewEntityRepository.save(review);
 
