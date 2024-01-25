@@ -25,7 +25,7 @@ public class ChatRoomController {
     @GetMapping("/info")
     public ChatRoomListGetResponse getChatRoomInfoChat(
             @AuthenticationPrincipal User user,
-            @RequestParam(name = "roomId") final String roomId
+            @RequestParam(name = "roomId") String roomId
     ) {
         return chatRoomService.getChatRoomInfo(roomId, user);
     }
