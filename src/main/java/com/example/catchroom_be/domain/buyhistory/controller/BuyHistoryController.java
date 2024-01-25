@@ -41,9 +41,9 @@ public class BuyHistoryController {
     @GetMapping("/mypage/purchasehistory/detail")
     public ApiResponse<?> getPurchaseHistory(
             @AuthenticationPrincipal User user,
-            @RequestParam Long buyHistoryId
+            @RequestParam Long productId
     ) {
 
-        return buyHistoryService.purchaseHistory(user, buyHistoryId);
+        return buyHistoryService.purchaseHistory(user, productId);
     }
 }
