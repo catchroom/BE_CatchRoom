@@ -1,9 +1,16 @@
 # 파이널 프로젝트 : 무료 예약 취소 불가한 숙소의 양도/거래 서비스
 
+<div align="center">
+  <img width="500" alt="image" src="https://github.com/catchroom/BE_CatchRoom/assets/114489245/94228459-9aef-4069-975d-bee133b5c7c2">
+
+  ![logo](https://img.shields.io/badge/CatchRoom-F0047F.svg?style=for-the-badge)
+</div>
+
+
 ## 🎢 서비스 실행 링크
 
 - [CatchRoom 서비스 실행 링크](https://dev.dhlbrqe2v28e4.amplifyapp.com/home)
-- [백엔드 채팅 Repo](https://github.com/catchroom/BE_Chat)
+- [백엔드 채팅 서버 Repo](https://github.com/catchroom/BE_Chat)
 
 ## 📹 서비스 데모 영상
 - 추후 업데이트 예정
