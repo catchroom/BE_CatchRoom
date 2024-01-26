@@ -18,7 +18,7 @@ public class MeJWTService {
     private String secretKey;
 
     private final long accessTokenValidTime = 10 * 1000L; // access토큰의 유효시간 (30분)
-    /*private final long accessTokenValidTime = 3 *0 * 60*  1000L; // access토큰의 유효시간 (30분)*/
+    /*private final long accessTokenValidTime = 30 * 60*  1000L; // access토큰의 유효시간 (30분)*/
     private final long refreshTokenValidTime = 3000 * 60 * 1000L; //refresh 토큰의 유효시간 (3000분)
 
 
