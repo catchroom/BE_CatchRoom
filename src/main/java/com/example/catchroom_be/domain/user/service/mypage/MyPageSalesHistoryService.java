@@ -65,7 +65,7 @@ public class MyPageSalesHistoryService {
 
         return responses;
     }
-    
+
     @Transactional
     public List<SalesHistoryDoneResponse> salesHistoryDoneService(@AuthenticationPrincipal User user) {
         Long userId = user.getId();
@@ -88,7 +88,7 @@ public class MyPageSalesHistoryService {
                         .orElse(null);
 
                 Boolean reviewDeleteType = Optional.ofNullable(product.getReview())
-                        .map(Review::getReviewDeleteType)// getType() 호출 전에 null인지 확인
+                        .map(Review::getReviewDeleteType)
                         .orElse(null);
 
                 String reviewStatusType = null;
