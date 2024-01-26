@@ -114,6 +114,4 @@
 
 ## 🏗 API 서버 구조 & CI/CD 구조
 
-<img width="1694" alt="image" src="https://github.com/catchroom/BE_CatchRoom/assets/50697545/f15ab45d-4626-4e02-a85e-74bac12ed312">
-
-
+<img width = "1694" alt = "image" src = "https://github.com/catchroom/BE_CatchRoom/assets/59862752/99ca8b8b-a105-4568-8155-27ce501d77d1">
