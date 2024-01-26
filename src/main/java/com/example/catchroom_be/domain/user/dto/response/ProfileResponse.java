@@ -11,6 +11,7 @@ public class ProfileResponse {
     String name;
     String phoneNumber;
     String nickName;
+    Long userId;
 
 
     public static ProfileResponse fromEntity(User user) {
@@ -19,6 +20,7 @@ public class ProfileResponse {
                 .name(user.getName())
                 .phoneNumber(user.getPhonenumber())
                 .nickName(user.getNickName())
+                .userId(user.getId())
                 .build();
     }
 }

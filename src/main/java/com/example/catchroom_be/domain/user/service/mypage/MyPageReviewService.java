@@ -54,6 +54,7 @@ public class MyPageReviewService {
         String accommodationName = accommodation.getName();
         String content = e.getContent();
         Boolean isModify = false;
+        Long reviewId = e.getProduct().getId();
 
         LocalDateTime createdAt = e.getCreatedAt();
         if (createdAt != null) {
@@ -66,7 +67,7 @@ public class MyPageReviewService {
         }
 
         ReviewResponse reviewResponse = new ReviewResponse();
-        reviewResponse.fromEntity(accommodationName, content, isModify);
+        reviewResponse.fromEntity(accommodationName, content, isModify,reviewId);
 
         return reviewResponse;
     }
