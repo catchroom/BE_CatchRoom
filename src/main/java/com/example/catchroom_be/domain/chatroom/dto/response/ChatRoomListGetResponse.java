@@ -33,6 +33,8 @@ public class ChatRoomListGetResponse {
 
     private String partnerNickName;
 
+    private String myNickName;
+
     private DealState dealState;
 
     private ChatRoomState buyerState;
@@ -44,6 +46,14 @@ public class ChatRoomListGetResponse {
             return chatRoom.getBuyer().getNickName();
         } else {
             return chatRoom.getSeller().getNickName();
+        }
+    }
+
+    private static String getMyNickName(ChatRoom chatRoom) {
+        if (chatRoom.getLoginUserIdentity().equals(UserIdentity.SELLER)) {
+            return chatRoom.getSeller().getNickName();
+        } else {
+            return chatRoom.getBuyer().getNickName();
         }
     }
 
@@ -61,6 +71,9 @@ public class ChatRoomListGetResponse {
                 .dealState(chatRoom.getProduct().getDealState())
                 .buyerState(chatRoom.getBuyerState())
                 .sellerState(chatRoom.getSellerState())
+                .myNickName(
+                        ChatRoomListGetResponse.getMyNickName(chatRoom)
+                )
                 .partnerNickName(
                         ChatRoomListGetResponse.getPartnerNickName(chatRoom)
                 )
