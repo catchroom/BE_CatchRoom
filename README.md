@@ -2,7 +2,7 @@
 
 ## 🎢 서비스 실행 링크
 
-- [서비스 실행 링크]([/docs/RUNNING_SCREEN.md](https://dev.dhlbrqe2v28e4.amplifyapp.com/home))
+- [서비스 실행 링크]([https://dev.dhlbrqe2v28e4.amplifyapp.com/home))
 
 ## 💡 프로젝트 주제
 
