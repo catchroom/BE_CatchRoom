@@ -40,8 +40,27 @@
 
 [실행 결과 화면 링크](/docs/RUNNING_SCREEN.md)
 
+## 🛠️ 개발 환경
 
--------------------------|
+- 자바 버전 : **17**
+- 스프링 버전 : **Spring Boot 3**
+- 데이터베이스 : Mysql, Redis (+ docker-compose)
+- 문서화 도구 : Swagger
+- 의존성(자세한 내용은 [build.gradle](./build.gradle)을 참고해주세요!)
+    - Data-JPA
+    - Data-Redis
+    - QueryDSL
+    - Validation
+    - Security
+    - Lombok
+    - jjwt
+
+
+
+## 🧑‍🤝‍🧑 조원 & 역할
+
+| 이름  | 역할                             |
+|-----|--------------------------------|
 | 임경민 | 조장, 주문 도메인 개발, 팀 내 이슈 관리       |
 | 한상우 | 회원 도메인 개발, 서버와 DevOps 설정 관리    |
 | 박건우 | 장바구니 도메인 개발, Swagger API 문서 관리 |
@@ -53,11 +72,10 @@
 
 ## 📐 ERD 설계도
 
-[ERDCloud 사이트 링크](https://www.erdcloud.com/d/jvAPuL7Xrpk3Cnysf) 에서도 확인해보실 수 있습니다.
+[ERDCloud 사이트 링크](https://www.erdcloud.com/d/jvAPuL7Xrpk3Cnysf) 
 
-![ERD.png](./docs/images/ERD.png)
 
 ## 🏗 API 서버 구조 & CI/CD 구조
 
-![SERVER_STRUCTURE.png](./docs/images/SERVER_STRUCTURE.png)
+[SERVER_STRUCTURE.png](./docs/images/SERVER_STRUCTURE.png)
 
