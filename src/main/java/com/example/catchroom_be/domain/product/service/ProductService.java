@@ -9,10 +9,10 @@ import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.product.type.UserIdentity;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
+import com.example.catchroom_be.domain.wish.entity.Wish;
+import com.example.catchroom_be.domain.wish.repository.WishRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +24,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final UserEntityRepository memberRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final WishRepository wishRepository;
 
     @Transactional(readOnly = true)
     public ProductGetResponse findProduct(Long productId, User user) {
@@ -33,7 +34,13 @@ public class ProductService {
             .orElseThrow(() -> new ProductException(ErrorCode.USER_NOT_FOUND));
         UserIdentity viewerIdentity = validateUserEqualSeller(productSeller.getId(),user);
         List<String> chatRoomId = chatRoomRepository.findUniqueChatRoom(findLoginUserId(user), productSeller.getId(), product.getId());
-        return ProductGetResponse.fromEntity(product,viewerIdentity,chatRoomId);
+
+        Wish wish = wishRepository.findByUserAndProduct(user,product);
+        Boolean isWishChecked = true;
+        if (wish == null) {
+            isWishChecked = false;
+        }
+        return ProductGetResponse.fromEntity(product,viewerIdentity,chatRoomId,isWishChecked);
     }
 
     private UserIdentity validateUserEqualSeller(Long sellerId,User loginUser) {
