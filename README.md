@@ -2,7 +2,7 @@
 
 ## 🎢 서비스 실행 링크
 
-[서비스 실행 링크](/docs/RUNNING_SCREEN.md)
+- [서비스 실행 링크](/docs/RUNNING_SCREEN.md)
 
 ## 💡 프로젝트 주제
 
@@ -72,7 +72,7 @@
 
 ## 📐 ERD 설계도
 
-[ERDCloud 사이트 링크](https://www.erdcloud.com/d/eoDe4Y9aag2Eerjxw) 
+- [ERDCloud 사이트 링크](https://www.erdcloud.com/d/eoDe4Y9aag2Eerjxw) 
 
 
 ## 🏗 API 서버 구조 & CI/CD 구조
