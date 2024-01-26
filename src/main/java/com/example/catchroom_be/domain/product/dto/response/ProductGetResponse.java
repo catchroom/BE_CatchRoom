@@ -34,8 +34,9 @@ public class ProductGetResponse {
     private String[] accommodationService;
     private String roomService;
     private int totalRoomCapacity;
+    private Boolean isWishChecked;
 
-    public static ProductGetResponse fromEntity(Product product, UserIdentity checkUserIdentity, List<String> chatRoomId) {
+    public static ProductGetResponse fromEntity(Product product, UserIdentity checkUserIdentity, List<String> chatRoomId, Boolean isWishChecked) {
         if (chatRoomId.isEmpty()) {
             return ProductGetResponse.builder()
                 .seller_id(product.getSeller().getId())
@@ -58,6 +59,7 @@ public class ProductGetResponse {
                 .roomNormalCapacity(product.getOrderHistory().getRoom().getNormalCapacity())
                 .roomMaxCapacity(product.getOrderHistory().getRoom().getMaxCapacity())
                 .accommodationService(product.getOrderHistory().getAccommodation().getService().split(","))
+                .isWishChecked(isWishChecked)
                 .build();
         } else {
             return ProductGetResponse.builder()
@@ -81,6 +83,7 @@ public class ProductGetResponse {
                 .roomNormalCapacity(product.getOrderHistory().getRoom().getNormalCapacity())
                 .roomMaxCapacity(product.getOrderHistory().getRoom().getMaxCapacity())
                 .accommodationService(product.getOrderHistory().getAccommodation().getService().split(","))
+                .isWishChecked(isWishChecked)
                 .build();
         }
 
