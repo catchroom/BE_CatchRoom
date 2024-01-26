@@ -2,6 +2,7 @@ package com.example.catchroom_be.domain.product.repository;
 
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse;
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse.ProductSearchResponse;
+import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.product.type.ProductSortType;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -34,7 +35,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
-                .where(isCatchTrue())
+                .where(isCatchTrue(), eqProductOnSale())
                 .limit(10)
                 .fetch()
                 .stream()
@@ -61,7 +62,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
-                .where(isCatchTrue().and(eqRegionList(regionList)))
+                .where(isCatchTrue().and(eqRegionList(regionList)), eqProductOnSale())
                 .orderBy(
                         getOrderTypeByProductSortType(filter))
                 .offset(pageable.getOffset())
@@ -95,7 +96,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
-                .where(isCheckInEqual(date))
+                .where(isCheckInEqual(date), eqProductOnSale())
                 .limit(3)
                 .fetch()
                 .stream()
@@ -123,7 +124,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .innerJoin(product.orderHistory, orderHistory).fetchJoin()
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
-                .where(isCheckInEqual(date).and(eqRegionList(regionList)))
+                .where(isCheckInEqual(date).and(eqRegionList(regionList)), eqProductOnSale())
                 .orderBy(
                         getOrderTypeByProductSortType(filter))
                 .offset(pageable.getOffset())
@@ -200,5 +201,10 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
 
     private BooleanExpression isCheckInEqual(LocalDate date) {
         return orderHistory.checkIn.eq(date);
+    }
+
+    private BooleanExpression eqProductOnSale() {
+        // where dealState is onSale
+        return product.dealState.eq(DealState.ONSALE);
     }
 }

@@ -3,6 +3,7 @@ package com.example.catchroom_be.domain.product.repository;
 import com.example.catchroom_be.domain.accommodation.type.AccommodationTypeUtil.AccommodationType;
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse;
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse.ProductSearchResponse;
+import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.product.type.ProductSortType;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -39,7 +40,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
                 .where(eqRegionList(regionList), eqAccommodationTypeList(accommodationTypeList),
                         eqBetweenCheckInStartAndCheckInEnd(checkInStart, checkInEnd),
-                        eqPaxIsLessThenMaxCapacity(pax))
+                        eqPaxIsLessThenMaxCapacity(pax), eqProductOnSale())
                 .orderBy(
                         getOrderTypeByProductSortType(filter)
                 )
@@ -67,6 +68,11 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
                 .list(result)
                 .message("Success")
                 .build();
+    }
+
+    private BooleanExpression eqProductOnSale() {
+        // where dealState is onSale
+        return product.dealState.eq(DealState.ONSALE);
     }
 
     private BooleanExpression eqRegionList(List<String> regionList) {
