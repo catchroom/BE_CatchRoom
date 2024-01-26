@@ -65,6 +65,7 @@ public class MyPageSalesHistoryService {
 
         return responses;
     }
+    
     @Transactional
     public List<SalesHistoryDoneResponse> salesHistoryDoneService(@AuthenticationPrincipal User user) {
         Long userId = user.getId();
