@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -36,7 +37,7 @@ public class ReviewSearchListResponse {
 
         private String userName;
 
-        private LocalDateTime date;
+        private String date;
 
         private String content;
 
@@ -52,7 +53,7 @@ public class ReviewSearchListResponse {
                     .productName(accommodation.getName())
                     .image(accommodation.getThumbnailUrl())
                     .userName(user.getNickName())
-                    .date(review.getCreatedAt())
+                    .date(review.getCreatedAt().format(DateTimeFormatter.ofPattern("MM-dd")))
                     .content(review.getContent())
                     .region(accommodation.getRegion())
                     .build();
