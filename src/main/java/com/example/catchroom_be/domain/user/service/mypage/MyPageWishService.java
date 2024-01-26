@@ -67,9 +67,10 @@ public class MyPageWishService {
             double discountPrice = sellPrice * (1 - (discountRate / 100));
             Long wishId = wish.getId();
 
+
             WishResponse wishResponse = new WishResponse(accommodationName,checkIn
                     ,checkOut,isCatch,roomName,sellPrice,
-                    discountRate,discountPrice,wishId);
+                    discountRate,discountPrice,wishId,productId);
 
             wishResponseList.add(wishResponse);
         }
