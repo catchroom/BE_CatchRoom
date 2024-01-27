@@ -13,6 +13,7 @@ import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.wish.entity.Wish;
 import com.example.catchroom_be.domain.wish.repository.WishRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,8 @@ public class MyPageWishService {
             LocalDate checkIn = orderHistory.getCheckIn();
             LocalDate checkOut = orderHistory.getCheckOut();
             boolean isCatch = product.getIsCatch();
-            Integer sellPrice = product.getSellPrice();
+            Integer sellPrice = orderHistory.getPrice();
+//            Integer sellPrice = product.getSellPrice(); // TODO 지운 : 이 부분 위에 것으로 수정하였습니다!
             String roomName = orderHistory.getRoom().getName();
             double discountRate = product.getDiscountRate();
             double discountPrice = sellPrice * (1 - (discountRate / 100));
