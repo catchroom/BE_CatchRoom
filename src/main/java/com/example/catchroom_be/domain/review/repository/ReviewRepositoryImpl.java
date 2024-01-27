@@ -1,11 +1,15 @@
 package com.example.catchroom_be.domain.review.repository;
 
 import com.example.catchroom_be.domain.product.dto.response.ProductSearchListResponse;
+import com.example.catchroom_be.domain.product.type.ProductSortType;
 import com.example.catchroom_be.domain.review.enumlist.ReviewSearchListResponse;
 import com.example.catchroom_be.domain.review.enumlist.ReviewSearchListResponse.ReviewSearchResponse;
 import com.querydsl.core.types.ConstantImpl;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.text.DateFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
@@ -36,6 +40,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                         .innerJoin(product.orderHistory,orderHistory).fetchJoin()
                         .innerJoin(orderHistory.accommodation,accommodation).fetchJoin()
                         .limit(10)
+                        .orderBy(getOrderType())
                         .fetch()
                         .stream()
                         .map(ReviewSearchResponse::fromEntity)
@@ -60,9 +65,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                         .innerJoin(product.orderHistory,orderHistory).fetchJoin()
                         .innerJoin(orderHistory.accommodation,accommodation).fetchJoin()
                         .where(review.createdAt.after(sixMonthsAgo.atStartOfDay()))
-                        .orderBy(Expressions.stringTemplate("DATE_FORMAT({0}, {1})", review.createdAt, ConstantImpl.create("MM-dd"))
-                                        .desc(),
-                                review.content.length().desc())
+                        .orderBy(getOrderType())
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
                         .fetch()
@@ -83,5 +86,19 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
                 .list(result)
                 .build();
 
+    }
+
+    private OrderSpecifier[] getOrderType() {
+
+        StringTemplate formattedDate = Expressions.stringTemplate(
+                "DATE_FORMAT({0}, {1})"
+                , review.createdAt
+                , ConstantImpl.create("%Y-%m-%d"));
+
+        OrderSpecifier[] orderSpecifierList = new OrderSpecifier[2];
+        orderSpecifierList[0] = formattedDate.desc();
+        orderSpecifierList[1] = review.content.length().desc();
+
+        return orderSpecifierList;
     }
 }
