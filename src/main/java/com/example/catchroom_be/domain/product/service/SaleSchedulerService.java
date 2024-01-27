@@ -52,4 +52,15 @@ public class SaleSchedulerService {
             product.updateDealState(DealState.UNSOLD);
         }
     }
+
+    @Scheduled(cron = "0 0 0 * * *",zone = "Asia/Seoul")
+    @Transactional
+    public void applyUnableSold() {
+        List<Product> productList = productRepository.findAll();
+        for (Product product : productList) {
+            if (product.getOrderHistory().getCheckIn().isBefore(LocalDate.now()) && product.getDealState() != DealState.DONEDEAL) {
+                product.updateDealState(DealState.UNABLESELL);
+            }
+        }
+    }
 }
