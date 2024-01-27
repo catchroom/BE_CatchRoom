@@ -30,7 +30,7 @@ public class Accommodation {
 
     private String name;
 
-    private String region; //추후 enum 타입으로 바꿀 예정
+    private String region;
 
     private String introduction;
 
