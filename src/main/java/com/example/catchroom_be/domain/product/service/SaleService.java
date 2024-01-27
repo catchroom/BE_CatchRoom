@@ -58,7 +58,7 @@ public class SaleService {
             validatedAutoCatchDate(saleEditRequest.getCatchPriceStartDate(),saleEditRequest.getEndDate());
         }
         if ((product.getDealState().equals(DealState.UNSOLD) || product.getDealState().equals(DealState.EXPIRED))
-            && product.getEndDate().isAfter(LocalDateTime.now()) ) {
+            && product.getEndDate().isBefore(LocalDateTime.now()) ) {
             product.updateDealState(DealState.ONSALE);
         }
         product.updateProduct(saleEditRequest);
