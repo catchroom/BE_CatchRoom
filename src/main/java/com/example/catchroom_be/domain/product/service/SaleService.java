@@ -11,6 +11,7 @@ import com.example.catchroom_be.domain.product.dto.response.SaleRegistResponse;
 import com.example.catchroom_be.domain.product.entity.Product;
 import com.example.catchroom_be.domain.product.exception.SaleException;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
+import com.example.catchroom_be.domain.product.type.DealState;
 import com.example.catchroom_be.domain.user.entity.User;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
@@ -53,6 +54,13 @@ public class SaleService {
     public SaleEditResponse editProduct(Long productId, SaleEditRequest saleEditRequest, User user) {
         Product product = validatedProductOwner(productId, user);
         validatedSaleEndDate(saleEditRequest.getEndDate(),product.getOrderHistory().getCheckIn());
+        if (saleEditRequest.getIsAutoCatch()) {
+            validatedAutoCatchDate(saleEditRequest.getCatchPriceStartDate(),saleEditRequest.getEndDate());
+        }
+        if ((product.getDealState().equals(DealState.UNSOLD) || product.getDealState().equals(DealState.EXPIRED))
+            && product.getEndDate().isAfter(LocalDateTime.now()) ) {
+            product.updateDealState(DealState.ONSALE);
+        }
         product.updateProduct(saleEditRequest);
         return SaleEditResponse.fromEntity(product);
     }
@@ -67,6 +75,12 @@ public class SaleService {
     @Transactional(readOnly = true)
     public SaleGetAllInfoResponse findProductAllInfo(Long productId, User user) {
         Product product = validatedProductOwner(productId, user);
+        if (product.getOrderHistory().getCheckIn().isBefore(LocalDate.now())) {
+            throw new SaleException(ErrorCode.CHECKIN_DATE_ALREADY_EXPIRED);
+        }
+        if (product.getIsDeleted()) {
+            throw new SaleException(ErrorCode.PRODUCT_ALREADY_DELETED);
+        }
         return SaleGetAllInfoResponse.fromEntity(product);
     }
     @NotNull
@@ -91,15 +105,19 @@ public class SaleService {
     }
     private void validatedSaleEndDate(LocalDateTime endDate, LocalDate checkIn) {
 
-        if (endDate.isBefore(LocalDateTime.now()) || endDate.isAfter(checkIn.plusDays(1).atStartOfDay())) {
-            throw new SaleException(ErrorCode.INVALID_REGIST_TIME);
+        if (endDate.isBefore(LocalDateTime.now())) {
+            throw new SaleException(ErrorCode.INVALID_REGIST_TIME_BEFORE_NOW);
+        } else if (endDate.isAfter(checkIn.plusDays(1).atStartOfDay())) {
+            throw new SaleException(ErrorCode.INVALID_REGIST_TIME_AFTER_CHECKIN);
         }
     }
 
     private void validatedAutoCatchDate(LocalDate autoCatchDate, LocalDateTime endDate) {
 
-        if (autoCatchDate.isBefore(LocalDate.now()) || autoCatchDate.isAfter(endDate.toLocalDate())) {
-            throw new SaleException(ErrorCode.INVALID_AUTOCATCH_PRICE);
+        if (autoCatchDate.isBefore(LocalDate.now())) {
+            throw new SaleException(ErrorCode.INVALID_AUTOCATCH_PRICE_BEFORE_NOW);
+        } else if (autoCatchDate.isAfter(endDate.toLocalDate())) {
+            throw new SaleException(ErrorCode.INVALID_AUTOCATCH_PRICE_AFTER_ENDDATE);
         }
     }
 }
