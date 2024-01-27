@@ -41,6 +41,8 @@ public class ChatRoomListGetResponse {
 
     private ChatRoomState sellerState;
 
+    private Boolean isNego;
+
     private static String getPartnerNickName(ChatRoom chatRoom) {
         if (chatRoom.getLoginUserIdentity().equals(UserIdentity.SELLER)) {
             return chatRoom.getBuyer().getNickName();
@@ -77,6 +79,7 @@ public class ChatRoomListGetResponse {
                 .partnerNickName(
                         ChatRoomListGetResponse.getPartnerNickName(chatRoom)
                 )
+                .isNego(chatRoom.getProduct().getIsNego())
                 .build();
 
 
