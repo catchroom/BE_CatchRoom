@@ -18,16 +18,16 @@ public class RegionUtil {
         map.put(3, "강원");
         map.put(4, "제주");
         map.put(5, "대전");
-        map.put(6, "충청북도");
-        map.put(7, "충청남도");
+        map.put(6, "충북");
+        map.put(7, "충남");
         map.put(8, "부산");
         map.put(9, "울산");
-        map.put(10, "경상남도");
+        map.put(10, "경남");
         map.put(11, "대구");
-        map.put(12, "경상북도");
+        map.put(12, "경북");
         map.put(13, "광주");
-        map.put(14, "전라남도");
-        map.put(15, "전라북도");
+        map.put(14, "전남");
+        map.put(15, "전북");
     }
 
     /**
