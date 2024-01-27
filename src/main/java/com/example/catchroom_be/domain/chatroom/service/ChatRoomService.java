@@ -44,14 +44,23 @@ public class ChatRoomService {
 
     @Transactional
     public ChatRoomCreateResponse createChatRoom(ChatRoomCreateRequest chatRoomCreateRequest) {
+
+        List<ChatRoom> chatRoomIdList = chatRoomRepository.findChatRoomList(
+                chatRoomCreateRequest.getBuyerId(), chatRoomCreateRequest.getSellerId(), chatRoomCreateRequest.getProductId()
+        );
+
+        if (chatRoomIdList.size() > 0) {
+            return ChatRoomCreateResponse.fromEntity(chatRoomIdList.get(0));
+        }
+
         ChatRoom chatRoom = ChatRoom.create(
             userEntityRepository.getReferenceById(chatRoomCreateRequest.getSellerId()),
             userEntityRepository.getReferenceById(chatRoomCreateRequest.getBuyerId()),
             productRepository.getReferenceById(chatRoomCreateRequest.getProductId())
         );
 
-        chatRoomRepository.save(chatRoom);
-        return ChatRoomCreateResponse.fromEntity(chatRoom);
+        ChatRoom saveChatRoom = chatRoomRepository.save(chatRoom);
+        return ChatRoomCreateResponse.fromEntity(saveChatRoom);
     }
 
     @Transactional(readOnly = true)
