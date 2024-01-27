@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class ChatRoom implements Serializable {
+public class ChatRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +27,16 @@ public class ChatRoom implements Serializable {
     @JoinColumn(name = "seller_id")
     private User seller;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id")
     private User buyer;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
 
     @Column(name = "chatRoomNumber")
     private String chatRoomNumber;
@@ -41,9 +44,11 @@ public class ChatRoom implements Serializable {
     @Transient
     private UserIdentity loginUserIdentity;
 
+
     @Enumerated(EnumType.STRING)
     @Column(name = "buyerState")
     private ChatRoomState buyerState;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sellerState")

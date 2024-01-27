@@ -1,6 +1,7 @@
 package com.example.catchroom_be.domain.chatroom.repository;
 
 import com.example.catchroom_be.domain.accommodation.entity.QAccommodation;
+import com.example.catchroom_be.domain.chatroom.entity.ChatRoom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,22 @@ public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom{
                 sellerIdEq(sellerId),
                 productIdEq(productId))
             .fetch();
+    }
+
+    @Override
+    public List<ChatRoom> findChatRoomList(Long buyerId, Long sellerId, Long productId) {
+        return queryFactory
+                .select(chatRoom).from(chatRoom)
+                .where(
+                        buyerIdEq(buyerId),
+                        sellerIdEq(sellerId),
+                        productIdEq(productId)
+                )
+                .fetch();
+    }
+
+    private BooleanExpression buyerIdEq(Long buyerId) {
+        return (buyerId == null) ? null : chatRoom.buyer.id.eq(buyerId);
     }
 
     private BooleanExpression loginUserIdEq(Long loginUserId) {
