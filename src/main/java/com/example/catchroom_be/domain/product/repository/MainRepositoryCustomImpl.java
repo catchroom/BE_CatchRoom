@@ -36,6 +36,8 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
                 .where(isCatchTrue(), eqProductOnSale())
+                .orderBy(
+                        getOrderTypeByProductSortType(ProductSortType.HIGH_DISCOUNT))
                 .limit(10)
                 .fetch()
                 .stream()
@@ -97,6 +99,8 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .innerJoin(orderHistory.room, room).fetchJoin()
                 .innerJoin(orderHistory.accommodation, accommodation).fetchJoin()
                 .where(isCheckInEqual(date), eqProductOnSale())
+                .orderBy(
+                        getOrderTypeByProductSortType(ProductSortType.HIGH_DISCOUNT))
                 .limit(3)
                 .fetch()
                 .stream()
@@ -153,6 +157,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
     private OrderSpecifier[] getOrderTypeByProductSortType(ProductSortType productSortType) {
 
         OrderSpecifier[] orderSpecifierList = new OrderSpecifier[4];
+
         switch (productSortType) {
             case HIGH_DISCOUNT -> {
                 orderSpecifierList[0] = product.discountRate.desc();
