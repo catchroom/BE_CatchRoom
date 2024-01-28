@@ -25,8 +25,8 @@ public class ProductSearchController {
             @RequestParam(name = "type") String type,
             @RequestParam(name = "region") String region,
             @RequestParam(name = "pax") int pax,
-            @RequestParam(name = "checkInStart") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInStart,
-            @RequestParam(name = "checkInEnd") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInEnd,
+            @RequestParam(name = "checkInStart", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInStart,
+            @RequestParam(name = "checkInEnd", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkInEnd,
             @RequestParam(name = "filter") ProductSortType filter,
             @RequestParam(name = "pageNumber") Integer pageNumber
     ) {
