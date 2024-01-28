@@ -35,6 +35,7 @@ public class PurchaseDetailResponse extends ApiResponse<PurchaseDetailResponse.P
     public static class BuyerInfo {
         private final String buyerName;
         private final String buyerPhoneNumber;
+        private final String buyerNickname;
     }
 
     @Getter
