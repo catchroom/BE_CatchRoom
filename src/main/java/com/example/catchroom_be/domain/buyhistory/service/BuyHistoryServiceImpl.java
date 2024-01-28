@@ -161,7 +161,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
 
     public static PaymentResponse.BuyerInfo setBuyerInfo(User user) {
         return new PaymentResponse.BuyerInfo(
-                user.getName(), user.getPhonenumber(), user.getNickname());
+                user.getName(), user.getPhonenumber(), user.getNickName());
     }
 
     public static PaymentResponse.PaymentInfo setPaymentInfo(Product product) {
