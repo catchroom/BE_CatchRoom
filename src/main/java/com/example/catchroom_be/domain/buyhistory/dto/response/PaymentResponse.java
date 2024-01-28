@@ -39,6 +39,7 @@ public class PaymentResponse extends ApiResponse<PaymentResponse.PaymentResponse
     public static class BuyerInfo {
         private final String buyerName;
         private final String buyerPhoneNumber;
+        private final String buyerNickName;
     }
 
     @Getter
