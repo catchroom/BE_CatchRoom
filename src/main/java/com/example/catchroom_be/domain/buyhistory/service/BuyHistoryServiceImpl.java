@@ -103,7 +103,7 @@ public class BuyHistoryServiceImpl implements BuyHistoryService {
 
     public static PurchaseDetailResponse.BuyerInfo createBuyerInfo(User user) {
         return new PurchaseDetailResponse.BuyerInfo(
-                user.getName(), user.getPhonenumber());
+                user.getName(), user.getPhonenumber(), user.getNickName());
     }
 
     public static PurchaseDetailResponse.UserInfo createUserInfo(BuyHistory buyHistory) {
