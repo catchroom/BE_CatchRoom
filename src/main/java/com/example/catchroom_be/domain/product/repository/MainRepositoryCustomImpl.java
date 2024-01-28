@@ -75,7 +75,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .toList();
 
         long totalSize = queryFactory.selectFrom(product)
-                .where(isCatchTrue().and(eqRegionList(regionList)))
+                .where(isCatchTrue().and(eqRegionList(regionList)), eqProductOnSale())
                 .fetchCount();
 
         int pageSize = pageable.getPageSize();
@@ -139,7 +139,7 @@ public class MainRepositoryCustomImpl implements MainRepositoryCustom {
                 .toList();
 
         long totalSize = queryFactory.selectFrom(product)
-                .where(isCheckInEqual(date).and(eqRegionList(regionList)))
+                .where(isCheckInEqual(date).and(eqRegionList(regionList)), eqProductOnSale())
                 .fetchCount();
 
         int pageSize = pageable.getPageSize();

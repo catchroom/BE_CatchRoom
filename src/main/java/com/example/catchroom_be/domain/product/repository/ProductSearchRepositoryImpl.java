@@ -55,7 +55,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
         long totalSize = queryFactory.selectFrom(product)
                 .where(eqRegionList(regionList), eqAccommodationTypeList(accommodationTypeList),
                         eqBetweenCheckInStartAndCheckInEnd(checkInStart, checkInEnd),
-                        eqPaxIsLessThenMaxCapacity(pax))
+                        eqPaxIsLessThenMaxCapacity(pax), eqProductOnSale())
                 .fetchCount();
 
         int pageSize = pageable.getPageSize();
@@ -103,7 +103,7 @@ public class ProductSearchRepositoryImpl implements ProductSearchRepositoryCusto
 
     private BooleanExpression eqBetweenCheckInStartAndCheckInEnd(LocalDate start, LocalDate end) {
         // sql : where checkIn between (start, end)
-        return product.orderHistory.checkIn.between(start, end);
+        return (start == null || end == null) ? null : product.orderHistory.checkIn.between(start, end);
     }
 
     private BooleanExpression eqPaxIsLessThenMaxCapacity(int pax) {
