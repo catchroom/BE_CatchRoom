@@ -13,7 +13,7 @@
 - [백엔드 채팅 서버 Repo](https://github.com/catchroom/BE_Chat)
 
 ## 📹 서비스 데모 영상
-- 추후 업데이트 예정
+- [추후 업데이트 예정](https://www.youtube.com/watch?v=RUeLZLGrHf4)
 
 ## 💡 프로젝트 주제
 
