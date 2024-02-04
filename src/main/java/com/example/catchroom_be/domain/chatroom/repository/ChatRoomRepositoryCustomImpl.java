@@ -1,6 +1,5 @@
 package com.example.catchroom_be.domain.chatroom.repository;
 
-import com.example.catchroom_be.domain.accommodation.entity.QAccommodation;
 import com.example.catchroom_be.domain.chatroom.entity.ChatRoom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -29,7 +28,7 @@ public class ChatRoomRepositoryCustomImpl implements ChatRoomRepositoryCustom{
     @Override
     public List<ChatRoom> findChatRoomList(Long buyerId, Long sellerId, Long productId) {
         return queryFactory
-                .select(chatRoom).from(chatRoom)
+                .selectFrom(chatRoom)
                 .where(
                         buyerIdEq(buyerId),
                         sellerIdEq(sellerId),

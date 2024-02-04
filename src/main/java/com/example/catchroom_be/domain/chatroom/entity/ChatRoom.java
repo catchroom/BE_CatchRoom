@@ -2,14 +2,11 @@ package com.example.catchroom_be.domain.chatroom.entity;
 
 import com.example.catchroom_be.domain.chatroom.type.ChatRoomState;
 import com.example.catchroom_be.domain.product.entity.Product;
-
 import com.example.catchroom_be.domain.product.type.UserIdentity;
 import com.example.catchroom_be.domain.user.entity.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
