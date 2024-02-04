@@ -1,24 +1,39 @@
 # 파이널 프로젝트 : 무료 예약 취소 불가한 숙소의 양도/거래 서비스
 
 <div align="center">
-  <img width="500" alt="image" src="https://github.com/catchroom/BE_CatchRoom/assets/114489245/94228459-9aef-4069-975d-bee133b5c7c2">
-
+  <br>
+  <img width="250" alt="image" src="https://github.com/catchroom/BE_CatchRoom/assets/114489245/94228459-9aef-4069-975d-bee133b5c7c2">
+  <br><br>
+  
   ![logo](https://img.shields.io/badge/CatchRoom-F0047F.svg?style=for-the-badge)
 </div>
 
 
-## 🎢 서비스 실행 링크
+## 🎢 채팅 Repo
 
-- [CatchRoom 서비스 실행 링크](https://dev.dhlbrqe2v28e4.amplifyapp.com/home)
 - [백엔드 채팅 서버 Repo](https://github.com/catchroom/BE_Chat)
 
-## 📹 서비스 데모 영상
-- [추후 업데이트 예정](https://www.youtube.com/watch?v=RUeLZLGrHf4)
+<br><br>
+ 
+## 📹 프로젝트 시연 
+
+https://github.com/catchroom/BE_CatchRoom/assets/59862752/e6abde05-7411-4dee-bdf2-d405622002db
+
+<br><br>
+
 
 ## 💡 프로젝트 주제
 
 - **숙소의 양도/거래 서비스 API 서버 개발**
 - **취소 수수료 발생 숙박매물을 고객간에 거래할 수 있는 중개거래 플랫폼 제작**
+
+<br>
+
+## 🏗 아키텍처
+
+![BE+FE+nginx](https://github.com/catchroom/BE_CatchRoom/assets/59862752/baef5b47-fd7f-4a5e-ba22-0a40749ce86b)
+
+<br>
 
 ## 📝 프로젝트 개요
 
@@ -26,10 +41,14 @@
 - 해당 숙박권에 대한 중고거래 플랫폼을 제공함으로써 안전하고 신속한 거래 기능 제공.
 - 예약 취소 수수료 발생을 최소화하는 것에 초점을 맞추어 기능 개발 진행.
 
+<br>
+
 ## 🚀 프로젝트 인원 및 기간
 
 - **개발 인원**: FE 6명 & BE 4명
 - **프로젝트 기간**: 12월 11일(월) ~ 1월 30일(화)
+
+<br>
 
 ## ⭐️ 핵심 기능
 
@@ -87,6 +106,7 @@
 > 판매자는 네고 승인 여부를 결정할 수 있다.<br>
 > 판매 완료 후 채팅방 삭제 시 채팅방 목록은 DB에서 삭제된다.<br>
 
+<br>
 
 ## ⚙️ 프로젝트 세팅
 
@@ -94,6 +114,8 @@
 > 2. 스프링부트 버전 : 3.1.6
 > 3. 빌드 & 빌드 도구 : Gradle
 > 4. Git 브랜치 전략 : Feature Branch → Develop Branch → Main Branch
+
+<br>
 
 ## 🛠️ 기술 스택
 #### Framework
@@ -132,6 +154,8 @@
 ![codeDeploy](https://img.shields.io/badge/AWS_elasticcache-4053D6.svg?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![docker](https://img.shields.io/badge/docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
+<br>
+
 ## 🧑‍🤝‍🧑 조원 & 역할
 
 | 이름  | 역할                           |
@@ -141,11 +165,10 @@
 | 정혜민 | 채팅 도메인 개발, 판매 도메인 개발|
 | 홍용현 | 구매 도메인 개발, 찜 도메인 개발, 메인 화면 개발|
 
+<br>
+
 ## 📐 ERD 설계도
 
 <img width="1694" alt="image" src="https://github.com/catchroom/BE_CatchRoom/assets/114489245/69507595-d816-42b7-8d52-c70241f19014">
 
 
-## 🏗 API 서버 구조 & CI/CD 구조
-
-<img width = "1694" alt = "image" src = "https://github.com/catchroom/BE_CatchRoom/assets/59862752/99ca8b8b-a105-4568-8155-27ce501d77d1">
