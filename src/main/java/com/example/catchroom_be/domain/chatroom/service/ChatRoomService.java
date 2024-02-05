@@ -70,13 +70,11 @@ public class ChatRoomService {
         List<ChatRoom> chatRooms = new ArrayList<>();
 
         for (ChatRoom chatRoom : ChatRoomListUserIsBuyer) {
-            if (chatRoom.getBuyer().getId().equals(user.getId()) && chatRoom.getBuyerState().equals(ChatRoomState.DONT_SEE)) {
-                continue;
-            } else if (chatRoom.getSeller().getId().equals(user.getId()) && chatRoom.getSellerState().equals(ChatRoomState.DONT_SEE)) {
-                continue;
+            if ((chatRoom.getBuyer().getId().equals(user.getId()) && chatRoom.getBuyerState().equals(ChatRoomState.SEE)) ||
+                (chatRoom.getSeller().getId().equals(user.getId()) && chatRoom.getSellerState().equals(ChatRoomState.SEE))) {
+                chatRoom.updateUserIdentity(user.getId());
+                chatRooms.add(chatRoom);
             }
-            chatRoom.updateUserIdentity(user.getId());
-            chatRooms.add(chatRoom);
         }
 
         return chatRooms.stream()
@@ -99,12 +97,7 @@ public class ChatRoomService {
             logSb.append("this is buyer -> ");
         }
 
-        ChatRoom saveChatRoom = chatRoomRepository.save(chatRoom);
-
         logSb.append(roomId + " : " + user.getId() + " delete");
-
-        if (saveChatRoom == null)
-            return SuccessMessage.createSuccessMessage(logSb.toString() + " FAILED");
 
         return SuccessMessage.createSuccessMessage(logSb.toString() + " SUCCESS");
     }

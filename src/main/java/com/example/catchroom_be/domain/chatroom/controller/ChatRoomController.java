@@ -22,6 +22,7 @@ public class ChatRoomController {
 
 
     /** 채팅방 내부 정보 반환하는 API */
+    //TODO 안쓰면 삭제??
     @GetMapping("/info")
     public ChatRoomListGetResponse getChatRoomInfoChat(
             @AuthenticationPrincipal User user,
@@ -39,6 +40,7 @@ public class ChatRoomController {
                 chatRoomService.createChatRoom(chatRoomCreateRequest))
         );
     }
+    //TODO 안쓰면 삭제??
     @GetMapping("/list")
     public ResponseEntity<?> findChatRoomListByMemberId(
             @AuthenticationPrincipal User user
@@ -47,7 +49,7 @@ public class ChatRoomController {
             ApiResponse.create(6000, chatRoomService.findChatRoomListByMemberId(user)));
     }
 
-    @GetMapping("/list/chat")
+    @GetMapping("/list/feign")
     public List<ChatRoomListGetResponse> findChatRoomListByMemberIdChat(
             @AuthenticationPrincipal User user
     ) {
