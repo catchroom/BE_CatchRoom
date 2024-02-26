@@ -50,8 +50,8 @@ public class OrderHistoryService {
     @Transactional
     public void insertDataOrderHistory(User user) {
 
-        LocalDate startDate = LocalDate.of(2024, 01, 25);
-        LocalDate endDate = LocalDate.of(2024, 02, 28);
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now().plusDays(60);
         LocalDate currDate = startDate;
 
         //1월 15일부터 2월 28일까지 (1박 2일 or 2박 3일 or 3박 4일 데이터), 랜덤하게 데이터셋 넣음.

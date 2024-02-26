@@ -36,7 +36,7 @@ public class ProductGetResponse {
     private int totalRoomCapacity;
     private Boolean isWishChecked;
 
-    public static ProductGetResponse fromEntity(Product product, UserIdentity checkUserIdentity, List<String> chatRoomId, Boolean isWishChecked) {
+    public static ProductGetResponse fromEntity(Product product, UserIdentity checkUserIdentity, String chatRoomId, Boolean isWishChecked) {
         if (chatRoomId.isEmpty()) {
             return ProductGetResponse.builder()
                 .seller_id(product.getSeller().getId())
@@ -66,7 +66,7 @@ public class ProductGetResponse {
                 .seller_id(product.getSeller().getId())
                 .accommodationName(product.getAccommodationName())
                 .userIdentity(checkUserIdentity)
-                .chatRoomNumber(chatRoomId.get(0))
+                .chatRoomNumber(chatRoomId)
                 .accommodationUrl(product.getOrderHistory().getAccommodation().getAccommodationImageList())
                 .roomType(product.getOrderHistory().getRoom().getName())
                 .roomUrl(product.getOrderHistory().getRoom().getRoomImageList())

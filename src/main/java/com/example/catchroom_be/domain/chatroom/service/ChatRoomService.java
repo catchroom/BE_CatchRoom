@@ -9,7 +9,6 @@ import com.example.catchroom_be.domain.chatroom.repository.ChatRoomRepository;
 import com.example.catchroom_be.domain.chatroom.type.ChatRoomState;
 import com.example.catchroom_be.domain.product.repository.ProductRepository;
 import com.example.catchroom_be.domain.user.entity.User;
-import com.example.catchroom_be.domain.user.exception.UserException;
 import com.example.catchroom_be.domain.user.repository.UserEntityRepository;
 import com.example.catchroom_be.global.exception.ErrorCode;
 import com.example.catchroom_be.global.exception.SuccessMessage;
@@ -45,22 +44,20 @@ public class ChatRoomService {
     @Transactional
     public ChatRoomCreateResponse createChatRoom(ChatRoomCreateRequest chatRoomCreateRequest) {
 
-        List<ChatRoom> chatRoomIdList = chatRoomRepository.findChatRoomList(
+        ChatRoom chatRoomIdList = chatRoomRepository.findByBuyerIdAndSellerIdAndProductId(
                 chatRoomCreateRequest.getBuyerId(), chatRoomCreateRequest.getSellerId(), chatRoomCreateRequest.getProductId()
         );
+        if (chatRoomIdList != null) {
+            return ChatRoomCreateResponse.fromEntity(chatRoomIdList);
+        } else {
+            ChatRoom chatRoom = ChatRoom.create(
+                userEntityRepository.getReferenceById(chatRoomCreateRequest.getSellerId()),
+                userEntityRepository.getReferenceById(chatRoomCreateRequest.getBuyerId()),
+                productRepository.getReferenceById(chatRoomCreateRequest.getProductId())
+            );
 
-        if (chatRoomIdList.size() > 0) {
-            return ChatRoomCreateResponse.fromEntity(chatRoomIdList.get(0));
+            return ChatRoomCreateResponse.fromEntity(chatRoomRepository.save(chatRoom));
         }
-
-        ChatRoom chatRoom = ChatRoom.create(
-            userEntityRepository.getReferenceById(chatRoomCreateRequest.getSellerId()),
-            userEntityRepository.getReferenceById(chatRoomCreateRequest.getBuyerId()),
-            productRepository.getReferenceById(chatRoomCreateRequest.getProductId())
-        );
-
-        ChatRoom saveChatRoom = chatRoomRepository.save(chatRoom);
-        return ChatRoomCreateResponse.fromEntity(saveChatRoom);
     }
 
     @Transactional(readOnly = true)
@@ -73,13 +70,11 @@ public class ChatRoomService {
         List<ChatRoom> chatRooms = new ArrayList<>();
 
         for (ChatRoom chatRoom : ChatRoomListUserIsBuyer) {
-            if (chatRoom.getBuyer().getId().equals(user.getId()) && chatRoom.getBuyerState().equals(ChatRoomState.DONT_SEE)) {
-                continue;
-            } else if (chatRoom.getSeller().getId().equals(user.getId()) && chatRoom.getSellerState().equals(ChatRoomState.DONT_SEE)) {
-                continue;
+            if ((chatRoom.getBuyer().getId().equals(user.getId()) && chatRoom.getBuyerState().equals(ChatRoomState.SEE)) ||
+                (chatRoom.getSeller().getId().equals(user.getId()) && chatRoom.getSellerState().equals(ChatRoomState.SEE))) {
+                chatRoom.updateUserIdentity(user.getId());
+                chatRooms.add(chatRoom);
             }
-            chatRoom.updateUserIdentity(user.getId());
-            chatRooms.add(chatRoom);
         }
 
         return chatRooms.stream()
@@ -102,12 +97,7 @@ public class ChatRoomService {
             logSb.append("this is buyer -> ");
         }
 
-        ChatRoom saveChatRoom = chatRoomRepository.save(chatRoom);
-
         logSb.append(roomId + " : " + user.getId() + " delete");
-
-        if (saveChatRoom == null)
-            return SuccessMessage.createSuccessMessage(logSb.toString() + " FAILED");
 
         return SuccessMessage.createSuccessMessage(logSb.toString() + " SUCCESS");
     }

@@ -33,7 +33,8 @@ public class ProductService {
         User productSeller = memberRepository.findById(product.getSeller().getId())
             .orElseThrow(() -> new ProductException(ErrorCode.USER_NOT_FOUND));
         UserIdentity viewerIdentity = validateUserEqualSeller(productSeller.getId(),user);
-        List<String> chatRoomId = chatRoomRepository.findUniqueChatRoom(findLoginUserId(user), productSeller.getId(), product.getId());
+        String chatRoomId = chatRoomRepository.findByBuyerIdAndSellerIdAndProductId(
+            findLoginUserId(user), productSeller.getId(), product.getId()).getChatRoomNumber();
 
         Wish wish = wishRepository.findByUserAndProduct(user,product);
         Boolean isWishChecked = true;
